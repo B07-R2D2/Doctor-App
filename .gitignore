@@ -13,3 +13,6 @@
 .externalNativeBuild
 .cxx
 local.properties
+
+# Devices dropdown UI state.
+/.idea/deploymentTargetDropDown.xml
