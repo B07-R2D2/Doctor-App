@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Doctor App</string>
+    <string name="doctor_date">Monday 1st, August</string>
 </resources>
