@@ -2,25 +2,28 @@ package com.r2d2.doctorapp;
 
 import androidx.annotation.Nullable;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
 /** An interval of time on a certain day. */
-public final class DateTimeInterval {
+public final class DateTimeInterval implements Serializable {
 
     private Date start, end;
 
+    public DateTimeInterval() {
+    }
     public DateTimeInterval(Date start, Date end) {
         this.start = start;
         this.end = end;
     }
 
     /** The start date/time of the interval. */
-    public Date start() {
+    public Date getStart() {
         return start;
     }
     /** The end date/time of the interval. */
-    public Date end() {
+    public Date getEnd() {
         return end;
     }
 
@@ -38,4 +41,5 @@ public final class DateTimeInterval {
     public String toString() {
         return start + "–" + end;
     }
+
 }
