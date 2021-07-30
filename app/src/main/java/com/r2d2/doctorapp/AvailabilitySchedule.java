@@ -1,28 +1,67 @@
 package com.r2d2.doctorapp;
 
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-// TODO: Database integration
 // TODO: Testing (once we are told/taught what framework to use)
 
 /** A set of time slots during which a doctor is available. */
 public class AvailabilitySchedule {
 
-    private Set<DateTimeInterval> timeSlots;
-    private Calendar calendar;
+    private static final String doctorTimeSlotsDBKey = "available_time_slots";
 
-    public AvailabilitySchedule(Calendar calendar) {
+    private final DatabaseReference ref;
+    private final Calendar calendar;
+    private Set<DateTimeInterval> timeSlots;
+
+    /**
+     * Construct an AvailabilitySchedule that represents availability of {@code doctor}.
+     * @param doctor doctor whose availability is modelled
+     * @param calendar calendar to use when calculating days and times
+     */
+    public AvailabilitySchedule(DatabaseReference doctor, Calendar calendar) {
+        this.ref = doctor.child(doctorTimeSlotsDBKey);
         this.calendar = calendar;
+        this.timeSlots = new HashSet<>();
+
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                timeSlots = new HashSet<>();
+                for (DataSnapshot child : snapshot.getChildren()) {
+                    timeSlots.add(child.getValue(DateTimeInterval.class));
+                }
+                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.w("AvailabilitySchedule", error.toException());
+            }
+        });
     }
 
     /** All currently available time slots. */
     public Set<DateTimeInterval> timeSlots() {
         return timeSlots;
     }
-    /** All currently available time slots that start on the same day as {@code dayDate}. */
+    /**
+     * All currently available time slots that start on the same day as {@code dayDate}.
+     * @param dayDate date whose day in the schedule's calendar should match that of returned
+     *                time slots
+     */
     public Set<DateTimeInterval> timeSlotsOnDay(Date dayDate) {
         Calendar day = (Calendar) calendar.clone();
         day.clear();
@@ -35,7 +74,7 @@ public class AvailabilitySchedule {
 
         Set<DateTimeInterval> matches = new HashSet<>();
         for (DateTimeInterval timeSlot : timeSlots) {
-            if (timeSlot.start().after(day.getTime()) && timeSlot.start().before(nextDay.getTime())) {
+            if (timeSlot.getStart().after(day.getTime()) && timeSlot.getStart().before(nextDay.getTime())) {
                 matches.add(timeSlot);
             }
         }
@@ -43,27 +82,24 @@ public class AvailabilitySchedule {
         return matches;
     }
 
-    private void setTimeToMidnight(Calendar day) {
-        calendar.set(Calendar.HOUR, 0);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
-    }
-
-    /** Synchronize with the database. */
-    public void synchronize() {
-        // TODO: stub
+    private static void setTimeToMidnight(Calendar day) {
+        day.set(Calendar.HOUR, 0);
+        day.set(Calendar.MINUTE, 0);
+        day.set(Calendar.SECOND, 0);
+        day.set(Calendar.MILLISECOND, 0);
     }
 
     /** Add {@code slot} as an available time slot. */
     public void addTimeSlot(DateTimeInterval slot) {
-        timeSlots.add(slot);
-        synchronize();
+        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+        newSlots.add(slot);
+        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
     }
     /** Remove {@code slot} from the available time slots. */
     public void removeTimeSlot(DateTimeInterval slot) {
-        timeSlots.remove(slot);
-        synchronize();
+        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+        newSlots.remove(slot);
+        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
     }
 
 }
