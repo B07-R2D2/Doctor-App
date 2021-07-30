@@ -22,7 +22,9 @@
         android:id="@+id/book"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:layout_marginEnd="24dp"
+        android:text="Book"
         app:layout_constraintBaseline_toBaselineOf="@+id/time_slot"
-        tools:layout_editor_absoluteX="324dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="24dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

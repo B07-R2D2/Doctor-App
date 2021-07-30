@@ -18,4 +18,9 @@ public class DateTimeInterval {
         this.timeSlot = timeSlot;
     }
 
+
+    public String toString() {
+        return timeSlot;
+    }
+
 }

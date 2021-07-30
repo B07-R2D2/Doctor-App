@@ -14,7 +14,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void jumpToAvailabilityRecyclerView(View view){
-        Intent intent = new Intent(this, AvailabilityRecyclerView.class);
+        Intent intent = new Intent(this, AvailabilityActivity.class);
         startActivity(intent);
     }
 

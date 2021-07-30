@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-        <activity android:name=".AvailabilityRecyclerView" android:parentActivityName=".MainActivity"></activity>
-
-        <activity android:name=".AvailabilityActivity" />
+        <activity android:name=".AvailabilityActivity" android:parentActivityName=".MainActivity"></activity>
+<!--        <activity-->
+<!--            android:name=".AvailabilityActivity"-->
+<!--            android:exported="true" />-->
         <activity
             android:name=".MainActivity"
             android:exported="true">
