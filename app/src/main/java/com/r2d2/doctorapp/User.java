@@ -1,3 +1,5 @@
+package com.r2d2.doctorapp;
+
 import java.util.Date;
 
 public abstract class User {
