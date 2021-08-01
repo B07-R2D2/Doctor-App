@@ -22,7 +22,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     // the schedule to be displayed
     private AvailabilitySchedule schedule;
-    // since we need to get the index for each time slot and sort them (schedule.timeSlots is type Set)
+
+    // we still need this even if schecule.timeSlots is type ArrayList because otherwise the
+    // program will crash if the list is too long and we have booked items out of view (when scrolling)
     private ArrayList<DateTimeInterval> timeSlotList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
@@ -54,13 +56,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                                                                 // plz tell me if you know how
                         // updates schedule and timeSlotList
                         schedule.addTimeSlot(slot);
-                        timeSlotList.add(slot);
+                        // Dont need to update timeSlotList, because it's dependent on schedule
+                        //timeSlotList.add(slot);
                     } else {
                         button.setText("Booked");
 
                         // updates schedule and timeSlotList
                         schedule.removeTimeSlot(slot);
-                        timeSlotList.remove(slot);
+                        // Dont need to update timeSlotList, because it's dependent on schedule
+                        //timeSlotList.remove(slot);
                     }
                 }
             });

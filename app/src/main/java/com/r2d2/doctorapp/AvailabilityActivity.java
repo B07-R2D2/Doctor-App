@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+// Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
+//        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
 public class AvailabilityActivity extends AppCompatActivity {
     private AvailabilitySchedule schedule;
     private RecyclerView recyclerView;
@@ -23,10 +25,12 @@ public class AvailabilityActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_availability);
         recyclerView = findViewById(R.id.availability_recycler_view);   // set the recycler view
-        schedule = new AvailabilitySchedule();                          // initialize schedule
 
-        setTimeSlotInfo();          // in this TESTING version: sets the time slots to be displayed
-                                    // should get info from database in real version
+        // after the patient click the doctor, we will receive an intent, which includes a schedule
+        Intent intent = getIntent();
+        schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
+
+        //setTimeSlotInfo();         // we don't need this since schedule is already set
         setAdapter();
     }
 
@@ -42,20 +46,16 @@ public class AvailabilityActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
-    /**
-     * this method is ONLY for TESTING AvailabilityRecyclerView
-     */
-    private void setTimeSlotInfo() {
-        schedule.addTimeSlot(new DateTimeInterval("Monday 5pm"));
-        schedule.addTimeSlot(new DateTimeInterval("Monday 6pm"));
-        schedule.addTimeSlot(new DateTimeInterval("Monday 7pm"));
-        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
-        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
-
-
-
-
-    }
+//    /**
+//     * this method is ONLY for TESTING AvailabilityRecyclerView
+//     */
+//    private void setTimeSlotInfo() {
+//        schedule.addTimeSlot(new DateTimeInterval("Monday 5pm"));
+//        schedule.addTimeSlot(new DateTimeInterval("Monday 6pm"));
+//        schedule.addTimeSlot(new DateTimeInterval("Monday 7pm"));
+//        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
+//        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
+//    }
 
 
 }
