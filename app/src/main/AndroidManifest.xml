@@ -10,6 +10,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
         <activity
+            android:name=".DoctorHistoryActivity"
+            android:label="@string/activity_label_doctor_history"
+            android:parentActivityName=".PatientHomeActivity"
+            android:exported="true" />
+        <activity
+            android:name=".PatientHomeActivity"
+            android:label="@string/activity_label_patient_home"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

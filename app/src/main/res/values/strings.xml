@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Doctor App</string>
+    <string name="activity_label_doctor_history">Specialist History</string>
+    <string name="activity_label_patient_home">Home</string>
 </resources>
