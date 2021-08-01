@@ -50,6 +50,11 @@ public class AvailabilityActivity extends AppCompatActivity {
         schedule.addTimeSlot(new DateTimeInterval("Monday 6pm"));
         schedule.addTimeSlot(new DateTimeInterval("Monday 7pm"));
         schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
+        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
+
+
+
+
     }
 
 
