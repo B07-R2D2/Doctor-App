@@ -4,12 +4,16 @@ import java.util.Date;
 public abstract class User {
     private String firstName;
     private String lastName;
+    private String userName;
+    private String password;
     private Date birthday;
     private int sin;
 
-    public User(String firstName, String lastName, Date birthday, int sin){
+    public User(String firstName, String lastName,String username,String password, Date birthday, int sin){
         this.firstName = firstName;
         this.lastName = lastName;
+        this.userName = username;
+        this.password = password;
         this.birthday = birthday;
         this.sin = sin;
     }
@@ -48,6 +52,14 @@ public abstract class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getUsername() {
+        return userName;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public Date getBirthday() {
