@@ -1,7 +1,6 @@
 package com.r2d2.doctorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class SignupActivity extends AppCompatActivity {
