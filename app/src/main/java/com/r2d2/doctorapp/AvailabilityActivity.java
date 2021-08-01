@@ -16,30 +16,29 @@ import java.util.Calendar;
 public class AvailabilityActivity extends AppCompatActivity {
     private AvailabilitySchedule schedule;
     private RecyclerView recyclerView;
-//    private ArrayList<DateTimeInterval> timeSlotList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
         setContentView(R.layout.activity_availability);
-        recyclerView = findViewById(R.id.availability_recycler_view);
-        schedule = new AvailabilitySchedule();
+        recyclerView = findViewById(R.id.availability_recycler_view);   // set the recycler view
+        schedule = new AvailabilitySchedule();                          // initialize schedule
 
-        // this is just for testing
-        setTimeSlotInfo();
+        setTimeSlotInfo();          // in this TESTING version: sets the time slots to be displayed
+                                    // should get info from database in real version
         setAdapter();
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setAdapter() {
+        // the adapter takes in a schedule and displays the contents
         RecyclerAdapter adapter = new RecyclerAdapter(schedule);
-        //RecyclerAdapter adapter = new RecyclerAdapter(timeSlotList);
+
+        // sets the layout, default animator, and adapter of recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        // set adapter
         recyclerView.setAdapter(adapter);
     }
 

@@ -13,58 +13,52 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.stream.Collectors;
 
 /**
- * Adapter for MyViewHolder
+ * adapter for Recycler view
+ * NOTE: REQUIRES DateTimeInterval to be Comparable
  */
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder> {
+public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
-    // stores the list of the timeslots we want to display
+    // the schedule to be displayed
     private AvailabilitySchedule schedule;
-    // i think if schedule.timeSlot is ArrayList then we don't need this
+    // since we need to get the index for each time slot and sort them (schedule.timeSlots is type Set)
     private ArrayList<DateTimeInterval> timeSlotList;
-
-//    public RecyclerAdapter(ArrayList<DateTimeInterval> timeSlotList) {
-//        this.timeSlotList = timeSlotList;
-//    }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public RecyclerAdapter(AvailabilitySchedule schedule) {
         this.schedule = schedule;
-        // convert hashset to array, might need sorting
+
+        // convert hashset to array and sort to get correct order
         this.timeSlotList = new ArrayList<>(schedule.timeSlots());
         Collections.sort(this.timeSlotList);
     }
 
     // represents a recycler item
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         private TextView timeSlotTxt;
         private Button button;
-        // new
-        DateTimeInterval slot;
+        // since we want to add and/or remove timeslots from schedule
+        private DateTimeInterval slot;
 
-        public MyViewHolder(final View view) {
+        public RecyclerViewHolder(final View view) {
             super(view);
             timeSlotTxt = view.findViewById(R.id.time_slot);
             button = view.findViewById(R.id.book_button);
             // initialized slot at onBindViewHolder
             button.setOnClickListener(new View.OnClickListener() {
-                /**
-                 * the action when we click the button
-                 * @param v
-                 */
                 @Override
                 public void onClick(View v) {
-                    if (button.getText().equals("Booked")) {
-                        button.setText("Book");
-                        // do modifications here
+                    if (button.getText().equals("Booked")) {    // cancel the appointment by clicking again!
+                        button.setText("Book");                 // I tried to use strings from resources but it didn't work
+                                                                // plz tell me if you know how
+                        // updates schedule and timeSlotList
                         schedule.addTimeSlot(slot);
-                        // also needs to add from arraylist
                         timeSlotList.add(slot);
                     } else {
                         button.setText("Booked");
-                        // remove from timeslots  and arraylist
+
+                        // updates schedule and timeSlotList
                         schedule.removeTimeSlot(slot);
                         timeSlotList.remove(slot);
                     }
@@ -73,19 +67,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyView
         }
     }
 
+    // creates a new RecyclerViewHolder
     @NonNull
     @Override
-    public RecyclerAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerAdapter.RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-        return new MyViewHolder(itemView);
+        return new RecyclerViewHolder(itemView);
     }
 
+    // when binding the view holder to a timeSlot
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        DateTimeInterval timeSlot = timeSlotList.get(position);
+    public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
+        DateTimeInterval timeSlot = timeSlotList.get(position);             // current timeslot to be binded
         holder.timeSlotTxt.setText(timeSlot.toString());
-        // new
-        // set the slot to be the current timeslot
         holder.slot = timeSlot;
     }
 
