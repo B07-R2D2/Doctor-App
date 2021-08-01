@@ -13,18 +13,17 @@
         android:layout_marginLeft="36dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/book"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/book_button"
+        android:layout_width="89dp"
+        android:layout_height="48dp"
         android:layout_marginEnd="24dp"
-        android:text="Book"
+        android:layout_marginRight="24dp"
+        android:text="@string/book"
         app:layout_constraintBaseline_toBaselineOf="@+id/time_slot"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginRight="24dp" />
+        app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
