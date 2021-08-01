@@ -1,33 +1,45 @@
 package com.r2d2.doctorapp;
 
-import static java.sql.Types.NULL;
+import androidx.annotation.Nullable;
 
-/**
- * this version of DateTimeInterval is ONLY for TESTING AvailabilityRecyclerView
- */
-public class DateTimeInterval implements Comparable<DateTimeInterval>{
-    private String timeSlot;
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
-    public DateTimeInterval(String timeSlot) {
-        this.timeSlot = timeSlot;
+/** An interval of time on a certain day. */
+public final class DateTimeInterval implements Serializable {
+
+    private Date start, end;
+
+    public DateTimeInterval() {
+    }
+    public DateTimeInterval(Date start, Date end) {
+        this.start = start;
+        this.end = end;
     }
 
-    public String getTimeSlot(){
-        return this.timeSlot;
+    /** The start date/time of the interval. */
+    public Date getStart() {
+        return start;
     }
-
-    public void setTimeSlot(DateTimeInterval timeSlot) {
-        this.timeSlot = timeSlot.timeSlot;
+    /** The end date/time of the interval. */
+    public Date getEnd() {
+        return end;
     }
-
-
-    public String toString() {
-        return timeSlot;
-    }
-
 
     @Override
-    public int compareTo(DateTimeInterval o) {
-        return this.timeSlot.compareTo(o.timeSlot);
+    public boolean equals(@Nullable Object obj) {
+        if (obj == null || obj.getClass() != getClass()) return false;
+        DateTimeInterval other = (DateTimeInterval) obj;
+        return other.start.equals(start) && other.end.equals(end);
     }
+    @Override
+    public int hashCode() {
+        return start.hashCode() ^ end.hashCode();
+    }
+    @Override
+    public String toString() {
+        return start + "–" + end;
+    }
+
 }
