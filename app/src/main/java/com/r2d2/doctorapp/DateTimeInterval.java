@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.Objects;
 
 /** An interval of time on a certain day. */
-public final class DateTimeInterval implements Serializable {
+public final class DateTimeInterval implements Serializable, Comparable<DateTimeInterval> {
 
     private Date start, end;
 
@@ -42,4 +42,11 @@ public final class DateTimeInterval implements Serializable {
         return start + "–" + end;
     }
 
+    @Override
+    public int compareTo(DateTimeInterval o) {
+        int c = this.start.compareTo(o.start);
+        if (c == 0)
+            return this.end.compareTo(o.end);
+        return c;
+    }
 }
