@@ -29,8 +29,7 @@ public class AvailabilityActivity extends AppCompatActivity {
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
         schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
-
-        //setTimeSlotInfo();         // we don't need this since schedule is already set
+        
         setAdapter();
     }
 
@@ -45,17 +44,6 @@ public class AvailabilityActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
-
-//    /**
-//     * this method is ONLY for TESTING AvailabilityRecyclerView
-//     */
-//    private void setTimeSlotInfo() {
-//        schedule.addTimeSlot(new DateTimeInterval("Monday 5pm"));
-//        schedule.addTimeSlot(new DateTimeInterval("Monday 6pm"));
-//        schedule.addTimeSlot(new DateTimeInterval("Monday 7pm"));
-//        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
-//        schedule.addTimeSlot(new DateTimeInterval("Monday 8pm"));
-//    }
 
 
 }
