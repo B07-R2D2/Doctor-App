@@ -6,7 +6,7 @@ import org.junit.Test;
 
 public class DoctorTest {
 
-    Doctor d1 = new Doctor("Jason", "Hou", 2000, 9, 6, 123456789,
+    Doctor d1 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
             "Male", "Good Doctor", "University of Toronto", 123466,
             "Psychology");
 
@@ -25,7 +25,7 @@ public class DoctorTest {
     }
     @Test
     public void testEquals3() {
-        User u3 = new Doctor("Jason", "Hou", 2000, 9, 6, 123456789,
+        User u3 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
                 "Male", "Good Doctor", "University of Toronto", 123466,
                 "Psychology");
         assertEquals(d1.equals(u3), true);

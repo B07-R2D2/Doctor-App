@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class UserUnitTest {
 
-    User u1 = new Doctor("Jason", "Hou", 2000, 9, 6, 123456789,
+    User u1 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
             "Male", "Good Doctor", "University of Toronto", 123466,
             "Psychology");
     @Test
@@ -24,7 +24,7 @@ public class UserUnitTest {
     }
     @Test
     public void testEquals3() {
-        User u3 = new Doctor("Jason", "Hou", 2000, 9, 6, 123456789,
+        User u3 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
                 "Male", "Good Doctor", "University of Toronto", 123466,
                 "Psychology");
         assertEquals(u1.equals(u3), true);
@@ -61,24 +61,6 @@ public class UserUnitTest {
     public void testSetLastName() {
         u1.setLastName("Lee");
         assertEquals(u1.getLastName(), "Lee");
-    }
-
-    @Test
-    public void testGetBirthday() {
-        Calendar c1 = new GregorianCalendar();
-        c1.set(2000, 9, 6);
-        Calendar c2 = u1.getBirthday();
-        assertEquals(c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR) &&
-                c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH) &&
-                c1.get(Calendar.DATE) == c2.get(Calendar.DATE), true);
-    }
-
-    @Test
-    public void testSetBirthday() {
-        Calendar c = new GregorianCalendar();
-        c.set(2000, 10, 31);
-        u1.setBirthday(c);
-        assertEquals(u1.getBirthday().equals(c), true);
     }
 
     @Test

@@ -12,7 +12,7 @@ public abstract class User {
     private String gender;
     private int sin;
 
-    public User(String firstName, String lastName,String username,String password, String gender, int sin){
+    public User(String firstName, String lastName, String username, String password, String gender, int sin){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
@@ -78,8 +78,8 @@ public abstract class User {
         return userName;
     }
     
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {
