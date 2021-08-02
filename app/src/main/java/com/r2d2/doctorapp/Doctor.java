@@ -12,8 +12,9 @@ public class Doctor extends User {
     static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
 
     /* com.r2d2.doctorapp.Doctor class constructor */
-    public Doctor(String firstName, String lastName, Date birthday, int sin, String bio, String uni, int doctorId, String specialization) {
-        super(firstName, lastName, birthday, sin);
+    public Doctor(String firstName, String lastName, String username,String password,
+                  int sin, String gender,String bio, String uni, int doctorId, String specialization) {
+        super(firstName, lastName, username, password, gender, sin);
         this.bio = bio;
         this.uni = uni;
         this.doctorId = doctorId;
@@ -44,7 +45,7 @@ public class Doctor extends User {
 //        if(obj.getClass() != this.getClass())
 //            return false;
 //        com.r2d2.doctorapp.Doctor d = (com.r2d2.doctorapp.Doctor)obj;
-//        return this.getSin() != d.getSin();
+//        return this.getSin() == d.getSin();
         return super.equals(obj);
     }
 
