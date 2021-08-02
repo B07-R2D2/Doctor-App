@@ -16,7 +16,7 @@ public class Patient extends User implements Serializable {
      */
     private String medicalCondition;
     private int patientID;
-    private final DatabaseReference ref;
+    private transient final DatabaseReference ref;
 
     public Patient()
     {
