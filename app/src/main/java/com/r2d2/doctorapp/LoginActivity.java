@@ -15,17 +15,20 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String Username = "com.example.DoctorApp.MESSAGE";
-    public static final String Password = "com.example.DoctorApp.MESSAGE";
+    public static final String Username = "com.example.DoctorApp.USERNAMEMESSAGE";
+    public static final String Password = "com.example.DoctorApp.PASSWORDMESSAGE";
     private final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-    private HashMap<String,String> userMap=new HashMap<String,String>();
+    private static HashMap<String,String> userMap;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         addUserEventListener(ref);
     }
-
+    static
+    {
+        userMap=new HashMap<String,String>();
+    }
     private void addUserEventListener(DatabaseReference ref) {
         ValueEventListener userListener = new ValueEventListener() {
             @Override
@@ -33,8 +36,8 @@ public class LoginActivity extends AppCompatActivity {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     User user = child.getValue(User.class);
                     userMap.put(user.getUsername(),user.getPassword());
-                    Log.i("username", user.getUsername());
-                    Log.i("password", user.getPassword());
+                    //Log.i("username", user.getUsername());
+                    //Log.i("password", user.getPassword());
                 }
             }
             @Override
@@ -56,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(Username, usernameMessage);
         intent.putExtra(Password, passwordMessage);
         //reference hashmap to check whether user exists
-        //onCreate adds valueeventlistener, which will update the database and add info to the hashmap
+        //onCreate adds value event listener, which will update the database and add info to the hashmap
         //which this can read from and check if the username and password match correctly
         for(HashMap.Entry<String, String> entry: userMap.entrySet())
         {
