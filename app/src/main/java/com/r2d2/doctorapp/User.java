@@ -1,23 +1,25 @@
 package com.r2d2.doctorapp;
 
-import java.util.Calendar;
-import java.util.GregorianCalendar;
+
+import java.util.Date;
+
 
 public abstract class User {
     private String firstName;
     private String lastName;
-    private Calendar birthday;
-    private int sin;
+    private String userName;
+    private String password;
     private String gender;
+    private int sin;
 
-    public User(String firstName, String lastName, int birthyear, int birthmonth, int birthdate,
-                int sin, String gender){
+    public User(String firstName, String lastName,String username,String password, String gender, int sin){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthday = new GregorianCalendar();
-        this.birthday.set(birthyear, birthmonth, birthdate);
-        this.sin = sin;
+        this.userName = username;
+        this.password = password;
         this.gender = gender;
+        this.sin = sin;
+
     }
 
     @Override
@@ -56,14 +58,6 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public Calendar getBirthday() {
-        return birthday;
-    }
-
-    public void setBirthday(Calendar birthday) {
-        this.birthday = birthday;
-    }
-
     public int getSin() {
         return sin;
     }
@@ -79,4 +73,22 @@ public abstract class User {
     public void setGender(String gender) {
         this.gender = gender;
     }
+    
+    public String getUsername() {
+        return userName;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+   
 }
