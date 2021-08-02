@@ -1,5 +1,8 @@
 package com.r2d2.doctorapp;
+
+
 import java.util.Date;
+
 
 public abstract class User {
     private String firstName;
@@ -16,6 +19,7 @@ public abstract class User {
         this.password = password;
         this.gender = gender;
         this.sin = sin;
+
     }
 
     @Override
@@ -54,22 +58,6 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setBirthday(String gender) {
-        this.gender = gender;
-    }
-
     public int getSin() {
         return sin;
     }
@@ -77,4 +65,30 @@ public abstract class User {
     public void setSin(int sin) {
         this.sin = sin;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+    public String getUsername() {
+        return userName;
+    }
+    
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+   
 }
