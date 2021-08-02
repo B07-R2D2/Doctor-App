@@ -62,12 +62,12 @@ public abstract class User {
         return password;
     }
 
-    public Date getBirthday() {
-        return birthday;
+    public String getGender() {
+        return gender;
     }
 
-    public void setBirthday(Date birthday) {
-        this.birthday = birthday;
+    public void setBirthday(String gender) {
+        this.gender = gender;
     }
 
     public int getSin() {
