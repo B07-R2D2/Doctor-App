@@ -9,6 +9,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -19,7 +20,7 @@ import java.util.Set;
 // TODO: Testing (once we are told/taught what framework to use)
 
 /** A set of time slots during which a doctor is available. */
-public class AvailabilitySchedule {
+public class AvailabilitySchedule implements Serializable {
 
     private static final String doctorTimeSlotsDBKey = "available_time_slots";
 
