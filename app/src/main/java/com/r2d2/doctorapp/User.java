@@ -1,7 +1,8 @@
 package com.r2d2.doctorapp;
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String firstName;
     private String lastName;
     private String userName;
