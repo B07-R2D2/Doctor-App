@@ -78,8 +78,8 @@ public abstract class User {
         return userName;
     }
     
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String userName) {
+        this.userName = userName;
     }
 
     public String getPassword() {

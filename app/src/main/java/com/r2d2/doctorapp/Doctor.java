@@ -12,9 +12,9 @@ public class Doctor extends User {
     static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
 
     /* com.r2d2.doctorapp.Doctor class constructor */
-    public Doctor(String firstName, String lastName, int birthyear, int birthmonth, int birthdate,
+    public Doctor(String firstName, String lastName, String username,String password,
                   int sin, String gender,String bio, String uni, int doctorId, String specialization) {
-        super(firstName, lastName, birthyear, birthmonth, birthdate, sin, gender);
+        super(firstName, lastName, username, password, gender, sin);
         this.bio = bio;
         this.uni = uni;
         this.doctorId = doctorId;
