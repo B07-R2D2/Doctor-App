@@ -35,6 +35,9 @@ public class Patient extends User implements Serializable {
         ref.child("Patient").child(username).setValue(this);
     }
 
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
     @Override
     public int hashCode() {
         return super.hashCode();
