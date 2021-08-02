@@ -6,15 +6,15 @@ public abstract class User {
     private String lastName;
     private String userName;
     private String password;
-    private Date birthday;
+    private String gender;
     private int sin;
 
-    public User(String firstName, String lastName,String username,String password, Date birthday, int sin){
+    public User(String firstName, String lastName,String username,String password, String gender, int sin){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
         this.password = password;
-        this.birthday = birthday;
+        this.gender = gender;
         this.sin = sin;
     }
 

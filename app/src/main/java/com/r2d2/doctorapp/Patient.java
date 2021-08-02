@@ -11,7 +11,7 @@ public class Patient extends User implements Serializable {
     private String lastName;
     private String userName;
     private String password;
-    private Date birthday;
+    private String gender;
     private int sin;
      */
     private String medicalCondition;
@@ -25,8 +25,8 @@ public class Patient extends User implements Serializable {
         this.patientID = -1;
         ref = FirebaseDatabase.getInstance().getReference();
     }
-    public Patient(String firstName, String lastName, String password, Date birthday, int sin, String medical, String username, int patientId) {
-        super(firstName,lastName,username,password,birthday,sin);
+    public Patient(String firstName, String lastName, String password, String gender, int sin, String medical, String username, int patientId) {
+        super(firstName,lastName,username,password,gender,sin);
         this.medicalCondition = medical;
         this.patientID = patientId;
         //adds this newly initialized patient to the patient database might also add to user database
