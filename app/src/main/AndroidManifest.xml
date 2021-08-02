@@ -9,15 +9,20 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
+        <activity android:name=".HomepageActivity"></activity>
+        <activity android:name=".DoctorSignupActivity" />
+        <activity android:name=".DoctorSignup2Activity" />
+        <activity android:name=".PatientSignupActivity" />
+        <activity android:name=".PatientSignup2Activity" />
+        <activity android:name=".MainActivity" />
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>
