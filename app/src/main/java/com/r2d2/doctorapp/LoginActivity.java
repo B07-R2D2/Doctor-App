@@ -16,8 +16,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
-    public static final String Username = "com.example.DoctorApp.USERNAMEMESSAGE";
-    public static final String Password = "com.example.DoctorApp.PASSWORDMESSAGE";
+    public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
+    public static final String givenPassword = "com.example.DoctorApp.PASSWORDMESSAGE";
     private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
     private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
     private static HashMap<String,String> patientMap=new HashMap<String,String>();
@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
     }
-
+    //static adds ValueEvent Listener Automatically
     static
     {
         ValueEventListener patientListener = new ValueEventListener() {
@@ -74,21 +74,19 @@ public class LoginActivity extends AppCompatActivity {
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
         String usernameMessage = send.getText().toString();
         String passwordMessage = send2.getText().toString();
-        intent.putExtra(Username, usernameMessage);
-        intent.putExtra(Password, passwordMessage);
-        //reference hashmap to check whether user exists
-        //onCreate adds value event listener, which will update the database and add info to the hashmap
-        //which this can read from and check if the username and password match correctly
+        intent.putExtra(givenUsername, usernameMessage);
+        intent2.putExtra(givenUsername, usernameMessage);
+        //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
         for(HashMap.Entry<String, String> entry: patientMap.entrySet())
         {
-            if(entry.getKey() == Username && entry.getValue() == Password)
+            if(entry.getKey() == usernameMessage && entry.getValue() == passwordMessage)
             {
                 startActivity(intent);
             }
         }
         for(HashMap.Entry<String, String> entry: doctorMap.entrySet())
         {
-            if(entry.getKey() == Username && entry.getValue() == Password)
+            if(entry.getKey() == usernameMessage && entry.getValue() == passwordMessage)
             {
                 startActivity(intent2);
             }

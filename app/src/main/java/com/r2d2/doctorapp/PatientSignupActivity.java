@@ -1,7 +1,6 @@
 package com.r2d2.doctorapp;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,7 +18,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patientsignup);
     }
     public void sendInfo(View view) {
-        // Do something in response to button
+        // sends username,password, first name and last name to the next activity
         Intent intent = new Intent(PatientSignupActivity.this, PatientSignup2Activity.class);
         EditText send = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText send2 = (EditText) findViewById(R.id.editTextTextPersonName2);

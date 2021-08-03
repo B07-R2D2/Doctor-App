@@ -28,8 +28,7 @@ public class Patient extends User implements Serializable {
         this.medicalCondition = medical;
         //adds this newly initialized patient to the patient database might also add to user database
         ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("User").child(username).setValue(this);
-        ref.child("Patient").child(username).setValue(this);
+        ref.child("Patients").child(username).setValue(this);
     }
 
     public boolean equals(Object obj) {
