@@ -13,14 +13,7 @@ public abstract class User implements Serializable {
     private String gender;
     private int sin;
 
-    public User(String firstName, String lastName, String username, String password, String gender, int sin){
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = username;
-        this.password = password;
-        this.gender = gender;
-        this.sin = sin;
-    }
+//    public User(){}
 
     public User()
     {
@@ -30,6 +23,14 @@ public abstract class User implements Serializable {
         this.password = "";
         this.gender = "male";
         this.sin = 123456;
+    }
+    public User(String firstName, String lastName, String username, String password, String gender, int sin){
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = username;
+        this.password = password;
+        this.gender = gender;
+        this.sin = sin;
     }
 
     @Override

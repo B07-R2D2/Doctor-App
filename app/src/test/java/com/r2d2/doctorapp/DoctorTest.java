@@ -12,6 +12,8 @@ public class DoctorTest {
 
 //    Doctor d2 = new Doctor("Angus", "Lee", 2000, 10, 31,987654321,
 //            "Male", "Motivated doctor", "University of Toronto", 334345, "Neuroscience");
+//    Patient d1 = new Patient("Jason", "Hou", "Jasonnnn",
+//        "54354353", "Male", 123456789, "Good Doctor");
 
 
     @Test

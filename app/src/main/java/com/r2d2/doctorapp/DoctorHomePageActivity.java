@@ -3,6 +3,7 @@ package com.r2d2.doctorapp;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.view.View;
 
 public class DoctorHomePageActivity extends AppCompatActivity {
 

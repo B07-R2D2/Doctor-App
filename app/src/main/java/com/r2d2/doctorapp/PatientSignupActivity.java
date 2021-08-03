@@ -12,6 +12,7 @@ public class PatientSignupActivity extends AppCompatActivity {
     public static final String setPASSWORD = "com.example.DoctorApp.SETPASSWORDMESSAGE";
     public static final String setFIRSTNAME = "com.example.DoctorApp.SETFIRSTNAMEMESSAGE";
     public static final String setLASTNAME = "com.example.DoctorApp.SETLASTNAMEMESSAGE";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
