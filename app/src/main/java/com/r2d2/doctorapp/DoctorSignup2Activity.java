@@ -16,12 +16,9 @@ public class DoctorSignup2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_signup2);
-        Intent intent = getIntent();
-        String username = intent.getStringExtra(DoctorSignupActivity.setUSERNAME);
     }
 
     public void submitButton(View view){
-//        Intent intent = new Intent(DoctorSignupActivity.this,.class); where should we go after submitted?
         Intent da1 = getIntent();
         String username = da1.getStringExtra(DoctorSignupActivity.setUSERNAME);
         String password = da1.getStringExtra(DoctorSignupActivity.setPASSWORD);
@@ -46,6 +43,8 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,specialization);
 //        ref.child("doctor").setValue(d);
         ref.child("doctors").child(specialization.toLowerCase()).setValue(d);
+        Intent intent = new Intent(this,LoginActivity.class);
+        startActivity(intent);
     }
 
     public void backButton1(View view){
