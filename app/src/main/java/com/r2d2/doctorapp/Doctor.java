@@ -5,6 +5,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -15,9 +16,8 @@ public class Doctor extends User implements Serializable {
     private String uni;
     private int doctorId;
 //    private final DatabaseReference ref;
-//    private AvailabilitySchedule availability;
-//    private String specialization;
-    static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
+    private AvailabilitySchedule availability;
+    private String specialization;
 
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
@@ -30,40 +30,17 @@ public class Doctor extends User implements Serializable {
         this.bio = bio;
         this.uni = uni;
         this.doctorId = doctorId;
-//        this.specialization = specialization;
-//
-//        ref = FirebaseDatabase.getInstance().getReference();
-//        ref.child("Doctor").child(username).setValue(this);
-//        ref.child("Specialization").child(specialization).setValue(this.toString());
-
-        /* initialized static field specialization */
-        /* if the key is already in the HashMap, we add the doctor into its value, HashSet */
-        /* else we insert an the new key and value into the HashMap*/
-        specialization = specialization.toLowerCase();
-        if(this.specialization.containsKey(specialization)){
-            this.specialization.get(specialization).add(this);
-            this.specialization.put(specialization, this.specialization.get(specialization));
-        }
-        else{
-            HashSet<Doctor> d = new HashSet<Doctor>();
-            d.add(this);
-            this.specialization.put(specialization, d);
-        }
+        this.specialization = specialization;
     }
 
     /* To find the available timeslots for the doctor */
-//    public AvailabilitySchedule availability(){
-//
-//    }
+    public AvailabilitySchedule availability(){
+        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference().child("Doctors").child(this.getUsername());
+        return new AvailabilitySchedule(doctorRef, GregorianCalendar.getInstance());
+    }
 
     @Override
     public boolean equals(Object obj) {
-//        if(obj == null)
-//            return false;
-//        if(obj.getClass() != this.getClass())
-//            return false;
-//        com.r2d2.doctorapp.Doctor d = (com.r2d2.doctorapp.Doctor)obj;
-//        return this.getSin() == d.getSin();
         return super.equals(obj);
     }
 
