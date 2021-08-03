@@ -1,10 +1,11 @@
 package com.r2d2.doctorapp;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
 
-public abstract class User {
+public abstract class User implements Serializable {
     private String firstName;
     private String lastName;
     private String userName;
@@ -19,7 +20,16 @@ public abstract class User {
         this.password = password;
         this.gender = gender;
         this.sin = sin;
+    }
 
+    public User()
+    {
+        this.firstName = "";
+        this.lastName = "";
+        this.userName = "";
+        this.password = "";
+        this.gender = "male";
+        this.sin = 123456;
     }
 
     @Override
@@ -89,6 +99,4 @@ public abstract class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
-   
 }

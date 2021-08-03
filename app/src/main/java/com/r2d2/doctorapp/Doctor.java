@@ -1,10 +1,11 @@
 package com.r2d2.doctorapp;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 
-public class Doctor extends User {
+public class Doctor extends User implements Serializable {
     private String bio;
     private String uni;
     private int doctorId;
