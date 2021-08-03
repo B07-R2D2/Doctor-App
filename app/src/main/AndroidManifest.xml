@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-        <activity android:name=".HomepageActivity"></activity>
+        <activity
+            android:name=".DoctorHomeActivity"
+            android:exported="true" />
+        <activity android:name=".HomepageActivity" />
         <activity android:name=".DoctorSignupActivity" />
         <activity android:name=".DoctorSignup2Activity" />
         <activity android:name=".PatientSignupActivity" />
@@ -22,9 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".AvailabilityActivity"/>
-
+        <activity android:name=".AvailabilityActivity" />
     </application>
 
 </manifest>
