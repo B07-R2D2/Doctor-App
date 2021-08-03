@@ -17,7 +17,7 @@ public class Doctor extends User implements Serializable {
 //    private final DatabaseReference ref;
 //    private AvailabilitySchedule availability;
 //    private String specialization;
-//    static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
+    static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
 
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
@@ -31,7 +31,7 @@ public class Doctor extends User implements Serializable {
         this.uni = uni;
         this.doctorId = doctorId;
 //        this.specialization = specialization;
-
+//
 //        ref = FirebaseDatabase.getInstance().getReference();
 //        ref.child("Doctor").child(username).setValue(this);
 //        ref.child("Specialization").child(specialization).setValue(this.toString());
@@ -39,16 +39,16 @@ public class Doctor extends User implements Serializable {
         /* initialized static field specialization */
         /* if the key is already in the HashMap, we add the doctor into its value, HashSet */
         /* else we insert an the new key and value into the HashMap*/
-//        specialization = specialization.toLowerCase();
-//        if(this.specialization.containsKey(specialization)){
-//            this.specialization.get(specialization).add(this);
-//            this.specialization.put(specialization, this.specialization.get(specialization));
-//        }
-//        else{
-//            HashSet<Doctor> d = new HashSet<Doctor>();
-//            d.add(this);
-//            this.specialization.put(specialization, d);
-//        }
+        specialization = specialization.toLowerCase();
+        if(this.specialization.containsKey(specialization)){
+            this.specialization.get(specialization).add(this);
+            this.specialization.put(specialization, this.specialization.get(specialization));
+        }
+        else{
+            HashSet<Doctor> d = new HashSet<Doctor>();
+            d.add(this);
+            this.specialization.put(specialization, d);
+        }
     }
 
     /* To find the available timeslots for the doctor */
