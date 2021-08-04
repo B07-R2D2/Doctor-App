@@ -10,9 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class PatientSignup2Activity extends AppCompatActivity {
-    public static final String setMEDICALCONDITION = "com.example.DoctorApp.MEDICALCONDITION";
     public static final String setGENDER = "com.example.DoctorApp.GENDER";
-    public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();;
+    public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,7 +20,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
 
     public void signup(View view) {
         // Do something in response to button
-        Intent backtoLog = new Intent(this, LoginActivity.class);
+        Intent backtoLogin = new Intent(this, LoginActivity.class);
         EditText send = (EditText) findViewById(R.id.editTextTextMultiLine);
         EditText send2 = (EditText) findViewById(R.id.gender);
         EditText send3 = (EditText) findViewById(R.id.sinNumber);
@@ -54,7 +53,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         //adds new user to the patients
         ref.child("Patients").child(username).setValue(current);
         //go back to login page to sign in with the newly added user
-        startActivity(backtoLog);
+        startActivity(backtoLogin);
     }
     public void back(View view)
     {
