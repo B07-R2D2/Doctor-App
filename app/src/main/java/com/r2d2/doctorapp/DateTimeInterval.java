@@ -10,6 +10,7 @@ import java.util.Objects;
 public final class DateTimeInterval implements Serializable, Comparable<DateTimeInterval> {
 
     private Date start, end;
+//    Patient patient;      // might be helpful for "next appointment feature, will comment out for now
 
     public DateTimeInterval() {
     }
@@ -41,6 +42,10 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
     public String toString() {
         return start + "–" + end;
     }
+    // might be helpful for "next appointment"
+//    public String toString() {
+//        return start + "–" + end + " " + patient;
+//    }
 
     @Override
     public int compareTo(DateTimeInterval o) {

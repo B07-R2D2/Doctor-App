@@ -26,9 +26,13 @@ public class AvailabilityActivity extends AppCompatActivity {
         setContentView(R.layout.activity_availability);
         recyclerView = findViewById(R.id.availability_recycler_view);   // set the recycler view
 
-        // after the patient click the doctor, we will receive an intent, which includes a schedule
+        // after the patient click the doctor, we will receive an intent
         Intent intent = getIntent();
-        schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
+        // if the intent includes a schedule
+        //schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule);
+        // or if the intent includes a doctor:
+        Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
+        this.schedule = doctor.availability();          // gets the doctor's schedule
 
         setAdapter();
     }
