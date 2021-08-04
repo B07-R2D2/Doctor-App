@@ -4,10 +4,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.HashSet;
+
 
 
 public class Doctor extends User implements Serializable {
@@ -15,14 +13,12 @@ public class Doctor extends User implements Serializable {
     private String bio;
     private String uni;
     private int doctorId;
-//    private final DatabaseReference ref;
     private AvailabilitySchedule availability;
     private String specialization;
 
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
         super("","","","",null,0);
-//        ref = FirebaseDatabase.getInstance().getReference();
     }
     public Doctor(String firstName, String lastName, String username, String password,
                   int sin, String gender,String bio, String uni, int doctorId, String specialization) {
