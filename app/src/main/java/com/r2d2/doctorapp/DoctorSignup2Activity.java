@@ -41,8 +41,10 @@ public class DoctorSignup2Activity extends AppCompatActivity {
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,specialization);
-//        ref.child("doctor").setValue(d);
-        ref.child("doctors").child(specialization.toLowerCase()).setValue(d);
+        ref.child("Doctors").child(username).setValue(d);
+        ref.child("DoctorsSpecial").child(specialization.toLowerCase()).child(username).setValue(d);
+
+        //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
     }
