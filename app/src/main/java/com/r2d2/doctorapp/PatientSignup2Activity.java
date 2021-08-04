@@ -6,9 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class PatientSignup2Activity extends AppCompatActivity {
     public static final String setMEDICALCONDITION = "com.example.DoctorApp.MEDICALCONDITION";
     public static final String setGENDER = "com.example.DoctorApp.GENDER";
+    public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +28,14 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String MEDCON = send.getText().toString();
         String GEN = send2.getText().toString();
         String temp = send3.getText().toString();
-        int SIN = Integer.parseInt(temp);
+        int SIN = 0;
+        try {
+            SIN = Integer.parseInt(temp);
+        }
+        catch (NumberFormatException error)
+        {
+            System.out.println("Could not parse " + error);
+        }
         Intent get = getIntent();
         String username = get.getStringExtra(PatientSignupActivity.setUSERNAME);
         String password = get.getStringExtra(PatientSignupActivity.setPASSWORD);
@@ -40,6 +51,8 @@ public class PatientSignup2Activity extends AppCompatActivity {
                 SIN,
                 MEDCON
                 );
+        //adds new user to the patients
+        ref.child("Patients").child(username).setValue(current);
         //go back to login page to sign in with the newly added user
         startActivity(backtoLog);
     }

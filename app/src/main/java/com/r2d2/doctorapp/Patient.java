@@ -15,20 +15,17 @@ public class Patient extends User implements Serializable {
     private int sin;
      */
     private String medicalCondition;
-    private final DatabaseReference ref;
 
     public Patient()
     {
         super("","","","",null,0);
         this.medicalCondition = "";
-        ref = FirebaseDatabase.getInstance().getReference();
     }
+
     public Patient(String firstName, String lastName,String username, String password, String gender, int sin, String medical) {
         super(firstName,lastName,username,password,gender,sin);
         this.medicalCondition = medical;
-        //adds this newly initialized patient to the patient database might also add to user database
-        ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("Patients").child(username).setValue(this);
+        //adds this newly initialized patient to the patient database
     }
 
     public boolean equals(Object obj) {
