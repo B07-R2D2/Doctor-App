@@ -19,8 +19,6 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
     private static final String TAG = "RecyclerViewAdapter";
-    public static final String EXTRA_MESSAGE = "com.r2d2.doctorapp.MESSAGE";
-
 
     private ArrayList<Doctor> doctors = new ArrayList<>();
     private Context context;
@@ -39,7 +37,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Log.d(TAG, "onBindViewHolder: called.");
 
         holder.doctorName.setText(doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
@@ -47,6 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Log.d(TAG, "onClick: clicked on: " + doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
                 Toast.makeText(context, doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName(), Toast.LENGTH_SHORT).show();
+
+                // Go to the next activity upon selecting a doctor
                 Intent intent = new Intent(v.getContext(), ExActivity.class);
                 //intent.putExtra("test", (Parcelable) doctors.get(position));
                 v.getContext().startActivity(intent);

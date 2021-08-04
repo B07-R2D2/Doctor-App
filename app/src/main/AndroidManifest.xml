@@ -15,7 +15,8 @@
         <activity android:name=".PatientSignupActivity" />
         <activity android:name=".PatientSignup2Activity" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <activity android:name=".ExActivity" />
+        <activity android:name=".FilterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

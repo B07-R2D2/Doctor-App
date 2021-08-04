@@ -12,6 +12,10 @@ public abstract class User {
     private String gender;
     private int sin;
 
+    public User(){
+
+    }
+
     public User(String firstName, String lastName,String username,String password, String gender, int sin){
         this.firstName = firstName;
         this.lastName = lastName;

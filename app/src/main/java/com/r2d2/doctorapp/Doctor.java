@@ -11,6 +11,10 @@ public class Doctor extends User {
 //    private AvailabilitySchedule availability;
     static HashMap<String, HashSet<Doctor>> specialization = new HashMap<String, HashSet<Doctor>>();
 
+    public Doctor(){
+
+    }
+
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(String firstName, String lastName, String username,String password,
                   int sin, String gender,String bio, String uni, int doctorId, String specialization) {

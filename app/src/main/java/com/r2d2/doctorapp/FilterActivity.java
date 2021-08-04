@@ -4,31 +4,30 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private Spinner specializationSpinner;
     private Spinner genderSpinner;
     private TextView nbrResults;
     private ArrayList<Doctor> filteredResults = new ArrayList<>();
-    private String specFilter = "";
-    String[] exampleSpecializations = {"Select a specialization", "Dermatologist", "Cardiologist", "Family Physician", "Pediatrician", "Psychiatrist"}; // remove after implementing database
-    String[] exampleGenders = {"Select a gender", "Male", "Female"};
+    private String[] genders = {"Select a gender...", "Any gender", "Male", "Female"};
+    private String specFilter = "empty";
+    private String genderFilter = "empty";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,69 +36,72 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
         nbrResults = findViewById(R.id.resultsCountText);
 
-        specializationSpinner = findViewById(R.id.specializationSpinner);
-        ArrayAdapter adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exampleSpecializations){
+        // Spinner (drop down menu) for selecting a specializaiton
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial");
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
-            public boolean isEnabled(int position){
-                if(position == 0)
-                {
-                    // Disable the first item from Spinner
-                    // First item will be use for hint
-                    return false;
+            public void onDataChange(DataSnapshot snapshot) {
+
+                final List<String> specs = new ArrayList<String>();
+                specs.add("Select a specialization...");
+
+                for (DataSnapshot specSnapshot: snapshot.getChildren()){
+                    String spec = specSnapshot.getKey();
+                    specs.add(spec.substring(0, 1).toUpperCase() + spec.substring(1));
                 }
-                else
-                {
-                    return true;
-                }
+
+                Spinner specSpinner = (Spinner) findViewById(R.id.specializationSpinner);
+                SpinnerArrayAdapter specAdapter = new SpinnerArrayAdapter(FilterActivity.this, android.R.layout.simple_spinner_item, specs);
+                specAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                specSpinner.setAdapter(specAdapter);
+                specSpinner.setOnItemSelectedListener(FilterActivity.this);
             }
+
             @Override
-            public View getDropDownView(int position, View convertView,
-                    ViewGroup parent){
-                View view = super.getDropDownView(position, convertView, parent);
-                TextView tv = (TextView) view;
-                if (position == 0) {
-                    // Set the hint text color gray
-                    tv.setTextColor(Color.GRAY);
-                } else {
-                    tv.setTextColor(Color.BLACK);
-                }
-                return view;
+            public void onCancelled(DatabaseError error) {
+
             }
-        };
+        });
 
-        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        specializationSpinner.setAdapter(adapter1);
-        specializationSpinner.setOnItemSelectedListener(this);
-
+        // Spinner (drop down menu) for selecting a gender
         genderSpinner = findViewById(R.id.genderSpinner);
-        ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item, exampleGenders);
+        SpinnerArrayAdapter adapter2 = new SpinnerArrayAdapter(this, android.R.layout.simple_spinner_item, genders);
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         genderSpinner.setAdapter(adapter2);
         genderSpinner.setOnItemSelectedListener(this);
 
-        Doctor d1 = new Doctor("Doctor", "1", new Date(), 111111111, "bio 1", "uni 1", 1, "Dermatologist");
-        Doctor d2 = new Doctor("Doctor", "2", new Date(), 222222222, "bio 2", "uni 2", 2, "Cardiologist");
-        Doctor d3 = new Doctor("Doctor", "3", new Date(), 333333333, "bio 3", "uni 3", 3, "Family Physician");
-        Doctor d4 = new Doctor("Doctor", "4", new Date(), 444444444, "bio 4", "uni 4", 4, "Pediatrician");
-        Doctor d5 = new Doctor("Doctor", "5", new Date(), 555555555, "bio 5", "uni 5", 5, "Psychiatrist");
-        Doctor d6 = new Doctor("Doctor", "6", new Date(), 666666666, "bio 6", "uni 6", 6, "Dermatologist");
-        Doctor d7 = new Doctor("Doctor", "7", new Date(), 777777777, "bio 7", "uni 7", 7, "Cardiologist");
-        Doctor d8 = new Doctor("Doctor", "8", new Date(), 888888888, "bio 8", "uni 8", 8, "Family Physician");
-        Doctor d9 = new Doctor("Doctor", "9", new Date(), 999999999, "bio 9", "uni 9", 9, "Pediatrician");
-
-        initRecyclerView();
-
+        //initRecyclerView();
     }
 
     public void search(View view){
         filteredResults.clear();
-        if (Doctor.specialization.containsKey(specFilter)) {
-            for (Doctor d : Doctor.specialization.get(specFilter)){
-                filteredResults.add(d);
-            }
+        if(specFilter.equals("select a specialization...")){
+            Log.i("selected filter", "empty");
+            return;
         }
-        nbrResults.setText(String.valueOf(filteredResults.size()) + " results");
-        initRecyclerView();
+        // Path is set to the specialization given by specFilter
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial/"+ specFilter);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
+                for (DataSnapshot child: snapshot.getChildren()){
+                    Doctor doc = child.getValue(Doctor.class);
+                    if (doc.getGender().equals(genderFilter) || genderFilter.equals("any gender")) {
+                        Log.i("found doctor", doc.toString());
+                        filteredResults.add(doc);
+                    }
+                }
+                // Display results
+                nbrResults.setText(String.valueOf(filteredResults.size()) + " results");
+                initRecyclerView();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     private void initRecyclerView(){
@@ -111,16 +113,18 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        if (parent.getId() == R.id.specializationSpinner)
+        if (parent.getId() == R.id.specializationSpinner) {
             specFilter = parent.getItemAtPosition(position).toString().toLowerCase();
-
+            Log.i("selected", specFilter);
+        } else if (parent.getId() == R.id.genderSpinner){
+            genderFilter = parent.getItemAtPosition(position).toString().toLowerCase();
+            Log.i("selected", genderFilter);
+        }
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
-
-
 
 }
