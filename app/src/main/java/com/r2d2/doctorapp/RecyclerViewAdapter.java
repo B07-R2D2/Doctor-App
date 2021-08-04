@@ -18,9 +18,8 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
-    private static final String TAG = "RecyclerViewAdapter";
 
-    private ArrayList<Doctor> doctors = new ArrayList<>();
+    private ArrayList<Doctor> doctors;
     private Context context;
 
     public RecyclerViewAdapter(Context context, ArrayList<Doctor> doctors) {
@@ -42,7 +41,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d(TAG, "onClick: clicked on: " + doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
+                Log.i("clicked on", doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
                 Toast.makeText(context, doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName(), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor

@@ -7,36 +7,20 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 
 import java.util.List;
 
 public class SpinnerArrayAdapter extends ArrayAdapter {
-    public SpinnerArrayAdapter(@NonNull Context context, int resource) {
-        super(context, resource);
-    }
 
-    public SpinnerArrayAdapter(@NonNull Context context, int resource, int textViewResourceId) {
-        super(context, resource, textViewResourceId);
-    }
-
-    public SpinnerArrayAdapter(@NonNull Context context, int resource, @NonNull Object[] objects) {
+    public SpinnerArrayAdapter(Context context, int resource,Object[] objects) {
         super(context, resource, objects);
     }
 
-    public SpinnerArrayAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull Object[] objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
-
-    public SpinnerArrayAdapter(@NonNull Context context, int resource, @NonNull List objects) {
+    public SpinnerArrayAdapter(Context context, int resource,List objects) {
         super(context, resource, objects);
     }
 
-    public SpinnerArrayAdapter(@NonNull Context context, int resource, int textViewResourceId, @NonNull List objects) {
-        super(context, resource, textViewResourceId, objects);
-    }
-
-    // Disables the first option from being selected again
+    // Disables the first option from being selected
     @Override
     public boolean isEnabled(int position){
         return !(position == 0);

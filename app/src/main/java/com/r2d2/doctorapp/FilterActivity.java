@@ -25,9 +25,9 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner genderSpinner;
     private TextView nbrResults;
     private ArrayList<Doctor> filteredResults = new ArrayList<>();
-    private String[] genders = {"Select a gender...", "Any gender", "Male", "Female"};
-    private String specFilter = "empty";
-    private String genderFilter = "empty";
+    private String[] genders = {"Select a gender...", "Any gender", "Male", "Female"};  // assuming we only allow male and female
+    private String specFilter;
+    private String genderFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +42,11 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onDataChange(DataSnapshot snapshot) {
 
-                final List<String> specs = new ArrayList<String>();
+                List<String> specs = new ArrayList<String>();
+                // First item in the list will be disabled in the spinner, so we add this first
                 specs.add("Select a specialization...");
 
+                // Iterate through the DoctorsSpecial branch and get the specializations to display in the spinner
                 for (DataSnapshot specSnapshot: snapshot.getChildren()){
                     String spec = specSnapshot.getKey();
                     specs.add(spec.substring(0, 1).toUpperCase() + spec.substring(1));
@@ -65,12 +67,10 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
         // Spinner (drop down menu) for selecting a gender
         genderSpinner = findViewById(R.id.genderSpinner);
-        SpinnerArrayAdapter adapter2 = new SpinnerArrayAdapter(this, android.R.layout.simple_spinner_item, genders);
-        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        genderSpinner.setAdapter(adapter2);
+        SpinnerArrayAdapter genderAdapter = new SpinnerArrayAdapter(this, android.R.layout.simple_spinner_item, genders);
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
         genderSpinner.setOnItemSelectedListener(this);
-
-        //initRecyclerView();
     }
 
     public void search(View view){
@@ -87,7 +87,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
                 for (DataSnapshot child: snapshot.getChildren()){
                     Doctor doc = child.getValue(Doctor.class);
-                    if (doc.getGender().equals(genderFilter) || genderFilter.equals("any gender")) {
+                    if (doc.getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
                         Log.i("found doctor", doc.toString());
                         filteredResults.add(doc);
                     }
