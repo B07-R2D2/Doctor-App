@@ -9,13 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
+
+        <!-- Sign up -->
         <activity android:name=".DoctorSignupActivity" />
         <activity android:name=".DoctorSignup2Activity" />
         <activity android:name=".PatientSignupActivity" />
         <activity android:name=".PatientSignup2Activity" />
+
+        <!-- Doctors -->
         <activity android:name=".DoctorHomePageActivity"/>
+
+        <!-- Doctor search -->
         <activity android:name=".FilterActivity"/>
         <activity android:name=".ExActivity"/>
+
+        <!-- Log in -->
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,8 +32,10 @@
             </intent-filter>
         </activity>
 
+        <!-- Appointment booking -->
         <activity android:name=".AvailabilityActivity"/>
 
+        <!-- Patients -->
         <activity
             android:name=".PatientHomeActivity"
             android:label="@string/activity_label_patient_home"
