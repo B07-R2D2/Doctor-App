@@ -15,26 +15,22 @@ public class Patient extends User implements Serializable {
     private int sin;
      */
     private String medicalCondition;
-    private int patientID;
-    private final DatabaseReference ref;
 
     public Patient()
     {
         super("","","","",null,0);
         this.medicalCondition = "";
-        this.patientID = -1;
-        ref = FirebaseDatabase.getInstance().getReference();
-    }
-    public Patient(String firstName, String lastName, String password, String gender, int sin, String medical, String username, int patientId) {
-        super(firstName,lastName,username,password,gender,sin);
-        this.medicalCondition = medical;
-        this.patientID = patientId;
-        //adds this newly initialized patient to the patient database might also add to user database
-        ref = FirebaseDatabase.getInstance().getReference();
-        ref.child("User").child(username).setValue(this);
-        ref.child("Patient").child(username).setValue(this);
     }
 
+    public Patient(String firstName, String lastName,String username, String password, String gender, int sin, String medical) {
+        super(firstName,lastName,username,password,gender,sin);
+        this.medicalCondition = medical;
+        //adds this newly initialized patient to the patient database
+    }
+
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
     @Override
     public int hashCode() {
         return super.hashCode();
@@ -54,12 +50,5 @@ public class Patient extends User implements Serializable {
         this.medicalCondition = med;
     }
 
-    public int getPatientID() {
-        return patientID;
-    }
-
-    public void setPatientID(int PatientId) {
-        this.patientID = PatientId;
-    }
 }
 

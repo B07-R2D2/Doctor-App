@@ -1,7 +1,11 @@
 package com.r2d2.doctorapp;
+
+
+import java.io.Serializable;
 import java.util.Date;
 
-public abstract class User {
+
+public abstract class User implements Serializable {
     private String firstName;
     private String lastName;
     private String userName;
@@ -9,7 +13,18 @@ public abstract class User {
     private String gender;
     private int sin;
 
-    public User(String firstName, String lastName,String username,String password, String gender, int sin){
+//    public User(){}
+
+    public User()
+    {
+        this.firstName = "";
+        this.lastName = "";
+        this.userName = "";
+        this.password = "";
+        this.gender = "male";
+        this.sin = 123456;
+    }
+    public User(String firstName, String lastName, String username, String password, String gender, int sin){
         this.firstName = firstName;
         this.lastName = lastName;
         this.userName = username;
@@ -54,27 +69,35 @@ public abstract class User {
         this.lastName = lastName;
     }
 
-    public String getUsername() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setBirthday(String gender) {
-        this.gender = gender;
-    }
-
     public int getSin() {
         return sin;
     }
 
     public void setSin(int sin) {
         this.sin = sin;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+    
+    public String getUsername() {
+        return userName;
+    }
+    
+    public void setUsername(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+    
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
