@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class UserUnitTest {
 
-    User u1 =  new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
+    User u1 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
             "Male", "Good Doctor", "University of Toronto", 123466,
             "Psychology");
     @Test
@@ -24,7 +24,7 @@ public class UserUnitTest {
     }
     @Test
     public void testEquals3() {
-        User u3 =  new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
+        User u3 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
                 "Male", "Good Doctor", "University of Toronto", 123466,
                 "Psychology");
         assertEquals(u1.equals(u3), true);

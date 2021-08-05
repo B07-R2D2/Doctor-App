@@ -12,6 +12,8 @@ public class DoctorTest {
 
 //    Doctor d2 = new Doctor("Angus", "Lee", 2000, 10, 31,987654321,
 //            "Male", "Motivated doctor", "University of Toronto", 334345, "Neuroscience");
+//    Patient d1 = new Patient("Jason", "Hou", "Jasonnnn",
+//        "54354353", "Male", 123456789, "Good Doctor");
 
 
     @Test
@@ -25,10 +27,10 @@ public class DoctorTest {
     }
     @Test
     public void testEquals3() {
-        Doctor d3 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
+        User u3 = new Doctor("Jason", "Hou", "Jasonnnn","54354353", 123456789,
                 "Male", "Good Doctor", "University of Toronto", 123466,
                 "Psychology");
-        assertEquals(d1.equals(d3), true);
+        assertEquals(d1.equals(u3), true);
     }
 
     @Test
