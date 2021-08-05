@@ -9,6 +9,7 @@ import android.view.View;
 
 public class DoctorHistoryActivity extends AppCompatActivity {
 
+    /** Value may be null! */
     public static final String EXTRA_PATIENT = "com.r2d2.DoctorApp.DoctorHistoryActivity.extra_patient";
 
     @Override
