@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Objects;
 
 /** An interval of time on a certain day. */
 public final class DateTimeInterval implements Serializable, Comparable<DateTimeInterval> {
@@ -17,14 +16,17 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
         this.start = start;
         this.end = end;
     }
+    public DateTimeInterval(long start, long end) {
+        this(new Date(start), new Date(end));
+    }
 
     /** The start date/time of the interval. */
-    public Date getStart() {
-        return start;
+    public long getStartTime() {
+        return start.getTime();
     }
     /** The end date/time of the interval. */
-    public Date getEnd() {
-        return end;
+    public long getEndTime() {
+        return end.getTime();
     }
 
     @Override
@@ -49,4 +51,5 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
             return this.end.compareTo(o.end);
         return c;
     }
+
 }
