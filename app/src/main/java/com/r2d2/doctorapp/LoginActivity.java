@@ -67,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void checkLogin(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, PatientHomepageActivity.class);
+        Intent intent = new Intent(this, PatientHomeActivity.class);
         Intent intent2 = new Intent(this,DoctorHomePageActivity.class);
         EditText send = (EditText) findViewById(R.id.EnterUsername);
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
