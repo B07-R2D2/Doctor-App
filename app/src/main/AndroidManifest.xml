@@ -11,29 +11,59 @@
         android:theme="@style/Theme.DoctorApp">
 
         <!-- Sign up -->
-        <activity android:name=".DoctorSignupActivity" />
-        <activity android:name=".DoctorSignup2Activity" />
-        <activity android:name=".PatientSignupActivity" />
-        <activity android:name=".PatientSignup2Activity" />
+        <activity
+            android:name=".DoctorSignupActivity"
+            android:label="@string/activity_label_doctor_sign_up"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".DoctorSignup2Activity"
+            android:label="@string/activity_label_doctor_sign_up_2"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorSignupActivity" />
+        <activity
+            android:name=".PatientSignupActivity"
+            android:label="@string/activity_label_patient_sign_up"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".PatientSignup2Activity"
+            android:label="@string/activity_label_patient_sign_up_2"
+            android:launchMode="singleTop"
+            android:parentActivityName=".PatientSignupActivity" />
 
         <!-- Doctors -->
-        <activity android:name=".DoctorHomePageActivity"/>
+        <activity android:name=".DoctorHomePageActivity"
+            android:label="@string/activity_label_doctor_home"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LoginActivity" />
 
         <!-- Doctor search -->
-        <activity android:name=".FilterActivity"/>
-        <activity android:name=".ExActivity"/>
+        <activity
+            android:name=".FilterActivity"
+            android:label="@string/activity_label_filter"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorHistoryActivity" />
+        <activity
+            android:name=".ExActivity"
+            android:launchMode="singleTop"
+            android:parentActivityName=".FilterActivity" />
 
         <!-- Log in -->
-        <activity android:name=".LoginActivity">
+        <activity
+            android:name=".LoginActivity"
+            android:label="@string/activity_label_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- Appointment booking -->
-        <activity android:name=".AvailabilityActivity"/>
+        <activity
+            android:name=".AvailabilityActivity"
+            android:label="@string/activity_label_availability"
+            android:launchMode="singleTop" />
 
         <!-- Patients -->
         <activity
