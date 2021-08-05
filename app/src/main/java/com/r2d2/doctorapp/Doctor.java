@@ -4,6 +4,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 
@@ -27,6 +28,11 @@ public class Doctor extends User implements Serializable {
         this.uni = uni;
         this.doctorId = doctorId;
         this.specialization = specialization;
+//        this.availability = availability();
+//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
+//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
+//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
+
     }
 
     /* To find the available timeslots for the doctor */

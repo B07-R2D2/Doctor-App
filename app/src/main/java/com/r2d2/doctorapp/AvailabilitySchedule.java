@@ -13,6 +13,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -27,6 +28,12 @@ public class AvailabilitySchedule implements Serializable {
     private final DatabaseReference ref;
     private final Calendar calendar;
     private Set<DateTimeInterval> timeSlots;
+
+//    public AvailabilitySchedule() {
+//        this.timeSlots = new HashSet<>();
+//        ref = null;
+//        calendar = new GregorianCalendar();
+//    }
 
     /**
      * Construct an AvailabilitySchedule that represents availability of {@code doctor}.
@@ -45,7 +52,7 @@ public class AvailabilitySchedule implements Serializable {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     timeSlots.add(child.getValue(DateTimeInterval.class));
                 }
-                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
+//                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -92,15 +99,17 @@ public class AvailabilitySchedule implements Serializable {
 
     /** Add {@code slot} as an available time slot. */
     public void addTimeSlot(DateTimeInterval slot) {
-        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
-        newSlots.add(slot);
-        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+//        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+//        newSlots.add(slot);
+//        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+        timeSlots.add(slot);
     }
     /** Remove {@code slot} from the available time slots. */
     public void removeTimeSlot(DateTimeInterval slot) {
-        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
-        newSlots.remove(slot);
-        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+//        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+//        newSlots.remove(slot);
+//        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+        timeSlots.remove(slot);
     }
 
 }

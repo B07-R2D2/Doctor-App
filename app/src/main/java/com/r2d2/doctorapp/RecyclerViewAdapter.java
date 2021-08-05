@@ -45,8 +45,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName(), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), ExActivity.class);
-                //intent.putExtra("test", (Parcelable) doctors.get(position));
+                Intent intent = new Intent(v.getContext(), AvailabilityActivity.class);
+                intent.putExtra("Doctor", doctors.get(position));
+//                intent.putExtra("Doctor", (Parcelable) doctors.get(position));
                 v.getContext().startActivity(intent);
             }
         });

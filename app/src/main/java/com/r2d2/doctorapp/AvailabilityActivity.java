@@ -3,6 +3,7 @@ package com.r2d2.doctorapp;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 // Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
 //        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
@@ -28,8 +30,11 @@ public class AvailabilityActivity extends AppCompatActivity {
 
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
-        schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
+        Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
+        this.schedule = doctor.availability();
+        Log.i("receivedoc", doctor.toString() + " received");
 
+        setTimeSlotInfo();
         setAdapter();
     }
 
@@ -43,6 +48,16 @@ public class AvailabilityActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
+    }
+
+    /**
+     * this method is ONLY for TESTING AvailabilityRecyclerView
+     */
+    private void setTimeSlotInfo() {
+        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
+        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
+        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
+
     }
 
 
