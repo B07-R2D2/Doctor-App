@@ -10,7 +10,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class PatientSignup2Activity extends AppCompatActivity {
-    public static final String setGENDER = "com.example.DoctorApp.GENDER";
     public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
     }
 
     public void signup(View view) {
-        // Do something in response to button
+        // Do something in response to clicking Submit
         Intent backtoLogin = new Intent(this, LoginActivity.class);
         EditText send = (EditText) findViewById(R.id.editTextTextMultiLine);
         EditText send2 = (EditText) findViewById(R.id.gender);

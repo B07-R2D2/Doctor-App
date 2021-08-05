@@ -17,7 +17,6 @@ import java.util.HashMap;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    public static final String givenPassword = "com.example.DoctorApp.PASSWORDMESSAGE";
     private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
     private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
     private static HashMap<String,String> patientMap=new HashMap<String,String>();
@@ -68,7 +67,7 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void checkLogin(View view) {
         // Do something in response to button
-        Intent intent = new Intent(LoginActivity.this, PatientHomepageActivity.class);
+        Intent intent = new Intent(this, PatientHomepageActivity.class);
         Intent intent2 = new Intent(this,DoctorHomePageActivity.class);
         EditText send = (EditText) findViewById(R.id.EnterUsername);
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
@@ -79,14 +78,14 @@ public class LoginActivity extends AppCompatActivity {
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
         for(HashMap.Entry<String, String> entry: patientMap.entrySet())
         {
-            if(entry.getKey() == usernameMessage && entry.getValue() == passwordMessage)
+            if(entry.getKey().equals(usernameMessage) && entry.getValue().equals(passwordMessage))
             {
                 startActivity(intent);
             }
         }
         for(HashMap.Entry<String, String> entry: doctorMap.entrySet())
         {
-            if(entry.getKey() == usernameMessage && entry.getValue() == passwordMessage)
+            if(entry.getKey().equals(usernameMessage) && entry.getValue().equals(passwordMessage))
             {
                 startActivity(intent2);
             }

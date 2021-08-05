@@ -13,6 +13,8 @@
         <activity android:name=".DoctorSignup2Activity" />
         <activity android:name=".PatientSignupActivity" />
         <activity android:name=".PatientSignup2Activity" />
+        <activity android:name=".PatientHomepageActivity"/>
+        <activity android:name=".DoctorHomePageActivity"/>
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
