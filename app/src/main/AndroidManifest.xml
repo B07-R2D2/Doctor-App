@@ -26,6 +26,22 @@
 
         <activity android:name=".AvailabilityActivity"/>
 
+        <activity
+            android:name=".PatientHomeActivity"
+            android:label="@string/activity_label_patient_home"
+            android:launchMode="singleTop"
+            android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".PatientProfileActivity"
+            android:label="@string/activity_label_patient_profile"
+            android:launchMode="singleTop"
+            android:parentActivityName=".PatientHomeActivity" />
+        <activity
+            android:name=".DoctorHistoryActivity"
+            android:label="@string/activity_label_doctor_history"
+            android:launchMode="singleTop"
+            android:parentActivityName=".PatientHomeActivity" />
+
     </application>
 
 </manifest>
