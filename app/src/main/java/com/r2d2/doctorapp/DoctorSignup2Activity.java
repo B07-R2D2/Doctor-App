@@ -10,6 +10,8 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Pattern;
 
 public class DoctorSignup2Activity extends AppCompatActivity {
@@ -81,9 +83,15 @@ public class DoctorSignup2Activity extends AppCompatActivity {
 
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,specialization);
+        Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,
+                specialization, ref.child("Doctors").child(username));
         ref.child("Doctors").child(username).setValue(d);
         ref.child("DoctorsSpecial").child(specialization.toLowerCase()).child(username).setValue(d);
+
+//        d.availability().addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
+//        d.availability().addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
+//        d.availability().addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 16, 30)));
+
 
         //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);

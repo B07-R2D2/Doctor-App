@@ -22,17 +22,18 @@ public class Doctor extends User implements Serializable {
         super("","","","",null,0);
     }
     public Doctor(String firstName, String lastName, String username, String password,
-                  int sin, String gender,String bio, String uni, int doctorId, String specialization) {
+                  int sin, String gender,String bio, String uni, int doctorId, String specialization, DatabaseReference r) {
         super(firstName, lastName, username, password, gender, sin);
         this.bio = bio;
         this.uni = uni;
         this.doctorId = doctorId;
         this.specialization = specialization;
-//        this.availability = availability();
-//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
-//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
-//        availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
 
+//        this.availability = availability();
+        this.availability = new AvailabilitySchedule(r, GregorianCalendar.getInstance());
+        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
+        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
+        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
     }
 
     /* To find the available timeslots for the doctor */

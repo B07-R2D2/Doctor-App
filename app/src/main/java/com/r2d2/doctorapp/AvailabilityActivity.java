@@ -32,10 +32,10 @@ public class AvailabilityActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
         this.schedule = doctor.availability();
-        Log.i("receivedoc", doctor.toString() + " received");
-
-        setTimeSlotInfo();
+        Log.i("timeslot", doctor.toString() + " received");
         setAdapter();
+        for (DateTimeInterval time : schedule.timeSlots())
+            Log.i("timeslot", "time slots include: " + time.toString());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

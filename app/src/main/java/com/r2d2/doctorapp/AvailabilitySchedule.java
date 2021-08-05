@@ -52,7 +52,7 @@ public class AvailabilitySchedule implements Serializable {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     timeSlots.add(child.getValue(DateTimeInterval.class));
                 }
-//                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
+                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -99,17 +99,18 @@ public class AvailabilitySchedule implements Serializable {
 
     /** Add {@code slot} as an available time slot. */
     public void addTimeSlot(DateTimeInterval slot) {
-//        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
-//        newSlots.add(slot);
-//        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
-        timeSlots.add(slot);
+        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+        newSlots.add(slot);
+        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+//        timeSlots.add(slot);
     }
     /** Remove {@code slot} from the available time slots. */
     public void removeTimeSlot(DateTimeInterval slot) {
-//        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
-//        newSlots.remove(slot);
-//        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
-        timeSlots.remove(slot);
+        Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
+        newSlots.remove(slot);
+        ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+//        timeSlots.remove(slot);
     }
+
 
 }
