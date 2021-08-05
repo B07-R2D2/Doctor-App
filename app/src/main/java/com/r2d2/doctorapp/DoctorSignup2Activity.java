@@ -39,7 +39,7 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         String sin1 = editText4.getText().toString().trim();
         String bio = editText5.getText().toString().trim();
 
-        Pattern pattern = Pattern.compile("\\d+");
+        Pattern pattern = Pattern.compile("^[1-9]\\d*");
         if(uni.isEmpty()){
             editText1.setError("Please Enter where you attend university");
             editText1.requestFocus();
@@ -56,7 +56,7 @@ public class DoctorSignup2Activity extends AppCompatActivity {
             return;
         }
         else if(pattern.matcher(dId).matches() == false){
-            editText3.setError("Doctor's Id requires all digits");
+            editText3.setError("Doctor's Id requires all digits and cannot start with zero");
             editText3.requestFocus();
             return;
         }
@@ -66,7 +66,7 @@ public class DoctorSignup2Activity extends AppCompatActivity {
             return;
         }
         else if(pattern.matcher(sin1).matches() == false){
-            editText4.setError("SIN Number requires all digits");
+            editText4.setError("SIN Number requires all digits and cannot start with zero");
             editText4.requestFocus();
             return;
         }

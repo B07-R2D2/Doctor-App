@@ -34,7 +34,7 @@ public class DoctorSignupActivity extends AppCompatActivity {
         String lastname = editText4.getText().toString().trim();
         String gender = editText5.getText().toString().trim().toLowerCase();
 
-        Pattern pattern = Pattern.compile("\\d+");
+
         Pattern genderpattern = Pattern.compile("(male|female|other)");
         if(username.isEmpty()){
             editText1.setError("Please Enter Username");
