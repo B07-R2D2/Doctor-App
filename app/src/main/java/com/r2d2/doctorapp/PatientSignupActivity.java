@@ -25,7 +25,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         EditText send3 = (EditText) findViewById(R.id.editTextTextPersonName3);
         EditText send4 = (EditText) findViewById(R.id.editTextTextPersonName4);
         String setUsername = send2.getText().toString();
-        String setPassword = send3.getText().toString();
+        String setPassword = send.getText().toString();
         String setFirstName = send3.getText().toString();
         String setLastName = send4.getText().toString();
         intent.putExtra(setUSERNAME, setUsername);
