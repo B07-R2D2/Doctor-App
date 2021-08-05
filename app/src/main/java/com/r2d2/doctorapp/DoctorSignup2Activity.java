@@ -10,6 +10,8 @@ import android.widget.EditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.regex.Pattern;
+
 public class DoctorSignup2Activity extends AppCompatActivity {
 
     @Override
@@ -31,13 +33,52 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         EditText editText3 = (EditText) findViewById(R.id.editTextTextPersonName8);
         EditText editText4 = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText editText5 = (EditText) findViewById(R.id.editTextTextPersonName10);
-        String uni = editText1.getText().toString();
-        String specialization = editText2.getText().toString();
-        String dId = editText3.getText().toString();
+        String uni = editText1.getText().toString().trim();
+        String specialization = editText2.getText().toString().trim();
+        String dId = editText3.getText().toString().trim();
+        String sin1 = editText4.getText().toString().trim();
+        String bio = editText5.getText().toString().trim();
+
+        Pattern pattern = Pattern.compile("\\d+");
+        if(uni.isEmpty()){
+            editText1.setError("Please Enter where you attend university");
+            editText1.requestFocus();
+            return;
+        }
+        if(specialization.isEmpty()){
+            editText2.setError("Please Enter your specialization");
+            editText2.requestFocus();
+            return;
+        }
+        if(dId.isEmpty()){
+            editText3.setError("Please Enter your Doctor's Id Number");
+            editText3.requestFocus();
+            return;
+        }
+        else if(pattern.matcher(dId).matches() == false){
+            editText3.setError("Doctor's Id requires all digits");
+            editText3.requestFocus();
+            return;
+        }
+        if(sin1.isEmpty()){
+            editText4.setError("Please Enter your SIN Number");
+            editText4.requestFocus();
+            return;
+        }
+        else if(pattern.matcher(sin1).matches() == false){
+            editText4.setError("SIN Number requires all digits");
+            editText4.requestFocus();
+            return;
+        }
+        if(bio.isEmpty()){
+            editText5.setError("Please Enter a a short bio about yourself");
+            editText5.requestFocus();
+            return;
+        }
+
         int doctorId = new Integer(dId).intValue();
-        String sin1 = editText4.getText().toString();
         int sin = new Integer(sin1).intValue();
-        String bio = editText5.getText().toString();
+
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
         Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,specialization);
