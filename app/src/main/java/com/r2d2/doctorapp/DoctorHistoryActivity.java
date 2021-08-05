@@ -24,13 +24,3 @@ public class DoctorHistoryActivity extends AppCompatActivity {
     }
 
 }
-
-// TODO: Remove stubs once merged with real activity classes.
-
-class FilterActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.placeholder);
-    }
-}
