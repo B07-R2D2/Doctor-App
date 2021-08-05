@@ -30,25 +30,26 @@
         app:layout_constraintTop_toTopOf="@id/upcoming_appointments_summary">
 
         <Button
-            android:id="@+id/view_profile_button"
+            android:id="@+id/view_history_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:onClick="viewProfileButtonClicked"
-            android:text="My Medical Profile"
+            android:onClick="viewHistoryButtonClicked"
+            android:text="My Specialists"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/view_history_button"
+            android:id="@+id/view_profile_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:layout_marginBottom="24dp"
-            android:onClick="viewHistoryButtonClicked"
-            android:text="My Specialists"
+            android:onClick="viewProfileButtonClicked"
+            android:text="My Medical Profile"
             android:textSize="20sp" />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
