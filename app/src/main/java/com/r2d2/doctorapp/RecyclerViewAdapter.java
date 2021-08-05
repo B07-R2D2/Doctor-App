@@ -46,8 +46,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                 // Go to the next activity upon selecting a doctor
                 Intent intent = new Intent(v.getContext(), AvailabilityActivity.class);
-                intent.putExtra("Doctor", doctors.get(position));
-//                intent.putExtra("Doctor", (Parcelable) doctors.get(position));
+
+                //intent.putExtra("test", (Parcelable) doctors.get(position));
+
                 v.getContext().startActivity(intent);
             }
         });

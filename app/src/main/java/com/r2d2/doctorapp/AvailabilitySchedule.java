@@ -61,6 +61,12 @@ public class AvailabilitySchedule implements Serializable {
         });
     }
 
+    public AvailabilitySchedule() {
+        this.ref = null;
+        this.calendar = null;
+        this.timeSlots = new HashSet<>();
+    }
+
     /** All currently available time slots. */
     public Set<DateTimeInterval> timeSlots() {
         return timeSlots;

@@ -30,9 +30,14 @@ public class AvailabilityActivity extends AppCompatActivity {
 
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
-        Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
-        this.schedule = doctor.availability();
-        Log.i("receivedoc", doctor.toString() + " received");
+//
+//        Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
+//        this.schedule = doctor.availability();
+//        Log.i("receivedoc", doctor.toString() + " received");
+//
+
+        // schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
+        schedule = new AvailabilitySchedule();
 
         setTimeSlotInfo();
         setAdapter();
