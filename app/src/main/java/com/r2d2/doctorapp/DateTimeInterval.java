@@ -41,7 +41,7 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
     }
     @Override
     public String toString() {
-        return start.getHours() + ":" + start.getMinutes() + "–" + end.getHours()+ ":" + start.getMinutes();
+        return start + "–" + end;
     }
 
     @Override
