@@ -24,10 +24,30 @@ public class PatientSignupActivity extends AppCompatActivity {
         EditText send2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         EditText send3 = (EditText) findViewById(R.id.editTextTextPersonName3);
         EditText send4 = (EditText) findViewById(R.id.editTextTextPersonName4);
-        String setUsername = send2.getText().toString();
-        String setPassword = send.getText().toString();
-        String setFirstName = send3.getText().toString();
-        String setLastName = send4.getText().toString();
+        String setUsername = send2.getText().toString().trim();
+        String setPassword = send.getText().toString().trim();
+        String setFirstName = send3.getText().toString().trim();
+        String setLastName = send4.getText().toString().trim();
+        if(setUsername.isEmpty()){
+            send2.setError("Please Enter Username");
+            send2.requestFocus();
+            return;
+        }
+        if(setPassword.isEmpty()){
+            send.setError("Please Enter Password");
+            send.requestFocus();
+            return;
+        }
+        if(setFirstName.isEmpty()){
+            send3.setError("Please Enter your First name");
+            send3.requestFocus();
+            return;
+        }
+        if(setLastName.isEmpty()){
+            send4.setError("Please Enter your last name");
+            send4.requestFocus();
+            return;
+        }
         intent.putExtra(setUSERNAME, setUsername);
         intent.putExtra(setPASSWORD, setPassword);
         intent.putExtra(setFIRSTNAME, setFirstName);

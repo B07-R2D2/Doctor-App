@@ -82,7 +82,8 @@ public class AvailabilitySchedule implements Serializable {
 
         Set<DateTimeInterval> matches = new HashSet<>();
         for (DateTimeInterval timeSlot : timeSlots) {
-            if (timeSlot.getStart().after(day.getTime()) && timeSlot.getStart().before(nextDay.getTime())) {
+            Date start = new Date(timeSlot.getStartTime());
+            if (start.after(day.getTime()) && start.before(nextDay.getTime())) {
                 matches.add(timeSlot);
             }
         }
