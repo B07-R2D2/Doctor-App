@@ -111,6 +111,5 @@ public class AvailabilitySchedule implements Serializable {
         ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
 //        timeSlots.remove(slot);
     }
-
-
+    
 }

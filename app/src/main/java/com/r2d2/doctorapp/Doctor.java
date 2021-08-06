@@ -33,7 +33,7 @@ public class Doctor extends User implements Serializable {
         this.availability = new AvailabilitySchedule(r, GregorianCalendar.getInstance());
         this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
         this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
-        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
+        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 16, 30)));
     }
 
     /* To find the available timeslots for the doctor */
