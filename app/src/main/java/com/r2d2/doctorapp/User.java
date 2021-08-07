@@ -2,6 +2,8 @@ package com.r2d2.doctorapp;
 
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Date;
 
 
@@ -12,6 +14,7 @@ public abstract class User implements Serializable {
     private String password;
     private String gender;
     private int sin;
+    ArrayList<Appointment> appointments;
 
 //    public User(){}
 
@@ -23,6 +26,7 @@ public abstract class User implements Serializable {
         this.password = "";
         this.gender = "male";
         this.sin = 123456;
+        this.appointments = new ArrayList<>();
     }
     public User(String firstName, String lastName, String username, String password, String gender, int sin){
         this.firstName = firstName;
@@ -31,6 +35,7 @@ public abstract class User implements Serializable {
         this.password = password;
         this.gender = gender;
         this.sin = sin;
+        this.appointments = new ArrayList<>();
     }
 
     @Override

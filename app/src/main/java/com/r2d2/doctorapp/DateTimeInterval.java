@@ -12,6 +12,7 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
 
     public DateTimeInterval() {
     }
+
     public DateTimeInterval(Date start, Date end) {
         this.start = start;
         this.end = end;
@@ -51,5 +52,6 @@ public final class DateTimeInterval implements Serializable, Comparable<DateTime
             return this.end.compareTo(o.end);
         return c;
     }
+
 
 }

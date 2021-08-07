@@ -5,15 +5,23 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 // Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
 //        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
@@ -31,11 +39,17 @@ public class AvailabilityActivity extends AppCompatActivity {
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
         Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
-        this.schedule = doctor.availability();
-        Log.i("timeslot", doctor.toString() + " received");
-        setAdapter();
+
+        String name = doctor.getUsername();
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors").child(name);
+        this.schedule = new AvailabilitySchedule(ref, GregorianCalendar.getInstance());
+
+        Log.i("receiveDoc", doctor.toString() + " received");
+        Log.i("receiveDoc", "there are " + schedule.timeSlots().size() + " timeslots");
         for (DateTimeInterval time : schedule.timeSlots())
-            Log.i("timeslot", "time slots include: " + time.toString());
+            Log.i("receiveDoc", "including: " + time.toString());
+        setAdapter();
+
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)

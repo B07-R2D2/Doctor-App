@@ -29,11 +29,13 @@ public class AvailabilitySchedule implements Serializable {
     private final Calendar calendar;
     private Set<DateTimeInterval> timeSlots;
 
-//    public AvailabilitySchedule() {
-//        this.timeSlots = new HashSet<>();
-//        ref = null;
-//        calendar = new GregorianCalendar();
-//    }
+    // start of test
+    public AvailabilitySchedule() {
+        this.ref = null;
+        this.calendar = null;
+        this.timeSlots = new HashSet<>();
+    }
+    // end of test
 
     /**
      * Construct an AvailabilitySchedule that represents availability of {@code doctor}.
@@ -52,7 +54,7 @@ public class AvailabilitySchedule implements Serializable {
                 for (DataSnapshot child : snapshot.getChildren()) {
                     timeSlots.add(child.getValue(DateTimeInterval.class));
                 }
-                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
+//                Log.d("AvailabilitySchedule#onDataChange", "" + timeSlots);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -103,7 +105,9 @@ public class AvailabilitySchedule implements Serializable {
         Set<DateTimeInterval> newSlots = new HashSet<>(timeSlots);
         newSlots.add(slot);
         ref.setValue(new ArrayList<DateTimeInterval>(newSlots));
+
 //        timeSlots.add(slot);
+        Log.i("timeslot", "added timeslot " + slot.toString());
     }
     /** Remove {@code slot} from the available time slots. */
     public void removeTimeSlot(DateTimeInterval slot) {

@@ -1,9 +1,12 @@
 package com.r2d2.doctorapp;
 
+import android.util.Log;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
@@ -14,8 +17,11 @@ public class Doctor extends User implements Serializable {
     private String bio;
     private String uni;
     private int doctorId;
-    private AvailabilitySchedule availability;
+//    private AvailabilitySchedule availability;
     private String specialization;
+
+
+
 
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
@@ -28,18 +34,55 @@ public class Doctor extends User implements Serializable {
         this.uni = uni;
         this.doctorId = doctorId;
         this.specialization = specialization;
-
-        this.availability = this.availability();
-        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
-        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
-        this.availability.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 16, 30)));
+        for (int i = 9; i <= 16; i++) {
+            super.appointments.add(new Appointment(username, "", i));
+        }
     }
+
+    // Don't need to extract from database bc the doctor should be newly updated already ( I think, might change in future )
+    // returns a list of free appointments (ie. patientName = "")
+    ArrayList<Appointment> getFreeAppointments(){
+        ArrayList<Appointment> freeAppointments = new ArrayList<>();
+        for (int i = 0; i <= 8; i++) {
+            if (super.appointments.get(i).getPatientName().equals("")) {
+                freeAppointments.add(super.appointments.get(i));
+            }
+        }
+        return freeAppointments;
+    }
+
+    // returns a list of appointments (ie. patientName != "") for user story 4
+    ArrayList<Appointment> getBookedAppointments() {
+        ArrayList<Appointment> bookedAppointments = new ArrayList<>();
+        for (int i = 0; i <= 8; i++) {
+            if (!super.appointments.get(i).getPatientName().equals("")) {
+                bookedAppointments.add(super.appointments.get(i));
+            }
+        }
+        return bookedAppointments;
+    }
+
+    // returns the next Appointment (ie. getAppointmentWithMinTimeSlot(getAppointments()) for user story 3
+    // or null if don't have next appointment
+    Appointment getNextAppointment() {
+        Appointment next = null;
+        for (Appointment app : this.getBookedAppointments()) {
+            next = new Appointment(app.doctorName, app.patientName, app.timeSlot);
+            break;
+        }
+        return next;
+    }
+
+
+
+
 
     /* To find the available timeslots for the doctor */
-    public AvailabilitySchedule availability(){
-        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference().child("Doctors").child(this.getUsername());
-        return new AvailabilitySchedule(doctorRef, GregorianCalendar.getInstance());
-    }
+//    public AvailabilitySchedule availability(){
+//        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference().child("Doctors").child(this.getUsername());
+//        Log.i("timeslot", "called availability()");
+//        return new AvailabilitySchedule(doctorRef, GregorianCalendar.getInstance());
+//    }
 
     @Override
     public boolean equals(Object obj) {
