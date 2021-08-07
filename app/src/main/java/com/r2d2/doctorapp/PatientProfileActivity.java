@@ -2,6 +2,7 @@ package com.r2d2.doctorapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -29,6 +30,10 @@ public class PatientProfileActivity extends AppCompatActivity {
         fullName.setText(presenter.getFullName());
         gender.setText(presenter.getGender());
         medicalCondition.setText(presenter.getMedicalCondition());
+    }
+
+    public void viewHistoryButtonClicked(View view) {
+        presenter.goToDoctorHistory();
     }
 
 }
