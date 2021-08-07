@@ -18,7 +18,7 @@ public abstract class User {
     public static class Profile implements Serializable {
         private String firstName = "";
         private String lastName = "";
-        private String userName = "";
+        private String username = "";
         private String password = "";
         private String gender = "Other";
         private int sin;
@@ -32,7 +32,7 @@ public abstract class User {
         }
 
         public String getUsername() {
-            return userName;
+            return username;
         }
 
         public String getPassword() {
