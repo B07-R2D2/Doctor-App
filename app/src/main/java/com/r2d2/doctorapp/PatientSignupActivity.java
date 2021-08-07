@@ -11,7 +11,7 @@ public class PatientSignupActivity extends AppCompatActivity {
     public static final String setPASSWORD = "com.example.DoctorApp.SETPASSWORDMESSAGE";
     public static final String setFIRSTNAME = "com.example.DoctorApp.SETFIRSTNAMEMESSAGE";
     public static final String setLASTNAME = "com.example.DoctorApp.SETLASTNAMEMESSAGE";
-
+    private PatientSignupView presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,7 +19,6 @@ public class PatientSignupActivity extends AppCompatActivity {
     }
     public void sendInfo(View view) {
         // sends username,password, first name and last name to the next activity
-        Intent intent = new Intent(PatientSignupActivity.this, PatientSignup2Activity.class);
         EditText send = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText send2 = (EditText) findViewById(R.id.editTextTextPersonName2);
         EditText send3 = (EditText) findViewById(R.id.editTextTextPersonName3);
@@ -48,15 +47,10 @@ public class PatientSignupActivity extends AppCompatActivity {
             send4.requestFocus();
             return;
         }
-        intent.putExtra(setUSERNAME, setUsername);
-        intent.putExtra(setPASSWORD, setPassword);
-        intent.putExtra(setFIRSTNAME, setFirstName);
-        intent.putExtra(setLASTNAME, setLastName);
-        startActivity(intent);
+        presenter.sendInfo(setUsername,setPassword,setFirstName,setLastName);
     }
     public void back(View view)
     {
-        Intent intent = new Intent(this,LoginActivity.class);
-        startActivity(intent);
+        presenter.back();
     }
 }

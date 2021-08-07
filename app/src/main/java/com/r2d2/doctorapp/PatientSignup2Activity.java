@@ -14,6 +14,7 @@ import java.util.regex.Pattern;
 
 public class PatientSignup2Activity extends AppCompatActivity {
     public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    private PatientSignup2View presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,35 +51,25 @@ public class PatientSignup2Activity extends AppCompatActivity {
             return;
         }
         else if(pattern.matcher(sinString).matches() == false){
-            send3.setError("SIN Number requires all digits and cannot start with zero");
+            send3.setError("SIN number requires all digits and cannot start with zero");
             send3.requestFocus();
             return;
         }
         if(GEN.isEmpty()){
-            send2.setError("Please Enter a a short bio about yourself");
+            send2.setError("Please enter your gender either male,female, or other");
             send2.requestFocus();
             return;
         }
-        Intent get = getIntent();
-        String username = get.getStringExtra(PatientSignupActivity.setUSERNAME);
-        String password = get.getStringExtra(PatientSignupActivity.setPASSWORD);
-        String firstname = get.getStringExtra(PatientSignupActivity.setFIRSTNAME);
-        String lastname = get.getStringExtra(PatientSignupActivity.setLASTNAME);
-
-        // makes a new patient that is added to database as the constructor in patient does that automatically
-        Patient patient = new Patient(FirebaseDatabase.getInstance(), username);
-        patient.setFirstName(firstname);
-        patient.setLastName(lastname);
-        patient.setPassword(password);
-        patient.setGender(GEN);
-        patient.setSin(SIN);
-        patient.setMedicalCondition(MEDCON);
-        //go back to login page to sign in with the newly added user
-        startActivity(backtoLogin);
+        else if(genderpattern.matcher(GEN).matches() == false)
+        {
+            send2.setError("Please enter your gender either male,female, or other");
+            send2.requestFocus();
+            return;
+        }
+        presenter.backtologin(SIN,GEN,MEDCON);
     }
     public void back(View view)
     {
-        Intent intent = new Intent(this,PatientSignupActivity.class);
-        startActivity(intent);
+        presenter.back();
     }
 }

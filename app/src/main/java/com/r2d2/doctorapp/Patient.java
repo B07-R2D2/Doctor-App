@@ -15,6 +15,7 @@ public class Patient extends User {
         private String gender;
         private int sin;
          */
+
         private String medicalCondition = "";
 
         public String getMedicalCondition() {
