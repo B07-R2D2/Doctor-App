@@ -29,7 +29,6 @@ public class UserUnitTest {
     public void before() {
         when(db.getReference(anyString())).thenReturn(ref);
         when(ref.child(anyString())).thenReturn(ref);
-        when(ref.getDatabase()).thenReturn(db);
 
         u1 = new Doctor(db, "Jasonnnn");
         u1.setFirstName("Jason");
