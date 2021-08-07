@@ -33,6 +33,11 @@ android {
     buildFeatures {
         viewBinding true
     }
+
+    testOptions {
+        // See https://sites.google.com/a/android.com/tools/tech-docs/unit-testing-support#TOC-Method-...-not-mocked.-
+        unitTests.returnDefaultValues = true
+    }
 }
 
 dependencies {
