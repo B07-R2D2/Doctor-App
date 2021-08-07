@@ -10,7 +10,7 @@ import android.view.View;
 public class DoctorHistoryActivity extends AppCompatActivity {
 
     /** Value may be null! */
-    public static final String EXTRA_PATIENT = "com.r2d2.DoctorApp.DoctorHistoryActivity.extra_patient";
+    public static final String EXTRA_PATIENT_PROFILE = "com.r2d2.DoctorApp.DoctorHistoryActivity.extra_patient_profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class DoctorHistoryActivity extends AppCompatActivity {
 
     public void findNewSpecialistButtonClicked(View view) {
         Intent intent = new Intent(this, FilterActivity.class);
-        // TODO: Push patient object as extra
+        // TODO: Push patient profile as extra
         startActivity(intent);
     }
 

@@ -1,53 +1,59 @@
 package com.r2d2.doctorapp;
 
-import com.google.firebase.database.DatabaseReference;
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.FirebaseDatabase;
-import java.io.Serializable;
-import java.util.Date;
 
-public class Patient extends User implements Serializable {
-    /*
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String password;
-    private String gender;
-    private int sin;
-     */
-    private String medicalCondition;
+public class Patient extends User {
 
-    public Patient()
-    {
-        super("","","","",null,0);
-        this.medicalCondition = "";
+    public static class Profile extends User.Profile {
+        /*
+        private String firstName;
+        private String lastName;
+        private String userName;
+        private String password;
+        private String gender;
+        private int sin;
+         */
+        private String medicalCondition = "";
+
+        public String getMedicalCondition() {
+            return medicalCondition;
+        }
     }
 
-    public Patient(String firstName, String lastName,String username, String password, String gender, int sin, String medical) {
-        super(firstName,lastName,username,password,gender,sin);
-        this.medicalCondition = medical;
-        //adds this newly initialized patient to the patient database
-    }
-
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    protected Class<Profile> profileClass() {
+        return Profile.class;
     }
 
+    @Override
+    protected Profile newProfile() {
+        return new Profile();
+    }
+
+    @Override
+    public Profile getProfile() {
+        return (Profile) super.getProfile();
+    }
+
+    /**
+     * Construct a Patient that tracks the patient named {@code username} in the database.
+     * @param username username of patient (may or may not exist in database)
+     */
+    public Patient(FirebaseDatabase db, String username) {
+        super(db.getReference("Patients").child(username), username);
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "Patient " + super.toString();
     }
 
-    /* Getters and Setters for all private variables. */
-    public String getMedicalCondition() {
-        return medicalCondition;
-    }
-
     public void setMedicalCondition(String med) {
-        this.medicalCondition = med;
+        getProfile().medicalCondition = med;
+        pushToDatabase();
     }
 
 }

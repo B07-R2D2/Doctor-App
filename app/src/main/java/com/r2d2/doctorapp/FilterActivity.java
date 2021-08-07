@@ -1,15 +1,15 @@
 package com.r2d2.doctorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -86,8 +86,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             public void onDataChange(DataSnapshot snapshot) {
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
                 for (DataSnapshot child: snapshot.getChildren()){
-                    Doctor doc = child.getValue(Doctor.class);
-                    if (doc.getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
+                    Doctor doc = new Doctor(ref.getDatabase(), child.getKey());
+                    if (doc.getProfile().getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
                         Log.i("found doctor", doc.toString());
                         filteredResults.add(doc);
                     }

@@ -17,14 +17,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
     private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
     private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
-    private static HashMap<String,String> patientMap=new HashMap<String,String>();
-    private static HashMap<String,String> doctorMap=new HashMap<String,String>();
+    private static final List<User> users = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,32 +50,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Patient p = child.getValue(Patient.class);
-                    patientMap.put(p.getUsername(), p.getPassword());
-                    //Log.i("username", user.getUsername());
-                    //Log.i("password", user.getPassword());
+                    users.add(new Patient(pat.getDatabase(), child.getKey()));
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Log.w("LoginActvity", error.toException());
+                Log.w("LoginActivity", error.toException());
             }
         };
         ValueEventListener doctorListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    Doctor d = child.getValue(Doctor.class);
-                    doctorMap.put(d.getUsername(), d.getPassword());
-                    //Log.i("username", user.getUsername());
-                    //Log.i("password", user.getPassword());
+                    users.add(new Doctor(doc.getDatabase(), child.getKey()));
                 }
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Log.w("LoginActvity", error.toException());
+                Log.w("LoginActivity", error.toException());
             }
         };
         pat.addValueEventListener(patientListener);
@@ -92,18 +86,11 @@ public class LoginActivity extends AppCompatActivity {
         intent.putExtra(givenUsername, usernameMessage);
         intent2.putExtra(givenUsername, usernameMessage);
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
-        for(HashMap.Entry<String, String> entry: patientMap.entrySet())
+        for(User user : users)
         {
-            if(entry.getKey().equals(usernameMessage) && entry.getValue().equals(passwordMessage))
+            if(user.getProfile().getUsername().equals(usernameMessage) && user.getProfile().getPassword().equals(passwordMessage))
             {
-                startActivity(intent);
-            }
-        }
-        for(HashMap.Entry<String, String> entry: doctorMap.entrySet())
-        {
-            if(entry.getKey().equals(usernameMessage) && entry.getValue().equals(passwordMessage))
-            {
-                startActivity(intent2);
+                startActivity((user instanceof Patient) ? intent : intent2);
             }
         }
     }

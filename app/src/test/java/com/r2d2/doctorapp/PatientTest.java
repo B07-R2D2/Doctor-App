@@ -1,30 +1,59 @@
 package com.r2d2.doctorapp;
 
-import static org.junit.Assert.*;
-import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.when;
+
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
+
+@RunWith(MockitoJUnitRunner.class)
 public class PatientTest {
-    //Patient(String firstName, String lastName,String username, String password, String gender, int sin, String medical)
-    Patient p1 = new Patient("Bob","Williker",
-            "bobby","1234","Male",123456789,"joint pain");
+
+    @Mock
+    private FirebaseDatabase db;
+    @Mock
+    private DatabaseReference ref;
+
+    private Patient p1;
+
+    @Before
+    public void before() {
+        when(db.getReference(anyString())).thenReturn(ref);
+        when(ref.child(anyString())).thenReturn(ref);
+
+        p1 = new Patient(db, "bobby");
+        p1.setFirstName("Bob");
+        p1.setLastName("Williker");
+        p1.setPassword("1234");
+        p1.setGender("Male");
+        p1.setSin(123456789);
+        p1.setMedicalCondition("joint pain");
+    }
+
     @Test
     public void testEqual()
     {
-        Patient p2 = new Patient("Bob","Williker",
-                "bobby","1234","Male",123456789,"joint pain");
-        assertEquals(p1.equals(p2),true);
+        assertEquals(p1, p1);
     }
+    @SuppressWarnings("AssertBetweenInconvertibleTypes")
     @Test
     public void testDifferentObjectEqual()
     {
-        assertEquals(p1.equals(123),false);
+        assertNotEquals(123, p1);
     }
     @Test
     public void testNullEqual()
     {
-        assertEquals(p1.equals(null),false);
+        assertNotEquals(null, p1);
     }
     @Test
     public void testHashCode() {
@@ -38,14 +67,7 @@ public class PatientTest {
 
     @Test
     public void testGetMedicalCondition() {
-        assertEquals(p1.getMedicalCondition(), "joint pain");
+        assertEquals(p1.getProfile().getMedicalCondition(), "joint pain");
     }
-
-    @Test
-    public void testSetMedicalCondition() {
-        p1.setMedicalCondition("hearing loss");
-        assertEquals(p1.getMedicalCondition(), "hearing loss");
-    }
-
 
 }

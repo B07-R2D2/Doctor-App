@@ -1,78 +1,103 @@
 package com.r2d2.doctorapp;
 
-import com.google.firebase.database.DatabaseReference;
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Serializable;
 import java.util.GregorianCalendar;
 
+public class Doctor extends User {
 
+    public static class Profile extends User.Profile {
+        private String bio = "";
+        private String uni = "";
+        private int doctorId;
+        private String specialization = "";
 
-public class Doctor extends User implements Serializable {
+        public String getBio() {
+            return bio;
+        }
 
-    private String bio;
-    private String uni;
-    private int doctorId;
-    private AvailabilitySchedule availability;
-    private String specialization;
+        public String getUni() {
+            return uni;
+        }
 
-    /* com.r2d2.doctorapp.Doctor class constructor */
-    public Doctor(){
-        super("","","","",null,0);
+        public int getDoctorId() {
+            return doctorId;
+        }
+
+        public String getSpecialization() {
+            return specialization;
+        }
     }
-    public Doctor(String firstName, String lastName, String username, String password,
-                  int sin, String gender,String bio, String uni, int doctorId, String specialization) {
-        super(firstName, lastName, username, password, gender, sin);
-        this.bio = bio;
-        this.uni = uni;
-        this.doctorId = doctorId;
-        this.specialization = specialization;
+
+    @Override
+    protected Class<Profile> profileClass() {
+        return Profile.class;
+    }
+
+    @Override
+    protected Profile newProfile() {
+        return new Profile();
+    }
+
+    @Override
+    public Profile getProfile() {
+        return (Profile) super.getProfile();
+    }
+
+    private AvailabilitySchedule availability;
+
+    /**
+     * Construct a Doctor that tracks the doctor named {@code username} in the database.
+     * @param username username of doctor (may or may not exist in database)
+     */
+    public Doctor(FirebaseDatabase db, String username) {
+        super(db.getReference("Doctors").child(username), username);
     }
 
     /* To find the available timeslots for the doctor */
-    public AvailabilitySchedule availability(){
-        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference().child("Doctors").child(this.getUsername());
-        return new AvailabilitySchedule(doctorRef, GregorianCalendar.getInstance());
+    public AvailabilitySchedule availability() {
+        return new AvailabilitySchedule(getRef(), GregorianCalendar.getInstance());
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-        /* return doctorId; */
-    }
-
+    @NonNull
     @Override
     public String toString() {
         return "Dr. " + super.toString();
     }
 
-    /* Getters and Setters for all private variables. */
-    public String getBio() {
-        return bio;
+    @Override
+    protected void pushToDatabase() {
+        super.pushToDatabase();
+        Profile profile = getProfile();
+        if (!profile.getSpecialization().equals("")) {
+            getRef().getDatabase()
+                    .getReference("DoctorsSpecial")
+                    .child(profile.getSpecialization().toLowerCase())
+                    .child(profile.getUsername())
+                    .setValue(profile);
+        }
     }
 
     public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public String getUni() {
-        return uni;
+        getProfile().bio = bio;
+        pushToDatabase();
     }
 
     public void setUni(String uni) {
-        this.uni = uni;
-    }
-
-    public int getDoctorId() {
-        return doctorId;
+        getProfile().uni = uni;
+        pushToDatabase();
     }
 
     public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+        getProfile().doctorId = doctorId;
+        pushToDatabase();
     }
+
+    public void setSpecialization(String specialization) {
+        getProfile().specialization = specialization;
+        pushToDatabase();
+    }
+
 }
