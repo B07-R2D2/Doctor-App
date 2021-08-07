@@ -11,6 +11,7 @@
     <string name="activity_label_patient_home">Home</string>
     <string name="activity_label_patient_profile">My Medical Profile</string>
     <string name="activity_label_doctor_history">Specialist History</string>
+    <string name="activity_label_register_list">Previous Patients</string>
     <string name="doctor_date">Monday 1st, August</string>
     <string name="book">Book</string>
     <string name="Booked">Booked</string>

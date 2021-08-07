@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-
+        
         <!-- Sign up -->
         <activity
             android:name=".DoctorSignupActivity"
@@ -30,15 +30,12 @@
             android:name=".PatientSignup2Activity"
             android:label="@string/activity_label_patient_sign_up_2"
             android:launchMode="singleTop"
-            android:parentActivityName=".PatientSignupActivity" />
-
-        <!-- Doctors -->
-        <activity android:name=".DoctorHomePageActivity"
+            android:parentActivityName=".PatientSignupActivity" /> <!-- Doctors -->
+        <activity
+            android:name=".DoctorHomePageActivity"
             android:label="@string/activity_label_doctor_home"
             android:launchMode="singleTop"
-            android:parentActivityName=".LoginActivity" />
-
-        <!-- Doctor search -->
+            android:parentActivityName=".LoginActivity" /> <!-- Doctor search -->
         <activity
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
@@ -47,25 +44,20 @@
         <activity
             android:name=".ExActivity"
             android:launchMode="singleTop"
-            android:parentActivityName=".FilterActivity" />
-
-        <!-- Log in -->
+            android:parentActivityName=".FilterActivity" /> <!-- Log in -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/activity_label_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Appointment booking -->
+        </activity> <!-- Appointment booking -->
         <activity
             android:name=".AvailabilityActivity"
             android:label="@string/activity_label_availability"
-            android:launchMode="singleTop" />
-
-        <!-- Patients -->
+            android:launchMode="singleTop" /> <!-- Patients -->
         <activity
             android:name=".PatientHomeActivity"
             android:label="@string/activity_label_patient_home"
@@ -81,7 +73,11 @@
             android:label="@string/activity_label_doctor_history"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
-
+        <activity
+            android:name=".RegisterListActivity"
+            android:label="@string/activity_label_register_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".RegisterListActivity" />
     </application>
 
 </manifest>
