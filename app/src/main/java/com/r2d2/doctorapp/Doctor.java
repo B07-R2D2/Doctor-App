@@ -1,5 +1,7 @@
 package com.r2d2.doctorapp;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,8 +55,7 @@ public class Doctor extends User {
      * @param username username of doctor (may or may not exist in database)
      */
     public Doctor(FirebaseDatabase db, String username) {
-        super(db.getReference("Doctors").child(username));
-        setUsername(username);
+        super(db.getReference("Doctors").child(username), username);
     }
 
     /* To find the available timeslots for the doctor */
@@ -72,11 +73,13 @@ public class Doctor extends User {
     protected void pushToDatabase() {
         super.pushToDatabase();
         Profile profile = getProfile();
-        getRef().getDatabase()
-                .getReference("DoctorsSpecial")
-                .child(profile.getSpecialization().toLowerCase())
-                .child(profile.getUsername())
-                .setValue(profile);
+        if (!profile.getSpecialization().equals("")) {
+            getRef().getDatabase()
+                    .getReference("DoctorsSpecial")
+                    .child(profile.getSpecialization().toLowerCase())
+                    .child(profile.getUsername())
+                    .setValue(profile);
+        }
     }
 
     public void setBio(String bio) {

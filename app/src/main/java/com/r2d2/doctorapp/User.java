@@ -64,12 +64,14 @@ public abstract class User {
      * Construct a User that tracks {@code ref}.
      * @param ref database reference to user data
      */
-    public User(DatabaseReference ref) {
+    public User(DatabaseReference ref, String username) {
         this.ref = ref;
         this.profile = newProfile();
+        this.profile.username = username;
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("User onDataChange", snapshot.toString());
                 Profile newProfile = snapshot.getValue(profileClass());
                 if (newProfile != null)
                     profile = newProfile;
@@ -134,11 +136,6 @@ public abstract class User {
 
     public void setGender(String gender) {
         profile.gender = gender;
-        pushToDatabase();
-    }
-    
-    public void setUsername(String userName) {
-        profile.userName = userName;
         pushToDatabase();
     }
     

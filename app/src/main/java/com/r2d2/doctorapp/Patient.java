@@ -42,8 +42,7 @@ public class Patient extends User {
      * @param username username of patient (may or may not exist in database)
      */
     public Patient(FirebaseDatabase db, String username) {
-        super(db.getReference("Patients").child(username));
-        setUsername(username);
+        super(db.getReference("Patients").child(username), username);
     }
 
     @NonNull
