@@ -21,10 +21,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<Doctor> doctors;
     private Context context;
+   // private Patient patient;
 
     public RecyclerViewAdapter(Context context, ArrayList<Doctor> doctors) {
         this.doctors = doctors;
         this.context = context;
+//        this.patient = patient;
+//        Log.i("Patient", "received patient in recycler view adapter: " + patient.getUsername());
     }
 
     @Override
@@ -45,9 +48,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName(), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), AvailabilityActivity.class);
-                intent.putExtra("Doctor",(Parcelable) doctors.get(position));
-
+                Intent intent = new Intent(v.getContext(), ExActivity.class);
+                // intent.putExtra("Doctor",(Parcelable) doctors.get(position));
+                // intent.putExtra("Doctor", doctors.get(position));
+                // Log.i("Patient", "patient in recycler view adapter : " + patient.getUsername());
+                // intent.putExtra(DoctorHistoryActivity.EXTRA_PATIENT, patient);
+                // Log.i("Patient", "going to send: " + patient.getLastName() + " and " + doctors.get(position).getUsername());
                 v.getContext().startActivity(intent);
             }
         });

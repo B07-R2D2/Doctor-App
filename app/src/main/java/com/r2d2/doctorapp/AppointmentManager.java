@@ -39,10 +39,9 @@ public class AppointmentManager {
         this.appointment = new Appointment(doctor.getUsername(), patient.getUsername(), timeSlot);
     }
 
-    /*
+
     public void addAppointmentToPatient() {
         if (!this.appointment.getDoctorName().equals(doctor.getUsername())) {
-            // handle error when appointment's doctorName != doctor's userName
             Log.i("Appointment", "appointment's doctorName != doctor's userName");
             return;
         }
@@ -51,28 +50,56 @@ public class AppointmentManager {
 
         // loop though free appointmnets, find the timeSlot (by finding the same timeSlot int value),
         // change patientName to the patient's name, and add the timeslot to patient and patient's database
+        boolean isAppointmentFree = false;
         for (Appointment a : doctor.getFreeAppointments()) {
-            if (a.timeSlot == appointment.timeSlot)) {
-//                int index = a.getIndex();
-//                doctor.getAppointments().index(index).setPatient(patient.getUsername());
-
-                // update the new
+            if (a.getTimeSlot() == appointment.getTimeSlot()) {
+                isAppointmentFree = true;
+                // not sure if this will modify the appointment
+                doctor.getAppointments().get(a.getIndex()).setPatientName(patient.getUsername());
+                Appointment newAppointment = new Appointment(doctor.getUsername(), patient.getUsername(), a.getTimeSlot());
+                patient.getAppointments().add(newAppointment);
+                doctor_ref.setValue(doctor);
+                patient_ref.setValue(patient);
+                break;
             }
         }
-
         // if didn't find the appointment then mark as error
-
+        if (!isAppointmentFree) {
+            Log.i("Appointment", "the appointment you want to add is already booked!");
+        }
     }
-    */
+
 
 
     // in patient:  remove timeslot, in object and database
     // in doctor: let the patientName field inside the changed appointment to be "". update to database.
     public void removeAppointmentFromPatient() {
+        if (!this.appointment.getDoctorName().equals(doctor.getUsername())) {
+            Log.i("Appointment", "appointment's doctorName != doctor's userName");
+            return;
+        } else if (!this.appointment.getPatientName().equals(patient.getUsername())) {
+            Log.i("Appointment", "appointment's patientName != patient's userName");
+            return;
+        }
 
+        // loop though free appointmnets, find the timeSlot (by finding the same timeSlot int value),
+        // change patientName to the patient's name, and add the timeslot to patient and patient's database
+        boolean removedAppointment = false;
+        for (Appointment a : patient.getAppointments()) {
+            if (a.getTimeSlot() == appointment.getTimeSlot() && a.getDoctorName().equals(appointment.getDoctorName())) {
+                removedAppointment = true;
+                // not sure if this will modify the appointment
+                patient.getAppointments().remove(a);
+                doctor.getAppointments().get(a.getIndex()).setPatientName("");
+                doctor_ref.setValue(doctor);
+                patient_ref.setValue(patient);
+                break;
+            }
+        }
+        // if didn't find the appointment then mark as error
+        if (!removedAppointment) {
+            Log.i("Appointment", "the appointment you want to remove is not found!");
+        }
     }
-
-
-
 
 }

@@ -43,6 +43,7 @@ public class Appointment {
         this.timeSlot = -1;
     }
 
+    public int getIndex() { return timeSlot - 9; }
     public String timeSlotText() {
         return timeSlot + " : 00 ~ " + (timeSlot + 1) + " : 00";
     }

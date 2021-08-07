@@ -1,6 +1,7 @@
 package com.r2d2.doctorapp;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,20 +21,22 @@ import java.util.Collections;
  */
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
-    // the schedule to be displayed
-    private AvailabilitySchedule schedule;
+
+    private Doctor doctor;
+    private Patient patient;
 
     // we still need this even if schecule.timeSlots is type ArrayList because otherwise the
     // program will crash if the list is too long and we have booked items out of view (when scrolling)
-    private ArrayList<DateTimeInterval> timeSlotList;
+    private ArrayList<Appointment> appointmentList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public RecyclerAdapter(AvailabilitySchedule schedule) {
-        this.schedule = schedule;
-
+    public RecyclerAdapter(Doctor doctor, Patient patient) {
+        this.doctor = doctor;
+        this.patient = patient;
+        Log.i("Patient", "received patient in recycler adapter");
         // convert hashset to array and sort to get correct order
-        this.timeSlotList = new ArrayList<>(schedule.timeSlots());
-        Collections.sort(this.timeSlotList);
+        this.appointmentList = new ArrayList<>(doctor.getFreeAppointments());
+        Log.i("Patient", "received appointment list");
     }
 
     // represents a recycler item
@@ -41,7 +44,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         private TextView timeSlotTxt;
         private Button button;
         // since we want to add and/or remove timeslots from schedule
-        private DateTimeInterval slot;
+        private Appointment appointment;
 
         public RecyclerViewHolder(final View view) {
             super(view);
@@ -51,20 +54,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             button.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    AppointmentManager man = new AppointmentManager(doctor, patient, appointment.getTimeSlot());
                     if (button.getText().equals("Booked")) {    // cancel the appointment by clicking again!
                         button.setText("Book");                 // I tried to use strings from resources but it didn't work
                                                                 // plz tell me if you know how
                         // updates schedule and timeSlotList
-                        schedule.addTimeSlot(slot);
+                        man.removeAppointmentFromPatient();
                         // Dont need to update timeSlotList, because it's dependent on schedule
-                        //timeSlotList.add(slot);
                     } else {
                         button.setText("Booked");
 
                         // updates schedule and timeSlotList
-                        schedule.removeTimeSlot(slot);
+                        man.addAppointmentToPatient();
                         // Dont need to update timeSlotList, because it's dependent on schedule
-                        //timeSlotList.remove(slot);
                     }
                 }
             });
@@ -82,13 +84,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     // when binding the view holder to a timeSlot
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        DateTimeInterval timeSlot = timeSlotList.get(position);             // current timeslot to be binded
-        holder.timeSlotTxt.setText(timeSlot.toString());
-        holder.slot = timeSlot;
+        Appointment appointment = appointmentList.get(position);             // current timeslot to be binded
+        holder.timeSlotTxt.setText(appointment.toString());
+        holder.appointment = appointment;
     }
 
     @Override
     public int getItemCount() {
-        return timeSlotList.size();
+        return appointmentList.size();
     }
 }

@@ -17,11 +17,7 @@ public class Doctor extends User implements Serializable {
     private String bio;
     private String uni;
     private int doctorId;
-//    private AvailabilitySchedule availability;
     private String specialization;
-
-
-
 
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
@@ -76,16 +72,14 @@ public class Doctor extends User implements Serializable {
         return next;
     }
 
+    public String getSpecialization() {
+        return specialization;
+    }
 
+    public void setSpecialization(String specialization) {
+        this.specialization = specialization;
+    }
 
-
-
-    /* To find the available timeslots for the doctor */
-//    public AvailabilitySchedule availability(){
-//        DatabaseReference doctorRef = FirebaseDatabase.getInstance().getReference().child("Doctors").child(this.getUsername());
-//        Log.i("timeslot", "called availability()");
-//        return new AvailabilitySchedule(doctorRef, GregorianCalendar.getInstance());
-//    }
 
     @Override
     public boolean equals(Object obj) {

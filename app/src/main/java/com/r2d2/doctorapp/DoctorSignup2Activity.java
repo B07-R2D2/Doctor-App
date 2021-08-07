@@ -90,20 +90,6 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         ref.child("Doctors").child(username).setValue(d);
         ref.child("DoctorsSpecial").child(specialization.toLowerCase()).child(username).setValue(d);
 
-
-        // start test
-//        AvailabilitySchedule a = new AvailabilitySchedule();
-//        Log.i("timeslot", "created schedule in signup");
-//        a.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
-//        Log.i("timeslot", "created first timeslot schedule in signup");
-//        a.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
-//        a.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
-//        Log.i("timeslot", "created all timeslot schedule in signup");
-//
-//        ref.child("Doctors").child(username).child("available_time_slots").setValue(a);
-        // end test
-
-
         //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);

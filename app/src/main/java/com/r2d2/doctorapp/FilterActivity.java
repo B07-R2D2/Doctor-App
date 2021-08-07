@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -29,10 +30,18 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
     private String specFilter;
     private String genderFilter;
 
+    // receive patient from previous activity
+    //private Patient patient;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+
+        // getting the intent and patient to pass into AvailabilityActivity
+        //Intent intent = getIntent();
+        //patient = (Patient) intent.getSerializableExtra(DoctorHistoryActivity.EXTRA_PATIENT);
+        //Log.i("Patient", "received patient in filteractivity: " + patient.getUsername());
 
         nbrResults = findViewById(R.id.resultsCountText);
 

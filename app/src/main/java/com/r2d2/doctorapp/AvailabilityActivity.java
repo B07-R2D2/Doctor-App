@@ -26,36 +26,34 @@ import java.util.GregorianCalendar;
 // Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
 //        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
 public class AvailabilityActivity extends AppCompatActivity {
-    private AvailabilitySchedule schedule;
+    private Doctor doctor;              // the doctor's we're viewing
+    private Patient patient;            // the patient who logged in
     private RecyclerView recyclerView;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.w("Patient", "started availability activity");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_availability);
         recyclerView = findViewById(R.id.availability_recycler_view);   // set the recycler view
 
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
-        Doctor doctor = (Doctor)intent.getSerializableExtra("Doctor");
+        this.doctor = (Doctor)intent.getSerializableExtra("Doctor");
+        Log.i("Doctor", "received doctor in availability activity: " + this.doctor.getUsername());
 
-        String name = doctor.getUsername();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors").child(name);
-        this.schedule = new AvailabilitySchedule(ref, GregorianCalendar.getInstance());
+        this.patient = (Patient)intent.getSerializableExtra(DoctorHistoryActivity.EXTRA_PATIENT);
+        Log.i("Patient", "received patient in Availabiltiy activity: " + this.patient.getUsername());
 
-        Log.i("receiveDoc", doctor.toString() + " received");
-        Log.i("receiveDoc", "there are " + schedule.timeSlots().size() + " timeslots");
-        for (DateTimeInterval time : schedule.timeSlots())
-            Log.i("receiveDoc", "including: " + time.toString());
         setAdapter();
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setAdapter() {
         // the adapter takes in a schedule and displays the contents
-        RecyclerAdapter adapter = new RecyclerAdapter(schedule);
+        Log.i("Patient", "sending patient to recyclerAdapter");
+        RecyclerAdapter adapter = new RecyclerAdapter(doctor, patient);
 
         // sets the layout, default animator, and adapter of recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -63,16 +61,4 @@ public class AvailabilityActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
-
-    /**
-     * this method is ONLY for TESTING AvailabilityRecyclerView
-     */
-    private void setTimeSlotInfo() {
-        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 10, 30), new Date(2021, 8, 6, 11, 30)));
-        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 12, 30), new Date(2021, 8, 6, 13, 30)));
-        schedule.addTimeSlot(new DateTimeInterval(new Date(2021, 8, 6, 15, 30), new Date(2021, 8, 6, 6, 30)));
-
-    }
-
-
 }

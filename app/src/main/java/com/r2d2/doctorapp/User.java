@@ -48,6 +48,14 @@ public abstract class User implements Serializable {
         return this.sin == u.sin;
     }
 
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        this.appointments = appointments;
+    }
+
+    public ArrayList<Appointment> getAppointments() {
+        return appointments;
+    }
+
     @Override
     public int hashCode() {
         return this.sin;

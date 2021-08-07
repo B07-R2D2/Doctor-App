@@ -29,11 +29,6 @@ public class Patient extends User implements Serializable {
         //adds this newly initialized patient to the patient database
     }
 
-    // returns appointments field in Patient
-    ArrayList<Appointment> getAppointments() {
-        return new ArrayList<>(super.appointments);
-    }
-
     public boolean equals(Object obj) {
         return super.equals(obj);
     }
