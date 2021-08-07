@@ -30,24 +30,23 @@
         app:layout_constraintTop_toTopOf="@id/upcoming_appointments_summary">
 
         <Button
-            android:id="@+id/view_history_button"
+            android:id="@+id/patient_home_find_specialist_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
-            android:onClick="viewHistoryButtonClicked"
-            android:text="My Specialists"
+            android:onClick="findSpecialistButtonClicked"
+            android:text="@string/patient_home_find_specialist"
             android:textSize="20sp" />
 
         <Button
-            android:id="@+id/view_profile_button"
+            android:id="@+id/patient_home_view_profile_button"
             style="@style/Widget.MaterialComponents.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
             android:onClick="viewProfileButtonClicked"
-            android:text="My Medical Profile"
+            android:text="@string/patient_home_view_profile"
             android:textSize="20sp" />
 
     </LinearLayout>

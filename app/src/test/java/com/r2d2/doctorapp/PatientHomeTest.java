@@ -19,9 +19,9 @@ public class PatientHomeTest {
     PatientHomeActivity view;
 
     @Test
-    public void testGoToDoctorHistory() {
+    public void testGoToFindSpecialist() {
         PatientHome presenter = new PatientHome(patient, view);
-        presenter.goToDoctorHistory();
+        presenter.goToFindSpecialist();
         verify(view).startActivity(any());
     }
 

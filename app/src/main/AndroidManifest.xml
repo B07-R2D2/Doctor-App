@@ -80,7 +80,7 @@
             android:name=".DoctorHistoryActivity"
             android:label="@string/activity_label_doctor_history"
             android:launchMode="singleTop"
-            android:parentActivityName=".PatientHomeActivity" />
+            android:parentActivityName=".PatientProfileActivity" />
 
     </application>
 
