@@ -8,7 +8,7 @@ import java.util.GregorianCalendar;
 
 public class Doctor extends User {
 
-    public class Profile extends User.Profile {
+    public static class Profile extends User.Profile {
         private String bio = "";
         private String uni = "";
         private int doctorId;
