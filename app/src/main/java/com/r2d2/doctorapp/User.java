@@ -51,6 +51,12 @@ public abstract class User {
     /** The {@code Profile} subclass to read from the database. */
     protected abstract Class<? extends Profile> profileClass();
 
+    /**
+     * Instantiates a new (empty) {@code Profile} subclass.
+     * The result should be an instance of the class returned by {@code profileClass()}.
+     */
+    protected abstract Profile newProfile();
+
     private final DatabaseReference ref;
     private Profile profile;
 
@@ -60,7 +66,7 @@ public abstract class User {
      */
     public User(DatabaseReference ref) {
         this.ref = ref;
-        this.profile = new Profile();
+        this.profile = newProfile();
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,6 +96,7 @@ public abstract class User {
         return profile.sin;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return profile.firstName + ", " + profile.lastName;

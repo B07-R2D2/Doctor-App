@@ -1,15 +1,8 @@
 package com.r2d2.doctorapp;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
-import java.io.Serializable;
 
 public class Patient extends User {
 
@@ -34,22 +27,33 @@ public class Patient extends User {
         return Profile.class;
     }
 
+    @Override
+    protected Profile newProfile() {
+        return new Profile();
+    }
+
+    @Override
+    public Profile getProfile() {
+        return (Profile) super.getProfile();
+    }
+
     /**
      * Construct a Patient that tracks the patient named {@code username} in the database.
      * @param username username of patient (may or may not exist in database)
      */
-    public Patient(String username) {
-        super(FirebaseDatabase.getInstance().getReference("Patients").child(username));
+    public Patient(FirebaseDatabase db, String username) {
+        super(db.getReference("Patients").child(username));
         setUsername(username);
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Patient " + super.toString();
     }
 
     public void setMedicalCondition(String med) {
-        ((Profile) getProfile()).medicalCondition = med;
+        getProfile().medicalCondition = med;
         pushToDatabase();
     }
 

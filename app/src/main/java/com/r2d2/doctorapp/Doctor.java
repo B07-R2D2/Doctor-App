@@ -1,18 +1,18 @@
 package com.r2d2.doctorapp;
 
-import com.google.firebase.database.DatabaseReference;
+import androidx.annotation.NonNull;
+
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.io.Serializable;
 import java.util.GregorianCalendar;
 
 public class Doctor extends User {
 
     public class Profile extends User.Profile {
-        private String bio;
-        private String uni;
+        private String bio = "";
+        private String uni = "";
         private int doctorId;
-        private String specialization;
+        private String specialization = "";
 
         public String getBio() {
             return bio;
@@ -36,14 +36,24 @@ public class Doctor extends User {
         return Profile.class;
     }
 
+    @Override
+    protected Profile newProfile() {
+        return new Profile();
+    }
+
+    @Override
+    public Profile getProfile() {
+        return (Profile) super.getProfile();
+    }
+
     private AvailabilitySchedule availability;
 
     /**
      * Construct a Doctor that tracks the doctor named {@code username} in the database.
      * @param username username of doctor (may or may not exist in database)
      */
-    public Doctor(String username) {
-        super(FirebaseDatabase.getInstance().getReference("Doctors").child(username));
+    public Doctor(FirebaseDatabase db, String username) {
+        super(db.getReference("Doctors").child(username));
         setUsername(username);
     }
 
@@ -52,6 +62,7 @@ public class Doctor extends User {
         return new AvailabilitySchedule(getRef(), GregorianCalendar.getInstance());
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Dr. " + super.toString();
@@ -60,8 +71,8 @@ public class Doctor extends User {
     @Override
     protected void pushToDatabase() {
         super.pushToDatabase();
-        Profile profile = (Profile) getProfile();
-        FirebaseDatabase.getInstance()
+        Profile profile = getProfile();
+        getRef().getDatabase()
                 .getReference("DoctorsSpecial")
                 .child(profile.getSpecialization().toLowerCase())
                 .child(profile.getUsername())
@@ -69,22 +80,22 @@ public class Doctor extends User {
     }
 
     public void setBio(String bio) {
-        ((Profile) getProfile()).bio = bio;
+        getProfile().bio = bio;
         pushToDatabase();
     }
 
     public void setUni(String uni) {
-        ((Profile) getProfile()).uni = uni;
+        getProfile().uni = uni;
         pushToDatabase();
     }
 
     public void setDoctorId(int doctorId) {
-        ((Profile) getProfile()).doctorId = doctorId;
+        getProfile().doctorId = doctorId;
         pushToDatabase();
     }
 
     public void setSpecialization(String specialization) {
-        ((Profile) getProfile()).specialization = specialization;
+        getProfile().specialization = specialization;
         pushToDatabase();
     }
 

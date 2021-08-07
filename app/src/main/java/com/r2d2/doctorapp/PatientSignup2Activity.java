@@ -1,10 +1,11 @@
 package com.r2d2.doctorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -65,7 +66,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String lastname = get.getStringExtra(PatientSignupActivity.setLASTNAME);
 
         // makes a new patient that is added to database as the constructor in patient does that automatically
-        Patient patient = new Patient(username);
+        Patient patient = new Patient(FirebaseDatabase.getInstance(), username);
         patient.setFirstName(firstname);
         patient.setLastName(lastname);
         patient.setPassword(password);

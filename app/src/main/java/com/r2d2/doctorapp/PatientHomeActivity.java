@@ -6,6 +6,8 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.FirebaseDatabase;
+
 public class PatientHomeActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
@@ -18,7 +20,8 @@ public class PatientHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_patient_home);
 
         Intent intent = getIntent();
-        presenter = new PatientHome(new Patient(intent.getStringExtra(EXTRA_USERNAME)), this);
+        Patient patient = new Patient(FirebaseDatabase.getInstance(), intent.getStringExtra(EXTRA_USERNAME));
+        presenter = new PatientHome(patient, this);
     }
 
     public void viewHistoryButtonClicked(View view) {

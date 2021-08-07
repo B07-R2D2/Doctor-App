@@ -1,13 +1,12 @@
 package com.r2d2.doctorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-import com.google.firebase.database.DatabaseReference;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
@@ -79,7 +78,7 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         int doctorId = new Integer(dId).intValue();
         int sin = new Integer(sin1).intValue();
 
-        Doctor doctor = new Doctor(username);
+        Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), username);
         doctor.setFirstName(firstname);
         doctor.setLastName(lastname);
         doctor.setPassword(password);
