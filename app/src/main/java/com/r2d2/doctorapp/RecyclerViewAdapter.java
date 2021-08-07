@@ -37,12 +37,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.doctorName.setText(doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
+        holder.doctorName.setText(doctors.get(position).getProfile().getFirstName() + " " + doctors.get(position).getProfile().getLastName());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("clicked on", doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName());
-                Toast.makeText(context, doctors.get(position).getFirstName() + " " + doctors.get(position).getLastName(), Toast.LENGTH_SHORT).show();
+                Log.i("clicked on", doctors.get(position).getProfile().getFirstName() + " " + doctors.get(position).getProfile().getLastName());
+                Toast.makeText(context, doctors.get(position).getProfile().getFirstName() + " " + doctors.get(position).getProfile().getLastName(), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor
                 Intent intent = new Intent(v.getContext(), ExActivity.class);

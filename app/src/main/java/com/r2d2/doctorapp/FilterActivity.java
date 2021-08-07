@@ -87,7 +87,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
                 for (DataSnapshot child: snapshot.getChildren()){
                     Doctor doc = child.getValue(Doctor.class);
-                    if (doc.getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
+                    if (doc.getProfile().getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
                         Log.i("found doctor", doc.toString());
                         filteredResults.add(doc);
                     }

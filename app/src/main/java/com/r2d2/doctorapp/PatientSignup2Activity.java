@@ -65,17 +65,13 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String lastname = get.getStringExtra(PatientSignupActivity.setLASTNAME);
 
         // makes a new patient that is added to database as the constructor in patient does that automatically
-        Patient current = new Patient(
-                firstname,
-                lastname,
-                username,
-                password,
-                GEN,
-                SIN,
-                MEDCON
-                );
-        //adds new user to the patients
-        ref.child("Patients").child(username).setValue(current);
+        Patient patient = new Patient(username);
+        patient.setFirstName(firstname);
+        patient.setLastName(lastname);
+        patient.setPassword(password);
+        patient.setGender(GEN);
+        patient.setSin(SIN);
+        patient.setMedicalCondition(MEDCON);
         //go back to login page to sign in with the newly added user
         startActivity(backtoLogin);
     }

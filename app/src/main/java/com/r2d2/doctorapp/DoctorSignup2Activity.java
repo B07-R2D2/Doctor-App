@@ -79,11 +79,16 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         int doctorId = new Integer(dId).intValue();
         int sin = new Integer(sin1).intValue();
 
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-        Doctor d = new Doctor(firstname, lastname, username, password, sin, gender, bio, uni, doctorId,specialization);
-        ref.child("Doctors").child(username).setValue(d);
-        ref.child("DoctorsSpecial").child(specialization.toLowerCase()).child(username).setValue(d);
+        Doctor doctor = new Doctor(username);
+        doctor.setFirstName(firstname);
+        doctor.setLastName(lastname);
+        doctor.setPassword(password);
+        doctor.setSin(sin);
+        doctor.setGender(gender);
+        doctor.setBio(bio);
+        doctor.setUni(uni);
+        doctor.setDoctorId(doctorId);
+        doctor.setSpecialization(specialization);
 
         //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);

@@ -1,39 +1,46 @@
 package com.r2d2.doctorapp;
 
-import com.google.firebase.database.DatabaseReference;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.io.Serializable;
-import java.util.Date;
 
-public class Patient extends User implements Serializable {
-    /*
-    private String firstName;
-    private String lastName;
-    private String userName;
-    private String password;
-    private String gender;
-    private int sin;
-     */
-    private String medicalCondition;
+public class Patient extends User {
 
-    public Patient()
-    {
-        super("","","","",null,0);
-        this.medicalCondition = "";
+    public static class Profile extends User.Profile {
+        /*
+        private String firstName;
+        private String lastName;
+        private String userName;
+        private String password;
+        private String gender;
+        private int sin;
+         */
+        private String medicalCondition = "";
+
+        public String getMedicalCondition() {
+            return medicalCondition;
+        }
     }
 
-    public Patient(String firstName, String lastName,String username, String password, String gender, int sin, String medical) {
-        super(firstName,lastName,username,password,gender,sin);
-        this.medicalCondition = medical;
-        //adds this newly initialized patient to the patient database
-    }
-
-    public boolean equals(Object obj) {
-        return super.equals(obj);
-    }
     @Override
-    public int hashCode() {
-        return super.hashCode();
+    protected Class<Profile> profileClass() {
+        return Profile.class;
+    }
+
+    /**
+     * Construct a Patient that tracks the patient named {@code username} in the database.
+     * @param username username of patient (may or may not exist in database)
+     */
+    public Patient(String username) {
+        super(FirebaseDatabase.getInstance().getReference("Patients").child(username));
+        setUsername(username);
     }
 
     @Override
@@ -41,13 +48,9 @@ public class Patient extends User implements Serializable {
         return "Patient " + super.toString();
     }
 
-    /* Getters and Setters for all private variables. */
-    public String getMedicalCondition() {
-        return medicalCondition;
-    }
-
     public void setMedicalCondition(String med) {
-        this.medicalCondition = med;
+        ((Profile) getProfile()).medicalCondition = med;
+        pushToDatabase();
     }
 
 }

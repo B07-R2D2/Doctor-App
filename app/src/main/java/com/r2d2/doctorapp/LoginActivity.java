@@ -5,12 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Patient p = child.getValue(Patient.class);
-                    patientMap.put(p.getUsername(), p.getPassword());
+                    patientMap.put(p.getProfile().getUsername(), p.getProfile().getPassword());
                     //Log.i("username", user.getUsername());
                     //Log.i("password", user.getPassword());
                 }
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                     Doctor d = child.getValue(Doctor.class);
-                    doctorMap.put(d.getUsername(), d.getPassword());
+                    doctorMap.put(d.getProfile().getUsername(), d.getProfile().getPassword());
                     //Log.i("username", user.getUsername());
                     //Log.i("password", user.getPassword());
                 }
