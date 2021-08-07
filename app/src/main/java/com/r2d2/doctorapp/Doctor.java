@@ -26,6 +26,9 @@ public class Doctor extends User implements Serializable {
     /* com.r2d2.doctorapp.Doctor class constructor */
     public Doctor(){
         super("","","","",null,0);
+        for (int i = 9; i <= 16; i++) {
+            super.appointments.add(new Appointment("", "", i));
+        }
     }
     public Doctor(String firstName, String lastName, String username, String password,
                   int sin, String gender,String bio, String uni, int doctorId, String specialization) {
@@ -67,7 +70,7 @@ public class Doctor extends User implements Serializable {
     Appointment getNextAppointment() {
         Appointment next = null;
         for (Appointment app : this.getBookedAppointments()) {
-            next = new Appointment(app.doctorName, app.patientName, app.timeSlot);
+            next = new Appointment(app.getDoctorName(), app.getPatientName(), app.getTimeSlot());
             break;
         }
         return next;

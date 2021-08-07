@@ -28,8 +28,8 @@ package com.r2d2.doctorapp;
  */
 
 public class Appointment {
-    String doctorName, patientName;
-    int timeSlot;
+    private String doctorName, patientName;
+    private int timeSlot;
 
     public Appointment(String doctorName, String patientName, int timeSlot) {
         this.doctorName = doctorName;
@@ -37,11 +37,15 @@ public class Appointment {
         this.timeSlot = timeSlot;
     }
 
+    public Appointment() {
+        this.doctorName = "";
+        this.patientName = "";
+        this.timeSlot = -1;
+    }
+
     public String timeSlotText() {
         return timeSlot + " : 00 ~ " + (timeSlot + 1) + " : 00";
     }
-
-
 
     public String getDoctorName() {
         return doctorName;
@@ -59,7 +63,11 @@ public class Appointment {
         this.patientName = patientName;
     }
 
-    public Appointment(int timeSlot) {
+    public int getTimeSlot() {
+        return timeSlot;
+    }
+
+    public void setTimeSlot(int timeSlot) {
         this.timeSlot = timeSlot;
     }
 }

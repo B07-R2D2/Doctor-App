@@ -39,6 +39,7 @@ public class AppointmentManager {
         this.appointment = new Appointment(doctor.getUsername(), patient.getUsername(), timeSlot);
     }
 
+    /*
     public void addAppointmentToPatient() {
         if (!this.appointment.getDoctorName().equals(doctor.getUsername())) {
             // handle error when appointment's doctorName != doctor's userName
@@ -62,6 +63,8 @@ public class AppointmentManager {
         // if didn't find the appointment then mark as error
 
     }
+    */
+
 
     // in patient:  remove timeslot, in object and database
     // in doctor: let the patientName field inside the changed appointment to be "". update to database.
