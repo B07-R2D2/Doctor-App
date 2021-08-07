@@ -17,6 +17,8 @@
     <string name="available_activity_prompt">List of Available Time Slots</string>
     <string name="filter_button">Search</string>
     <string name="results">0 results</string>
+    <string name="patient_home_find_specialist">Find a Specialist</string>
+    <string name="patient_home_view_profile">My Medical Profile</string>
     <string name="patient_profile_full_name">Name:</string>
     <string name="patient_profile_gender">Gender:</string>
     <string name="patient_profile_medical_condition">Medical conditions:</string>
