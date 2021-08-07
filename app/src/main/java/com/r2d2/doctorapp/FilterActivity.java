@@ -24,7 +24,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     private Spinner genderSpinner;
     private TextView nbrResults;
-    private ArrayList<Doctor> filteredResults = new ArrayList<>();
+    private ArrayList<Doctor.Profile> filteredResults = new ArrayList<>();
     private String[] genders = {"Select a gender...", "Any gender", "Male", "Female"};  // assuming we only allow male and female
     private String specFilter;
     private String genderFilter;
@@ -86,8 +86,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             public void onDataChange(DataSnapshot snapshot) {
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
                 for (DataSnapshot child: snapshot.getChildren()){
-                    Doctor doc = new Doctor(ref.getDatabase(), child.getKey());
-                    if (doc.getProfile().getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
+                    Doctor.Profile doc = child.getValue(Doctor.Profile.class);
+                    if (doc.getGender().toLowerCase().equals(genderFilter) || genderFilter.equals("any gender")) {
                         Log.i("found doctor", doc.toString());
                         filteredResults.add(doc);
                     }
