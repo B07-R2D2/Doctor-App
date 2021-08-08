@@ -1,3 +1,4 @@
+
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
@@ -16,8 +17,12 @@ import java.util.Calendar;
 // Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
 //        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
 public class AvailabilityActivity extends AppCompatActivity {
-    private AvailabilitySchedule schedule;
+    private Doctor.Profile doctor;
+    private Patient.Profile patient;
     private RecyclerView recyclerView;
+
+    public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.AvailabilityActivity.extra_doctor_profile";
+    public static final String EXTRA_PATIENT_PROFILE = "com.r2d2.DoctorApp.AvailabilityActivity.extra_patient_profile";
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
@@ -28,7 +33,8 @@ public class AvailabilityActivity extends AppCompatActivity {
 
         // after the patient click the doctor, we will receive an intent, which includes a schedule
         Intent intent = getIntent();
-        schedule = (AvailabilitySchedule)intent.getSerializableExtra("AvailabilitySchedule");                         // initialize schedule
+        doctor = (Doctor.Profile) intent.getSerializableExtra(EXTRA_DOCTOR_PROFILE);
+        patient = (Patient.Profile) intent.getSerializableExtra(EXTRA_PATIENT_PROFILE);
 
         setAdapter();
     }
@@ -36,7 +42,7 @@ public class AvailabilityActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setAdapter() {
         // the adapter takes in a schedule and displays the contents
-        RecyclerAdapter adapter = new RecyclerAdapter(schedule);
+        RecyclerAdapter adapter = new RecyclerAdapter(doctor, patient);
 
         // sets the layout, default animator, and adapter of recycler view
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());

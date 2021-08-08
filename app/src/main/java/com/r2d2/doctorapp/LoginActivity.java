@@ -22,8 +22,8 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
-    private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
+    private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("patients");
+    private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("doctors");
     private static final List<User> users = new ArrayList<>();
 
     @Override

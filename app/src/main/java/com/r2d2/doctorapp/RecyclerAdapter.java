@@ -1,3 +1,4 @@
+
 package com.r2d2.doctorapp;
 
 import android.os.Build;
@@ -18,22 +19,29 @@ import java.util.Collections;
  * adapter for Recycler view
  * NOTE: REQUIRES DateTimeInterval to be Comparable
  */
+
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
 
     // the schedule to be displayed
-    private AvailabilitySchedule schedule;
+    private Doctor.Profile doctor;
+    private Patient.Profile patient;
 
     // we still need this even if schecule.timeSlots is type ArrayList because otherwise the
     // program will crash if the list is too long and we have booked items out of view (when scrolling)
-    private ArrayList<DateTimeInterval> timeSlotList;
+    private ArrayList<Appointment> timeSlotList;
 
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public RecyclerAdapter(AvailabilitySchedule schedule) {
-        this.schedule = schedule;
+    public RecyclerAdapter(Doctor.Profile doctor, Patient.Profile patient) {
+        this.doctor = doctor;
+        this.patient = patient;
 
-        // convert hashset to array and sort to get correct order
-        this.timeSlotList = new ArrayList<>(schedule.timeSlots());
-        Collections.sort(this.timeSlotList);
+        this.timeSlotList = new ArrayList<>();
+        for (Appointment a : doctor.getAppointments()) {
+            if (a.getPatientName().equals("")) {
+                this.timeSlotList.add(a);
+            }
+        }
+
     }
 
     // represents a recycler item
@@ -41,7 +49,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         private TextView timeSlotTxt;
         private Button button;
         // since we want to add and/or remove timeslots from schedule
-        private DateTimeInterval slot;
+        private Appointment appointment;
 
         public RecyclerViewHolder(final View view) {
             super(view);
@@ -49,21 +57,20 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
             button = view.findViewById(R.id.book_button);
             // initialized slot at onBindViewHolder
             button.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(View v) {
+                    AppointmentManager man = new AppointmentManager(doctor, patient, appointment.getTimeStamp());
                     if (button.getText().equals("Booked")) {    // cancel the appointment by clicking again!
                         button.setText("Book");                 // I tried to use strings from resources but it didn't work
                                                                 // plz tell me if you know how
-                        // updates schedule and timeSlotList
-                        schedule.addTimeSlot(slot);
+                        man.removeAppointmentFromPatient();
                         // Dont need to update timeSlotList, because it's dependent on schedule
                         //timeSlotList.add(slot);
                     } else {
                         button.setText("Booked");
-
-                        // updates schedule and timeSlotList
-                        schedule.removeTimeSlot(slot);
-                        // Dont need to update timeSlotList, because it's dependent on schedule
+                        man.addAppointmentToPatient();
+                        // Dont need to update timeSlotList, because it's dependent on doctor
                         //timeSlotList.remove(slot);
                     }
                 }
@@ -82,9 +89,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     // when binding the view holder to a timeSlot
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
-        DateTimeInterval timeSlot = timeSlotList.get(position);             // current timeslot to be binded
-        holder.timeSlotTxt.setText(timeSlot.toString());
-        holder.slot = timeSlot;
+        Appointment app = timeSlotList.get(position);             // current timeslot to be binded
+        holder.timeSlotTxt.setText(app.timeSlotText());
+        holder.appointment = app;
     }
 
     @Override

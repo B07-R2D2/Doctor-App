@@ -24,6 +24,12 @@ public abstract class User {
         private String password = "";
         private String gender = "Other";
         private int sin;
+        protected ArrayList<Appointment> appointments;
+        // appointments[56]: 7 days a week, 8 timeslots a day. (9 ~ 17)
+
+        public ArrayList<Appointment> getAppointments() {
+            return appointments;
+        }
 
         public String getFirstName() {
             return firstName;
@@ -87,6 +93,13 @@ public abstract class User {
                 Log.w("User onCancelled", error.toException());
             }
         });
+    }
+
+    // this is for creating a User (Doctor/patient) from a profile
+    public User(DatabaseReference ref, String username, Profile profile) {
+        this.ref = ref;
+        this.profile = profile;
+        this.profile.username = username;
     }
 
     private List<Runnable> observers = new ArrayList<>();
@@ -173,9 +186,15 @@ public abstract class User {
         profile.gender = gender;
         pushToDatabase();
     }
-    
+
     public void setPassword(String password) {
         profile.password = password;
         pushToDatabase();
     }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        getProfile().appointments = appointments;
+        pushToDatabase();
+    }
+
 }
