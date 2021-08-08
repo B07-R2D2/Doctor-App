@@ -35,8 +35,8 @@ public class Doctor extends User {
             d.setSeconds(0);
             Instant ori = d.toInstant();
             for (int i = 0; i < 7; i++) {                           // 7 days in a week
-                Instant cur = ori.plus(i, ChronoUnit.DAYS);
                 for (int j = 0; j < 8; j++) {                       // 8 timeslots a day
+                    Instant cur = ori.plus(i, ChronoUnit.DAYS);
                     cur = cur.plus(j, ChronoUnit.HOURS);
                     Appointment app = new Appointment(name, "", cur.getEpochSecond());
                     super.appointments.add(app);
