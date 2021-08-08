@@ -22,16 +22,16 @@ public class Patient extends User {
         private String medicalCondition = "";
         private Date DateOfBirth = new Date();
         private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
-        private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
-        private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
+        //private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
+        //private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
 
         public String getMedicalCondition() {
             return medicalCondition;
         }
         public Date getDateOfBirth() {return DateOfBirth;}
-        public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
+        //public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
         public LinkedList<Doctor> getDoctorList() {return DocList;}
-        public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
+        //public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
     }
 
     @Override
@@ -75,6 +75,7 @@ public class Patient extends User {
         getProfile().DateOfBirth = d;
         pushToDatabase();
     }
+    /*
     public void addPastAppointment(Appointment p)
     {
         getProfile().getPastAppointment().add(p);
@@ -99,5 +100,6 @@ public class Patient extends User {
     {
         getProfile().getFutureAppointment().remove(p);
     }
+    */
 }
 

@@ -9,6 +9,7 @@ public class PatientSignupView {
     public PatientSignupView(PatientSignupActivity view) {
         this.view = view;
     }
+
     public void sendInfo(String setU, String setP, String setF, String setL)
     {
         Intent intent = new Intent(view, PatientSignup2Activity.class);
