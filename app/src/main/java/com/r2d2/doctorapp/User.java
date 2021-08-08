@@ -89,7 +89,7 @@ public abstract class User {
         });
     }
 
-    private List<Runnable> observers = new ArrayList<>();
+    private final List<Runnable> observers = new ArrayList<>();
 
     /**
      * Observe this object to perform an action when new data arrives.
@@ -104,9 +104,12 @@ public abstract class User {
      * @param action function to run exactly once, when new data arrives
      */
     public void addOneTimeObserver(Runnable action) {
-        observers.add(() -> {
-            removeObserver(action);
-            action.run();
+        observers.add(new Runnable() {
+            @Override
+            public void run() {
+                removeObserver(this);
+                action.run();
+            }
         });
     }
 
