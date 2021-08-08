@@ -46,7 +46,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".FilterActivity" /> <!-- Log in -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".RegisterListActivity"
             android:label="@string/activity_label_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -74,7 +74,7 @@
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
         <activity
-            android:name=".RegisterListActivity"
+            android:name=".LoginActivity"
             android:label="@string/activity_label_register_list"
             android:launchMode="singleTop"
             android:parentActivityName=".RegisterListActivity" />

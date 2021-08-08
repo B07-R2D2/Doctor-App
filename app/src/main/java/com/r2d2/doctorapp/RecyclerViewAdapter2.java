@@ -19,10 +19,10 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapter2.ViewHolder>{
 
 
-    private ArrayList<Patient> patients;
+    private ArrayList<Patient.Profile> patients;
     private Context context;
 
-    public RecyclerViewAdapter2(Context context, ArrayList<Patient> patients) {
+    public RecyclerViewAdapter2(Context context, ArrayList<Patient.Profile> patients) {
         this.patients = patients;
         this.context = context;
     }
@@ -37,15 +37,16 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.patientName.setText(patients.get(position).getProfile().getFirstName() + " " + patients.get(position).getProfile().getLastName());
+        holder.patientName.setText(patients.get(position).getFirstName() + " " + patients.get(position).getLastName());
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("clicked on", patients.get(position).getProfile().getFirstName() + " " + patients.get(position).getProfile().getLastName());
-                Toast.makeText(context, patients.get(position).getProfile().getFirstName() + " " + patients.get(position).getProfile().getLastName(), Toast.LENGTH_SHORT).show();
+                Log.i("clicked on", patients.get(position).getFirstName() + " " + patients.get(position).getLastName());
+                Toast.makeText(context, patients.get(position).getFirstName() + " " + patients.get(position).getLastName(), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), ExActivity.class);
+                Intent intent = new Intent(v.getContext(), PatientProfileActivity.class);
+                intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patients.get(position));
                 //intent.putExtra("test", (Parcelable) doctors.get(position));
                 v.getContext().startActivity(intent);
             }

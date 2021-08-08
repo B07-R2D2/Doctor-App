@@ -2,6 +2,8 @@ package com.r2d2.doctorapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -19,7 +21,7 @@ import java.util.List;
 
 public class RegisterListActivity extends AppCompatActivity {
 
-    private List<Patient.Profile> patientList = new ArrayList<>();
+    private ArrayList<Patient.Profile> patientList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,11 @@ public class RegisterListActivity extends AppCompatActivity {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-
+                for (DataSnapshot child : snapshot.getChildren()){
+                    Patient.Profile pat = child.getValue(Patient.Profile.class);
+                    patientList.add(pat);
+                }
+                initRecyclerView();
             }
 
             @Override
@@ -38,5 +44,12 @@ public class RegisterListActivity extends AppCompatActivity {
                 Log.w("RLActivity onCancelled", error.toException());
             }
         });
+    }
+
+    private void initRecyclerView(){
+        RecyclerView recyclerView = findViewById(R.id.registerListRecycler);
+        RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, patientList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
