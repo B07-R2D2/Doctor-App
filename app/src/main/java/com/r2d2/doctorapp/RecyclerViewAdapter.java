@@ -1,28 +1,29 @@
 package com.r2d2.doctorapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
 
 
-    private ArrayList<Doctor.Profile> doctors;
+    private List<Doctor.Profile> doctors;
     private Context context;
+    private Consumer<Doctor.Profile> onRowClick;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Doctor.Profile> doctors) {
+    public RecyclerViewAdapter(Context context, List<Doctor.Profile> doctors, Consumer<Doctor.Profile> onRowClick) {
         this.doctors = doctors;
         this.context = context;
+        this.onRowClick = onRowClick;
     }
 
     @Override
@@ -43,12 +44,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             public void onClick(View v) {
                 Doctor.Profile doctor = doctors.get(holder.getAdapterPosition());
                 Log.i("clicked on", formatDoctorName(doctor));
-                Toast.makeText(context, formatDoctorName(doctor), Toast.LENGTH_SHORT).show();
-
-                // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), ExActivity.class);
-                //intent.putExtra("test", (Parcelable) doctors.get(position));
-                v.getContext().startActivity(intent);
+                // Run user-provided handler.
+                onRowClick.accept(doctor);
             }
         });
     }
