@@ -18,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class DoctorHomePageActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
-    private Button deleteButton;
+    private Button profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,60 +29,16 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         String username = intent.getStringExtra(EXTRA_USERNAME);
         Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), username);
 
-        deleteButton = (Button) findViewById(R.id.doctorDeleteButton);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        profileButton = (Button) findViewById(R.id.doctorProfileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DoctorHomePageActivity", "clicked delete button");
-                showConfirmation(doctor);
+                Log.d("DoctorHomePageActivity", "clicked profile button");
+                Intent intent = new Intent(v.getContext(), DoctorProfileActivity.class);
+                intent.putExtra(DoctorProfileActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
+                v.getContext().startActivity(intent);
             }
         });
     }
 
-    private void showConfirmation(Doctor doctor){
-        Log.d("DoctorHomePageActivity", "Want to delete: " + doctor.getProfile().getUsername() + ", " + doctor.getProfile().getSpecialization());
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        LayoutInflater inflater = getLayoutInflater();
-        final View dialogView = inflater.inflate(R.layout.confirm_delete_dialog, null);
-        dialogBuilder.setView(dialogView);
-
-        final Button yesButton = (Button) dialogView.findViewById(R.id.yesDeleteButton);
-        final Button noButton = (Button) dialogView.findViewById(R.id.noDeleteButton);
-
-        AlertDialog ad = dialogBuilder.create();
-        ad.show();
-
-        yesButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                deleteDoctor(doctor);
-                ad.dismiss();
-            }
-        });
-
-        noButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ad.dismiss();
-            }
-        });
-    }
-
-    private void deleteDoctor(Doctor doctor){
-        String username = doctor.getProfile().getUsername();
-        String spec = doctor.getProfile().getSpecialization().toLowerCase();
-        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
-        DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
-
-        loginRef.removeValue();
-        specRef.removeValue();
-        // TODO: figure out why it does the following
-        // if there are multiple doctors in the same specialization branch, it deletes one doctor only
-        // if there is only one doctor, it deletes the doctor and the specialization branch
-        // not sure why it does this, but it sure makes the job a lot easier
-
-        Toast.makeText(this, "Deleting " + username, Toast.LENGTH_SHORT).show();
-
-        // TODO: Cancel all appointments with this doctor
-    }
 }
