@@ -10,6 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /** A user of the app. Subclasses may add additional fields with a subclass of {@code Profile}. */
 public abstract class User {
@@ -75,12 +77,45 @@ public abstract class User {
                 Profile newProfile = snapshot.getValue(profileClass());
                 if (newProfile != null)
                     profile = newProfile;
+
+                for (Runnable observer : observers) {
+                    observer.run();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("User onCancelled", error.toException());
             }
         });
+    }
+
+    private List<Runnable> observers = new ArrayList<>();
+
+    /**
+     * Observe this object to perform an action when new data arrives.
+     * @param action function to run when new data arrives
+     */
+    public void addObserver(Runnable action) {
+        observers.add(action);
+    }
+
+    /**
+     * Observe this object to perform an action exactly once, when new data arrives.
+     * @param action function to run exactly once, when new data arrives
+     */
+    public void addOneTimeObserver(Runnable action) {
+        observers.add(() -> {
+            removeObserver(action);
+            action.run();
+        });
+    }
+
+    /**
+     * Stop observing this object.
+     * @param action function to stop running when new data arrives
+     */
+    public void removeObserver(Runnable action) {
+        observers.remove(action);
     }
 
     @Override

@@ -12,9 +12,9 @@ public class PatientHome {
         this.view = view;
     }
 
-    public void goToDoctorHistory() {
-        Intent intent = new Intent(view, DoctorHistoryActivity.class);
-        intent.putExtra(DoctorHistoryActivity.EXTRA_PATIENT_PROFILE, patient.getProfile());
+    public void goToFindSpecialist() {
+        Intent intent = new Intent(view, FilterActivity.class);
+        // TODO: Push patient profile or similar as extra
         view.startActivity(intent);
     }
 

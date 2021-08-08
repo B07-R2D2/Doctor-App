@@ -24,8 +24,8 @@ public class PatientHomeActivity extends AppCompatActivity {
         presenter = new PatientHome(patient, this);
     }
 
-    public void viewHistoryButtonClicked(View view) {
-        presenter.goToDoctorHistory();
+    public void findSpecialistButtonClicked(View view) {
+        presenter.goToFindSpecialist();
     }
 
     public void viewProfileButtonClicked(View view) {
