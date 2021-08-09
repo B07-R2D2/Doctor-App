@@ -1,7 +1,5 @@
 package com.r2d2.doctorapp;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -10,6 +8,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Doctor extends User {
 
@@ -18,6 +17,7 @@ public class Doctor extends User {
         private String uni = "";
         private int doctorId;
         private String specialization = "";
+        private List<String> pastPatients = new ArrayList<>();
 
         public Profile() {
         }
@@ -44,6 +44,10 @@ public class Doctor extends User {
 
         public String getSpecialization() {
             return specialization;
+        }
+
+        public List<String> getPastPatients() {
+            return pastPatients;
         }
 
 // comment out these bc we don't need them and they cause errors (not sure if we'll use them in the future tho)
@@ -113,8 +117,7 @@ public class Doctor extends User {
     @Override
     protected void pushToDatabase() {
         super.pushToDatabase();
-        Profile profile = getProfile();;
-        Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + profile.getSpecialization() + " " + profile.getGender());
+        Profile profile = getProfile();
         if (!profile.getSpecialization().equals("")) {
             getRef().getDatabase()
                     .getReference("DoctorsSpecial")
@@ -141,6 +144,11 @@ public class Doctor extends User {
 
     public void setSpecialization(String specialization) {
         getProfile().specialization = specialization;
+        pushToDatabase();
+    }
+
+    public void setPastPatients(List<String> pastPatients) {
+        getProfile().pastPatients = pastPatients;
         pushToDatabase();
     }
 
