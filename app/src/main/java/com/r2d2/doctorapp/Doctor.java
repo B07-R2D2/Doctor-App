@@ -132,7 +132,7 @@ public class Doctor extends User {
         Profile profile = getProfile();
         if (!profile.getSpecialization().equals("")) {
             getRef().getDatabase()
-                    .getReference("doctorsSpecial")
+                    .getReference("DoctorsSpecial")
                     .child(profile.getSpecialization().toLowerCase())
                     .child(profile.getUsername())
                     .setValue(profile);

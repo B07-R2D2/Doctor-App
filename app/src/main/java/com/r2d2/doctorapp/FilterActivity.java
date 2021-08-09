@@ -45,7 +45,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
 
         // Spinner (drop down menu) for selecting a specializaiton
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctorsSpecial");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -88,7 +88,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             return;
         }
         // Path is set to the specialization given by specFilter
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctorsSpecial/"+ specFilter);
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial/"+ specFilter);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
