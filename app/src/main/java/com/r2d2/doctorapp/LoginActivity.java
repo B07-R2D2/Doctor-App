@@ -22,15 +22,13 @@ import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("patients");
-    private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("doctors");
-    private static final List<User> users = new ArrayList<>();
+    private LoginView presenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        presenter = new LoginView(this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -44,65 +42,22 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
     //static adds ValueEvent Listener Automatically
-    static
-    {
-        ValueEventListener patientListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Patient(pat.getDatabase(), child.getKey()));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("LoginActivity", error.toException());
-            }
-        };
-        ValueEventListener doctorListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Doctor(doc.getDatabase(), child.getKey()));
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                Log.w("LoginActivity", error.toException());
-            }
-        };
-        pat.addValueEventListener(patientListener);
-        doc.addValueEventListener(doctorListener);
-    }
     public void checkLogin(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, PatientHomeActivity.class);
-        Intent intent2 = new Intent(this,DoctorHomePageActivity.class);
         EditText send = (EditText) findViewById(R.id.EnterUsername);
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
         String usernameMessage = send.getText().toString();
         String passwordMessage = send2.getText().toString();
-        intent.putExtra(givenUsername, usernameMessage);
-        intent2.putExtra(givenUsername, usernameMessage);
+        presenter.checkLogin(usernameMessage,passwordMessage);
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
-        for(User user : users)
-        {
-            if(user.getProfile().getUsername().equals(usernameMessage) && user.getProfile().getPassword().equals(passwordMessage))
-            {
-                startActivity((user instanceof Patient) ? intent : intent2);
-            }
-        }
     }
     public void sendPatientSignup(View view) {
         // Do something in response to button
-        Intent intent = new Intent(LoginActivity.this, PatientSignupActivity.class);
-        startActivity(intent);
+        presenter.sendPatientSignup();
     }
     public void sendDoctorSignup(View view) {
         // Do something in response to button
-        Intent intent = new Intent(LoginActivity.this, DoctorSignupActivity.class);
-        startActivity(intent);
+        presenter.sendDoctorSignup();
     }
 
 }
