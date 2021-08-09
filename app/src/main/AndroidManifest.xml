@@ -9,9 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-        <activity android:name=".DoctorHomePageActivity"></activity>
-        <activity android:name=".DoctorProfileActivity" />
-        <activity android:name=".DoctorCalendarActivity" />
 
         <!-- Sign up -->
         <activity
@@ -41,6 +38,19 @@
             android:label="@string/activity_label_doctor_home"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".DoctorProfileActivity"
+            android:label="@string/activity_label_doctor_profile"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorHomePageActivity" />
+        <activity
+            android:name=".DoctorCalendarActivity"
+            android:label="@string/activity_label_doctor_calendar" />
+        <activity
+            android:name=".RegisterListActivity"
+            android:label="@string/activity_label_register_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorProfileActivity" />
 
         <!-- Doctor search -->
         <activity
@@ -86,14 +96,6 @@
             android:label="@string/activity_label_doctor_history"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientProfileActivity" />
-        <activity android:name=".DoctorProfileActivity"
-            android:label="@string/activity_label_doctor_profile"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorHomePageActivity" />
-        <activity android:name=".RegisterListActivity"
-            android:label="@string/activity_label_register_list"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorProfileActivity" />
     </application>
 
 </manifest>
