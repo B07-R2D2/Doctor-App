@@ -56,11 +56,12 @@ public final class PoorMansBackend {
                         @Override
                         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                             for (DataSnapshot child : snapshot.getChildren()){
-                                for (DataSnapshot child2 : snapshot.child("appointments").getChildren()){
+                                for (DataSnapshot child2 : child.child("appointments").getChildren()){
                                     Appointment app = child2.getValue(Appointment.class);
                                     if (!(app.getPatientName().equals("")) && currentTime > app.getTimeStamp()){
                                         Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
-                                        //docRef.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
+                                        // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?
+                                        docRef.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
                                     }
                                 }
                             }
@@ -71,30 +72,7 @@ public final class PoorMansBackend {
 
                         }
                     });
-
-                    /*
-                    // I'm assuming doctors is just temporary, so this might need changes later
-                    DatabaseReference aref = FirebaseDatabase.getInstance().getReference("doctors/delete/appointments");
-                    DatabaseReference dref = FirebaseDatabase.getInstance().getReference("Doctors");
-                    aref.addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            for (DataSnapshot child : snapshot.getChildren()){
-                                Appointment app = child.getValue(Appointment.class);
-                                if (!(app.getPatientName().equals("")) && currentTime > app.getTimeStamp()){
-                                    Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
-                                    // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?
-                                    dref.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
-                    */
+                    
                 }
             );
         } else {
