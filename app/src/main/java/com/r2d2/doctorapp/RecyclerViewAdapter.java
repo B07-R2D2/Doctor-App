@@ -35,22 +35,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        Doctor.Profile doctor = doctors.get(position);
-        Log.i("bound view holder", formatDoctorName(doctor));
-        holder.doctorName.setText(formatDoctorName(doctor));
-        holder.parentLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Doctor.Profile doctor = doctors.get(holder.getAdapterPosition());
-                Log.i("clicked on", formatDoctorName(doctor));
-                Toast.makeText(context, formatDoctorName(doctor), Toast.LENGTH_SHORT).show();
-
-                // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), ExActivity.class);
-                //intent.putExtra("test", (Parcelable) doctors.get(position));
-                v.getContext().startActivity(intent);
-            }
-        });
     }
 
     private static String formatDoctorName(Doctor.Profile doctor) {
