@@ -42,19 +42,15 @@ public final class PoorMansBackend {
                     Log.i(LOG_TAG, "Running maintenance pass");
                 }
             );
+            lock.start();
         } else {
             Log.i(LOG_TAG, "Already started");
         }
     }
 
     public void stop() {
-        if (lock != null) {
-            Log.i(LOG_TAG, "Stop");
-            lock.release();
-            lock = null;
-        } else {
-            Log.i(LOG_TAG, "Already stopped");
-        }
+        Log.i(LOG_TAG, "Stop");
+        lock.stop();
     }
 
     private class Lock {
@@ -65,6 +61,7 @@ public final class PoorMansBackend {
 
         private final DatabaseReference lockRef;
         private final Runnable onAcquired, onReleased, whileOwned;
+        private TimerTask timerTask;
         private boolean ownedByUs = false;
 
         Lock(DatabaseReference lockRef, Runnable onAcquired, Runnable onReleased, Runnable whileOwned) {
@@ -73,7 +70,7 @@ public final class PoorMansBackend {
             this.onReleased = onReleased;
             this.whileOwned = whileOwned;
 
-            timer.schedule(new TimerTask() {
+            timerTask = new TimerTask() {
 
                 private boolean waitingOnValueEvent = false;
 
@@ -134,7 +131,16 @@ public final class PoorMansBackend {
                     });
                 }
 
-            }, 0, 10 * 1000 /* 10 seconds */);
+            };
+        }
+
+        public void start() {
+            timer.schedule(timerTask, 0, 10 * 1000 /* 10 seconds */);
+        }
+
+        public void stop() {
+            timerTask.cancel();
+            release();
         }
 
         private void acquireImmediately() {
