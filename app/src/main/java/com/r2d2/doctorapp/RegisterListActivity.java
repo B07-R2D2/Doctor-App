@@ -1,13 +1,12 @@
 package com.r2d2.doctorapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -15,10 +14,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class RegisterListActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.RegisterListActivity.extra_doctor_profile";
@@ -34,9 +30,9 @@ public class RegisterListActivity extends AppCompatActivity {
 
         DatabaseReference patRef = FirebaseDatabase.getInstance().getReference("Patients");
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors").child(doctorProfile.getUsername()).child("past patients");
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot snapshot) {
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Iterates over the doctor's past patients
                 for (DataSnapshot child : snapshot.getChildren()){
                     // Keys are the patient usernames
@@ -53,7 +49,7 @@ public class RegisterListActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
