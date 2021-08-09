@@ -1,6 +1,9 @@
 package com.r2d2.doctorapp;
 
+import android.os.Build;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -87,6 +90,7 @@ public class Doctor extends User {
     }
 
     // constructor for creating a new doctor out of a profile
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public Doctor(FirebaseDatabase db, String username, Profile profile) {
         super(db.getReference("doctors").child(username), username, profile);
 
@@ -103,8 +107,9 @@ public class Doctor extends User {
             d.setSeconds(0);
             Instant ori = d.toInstant();
             for (int i = 0; i < 7; i++) {                           // 7 days in a week
-                for (int j = 0; j < 8; j++) {                       // 8 timeslots a day
-                    Instant cur = ori.plus(i, ChronoUnit.DAYS);
+                for (int j = 0; j < 8; j++) {                       // 8 timeslots a
+                    // can't book for today (bc time rn might be after booking time
+                    Instant cur = ori.plus(i + 1, ChronoUnit.DAYS);
                     cur = cur.plus(j, ChronoUnit.HOURS);
                     Appointment app = new Appointment(name, "", cur.getEpochSecond());
                     appointments.add(app);
