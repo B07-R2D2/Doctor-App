@@ -21,7 +21,7 @@ public class Patient extends User {
          */
         private String medicalCondition = "";
         private Date DateOfBirth = new Date();
-        private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
+        //private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
         //private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
         //private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
 
@@ -30,7 +30,7 @@ public class Patient extends User {
         }
         public Date getDateOfBirth() {return DateOfBirth;}
         //public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
-        public LinkedList<Doctor> getDoctorList() {return DocList;}
+        //public LinkedList<Doctor> getDoctorList() {return DocList;}
         //public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
     }
 
