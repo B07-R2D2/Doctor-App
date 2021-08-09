@@ -46,11 +46,6 @@
         <activity
             android:name=".DoctorCalendarActivity"
             android:label="@string/activity_label_doctor_calendar" />
-        <activity
-            android:name=".RegisterListActivity"
-            android:label="@string/activity_label_register_list"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorProfileActivity" />
 
         <!-- Doctor search -->
         <activity
