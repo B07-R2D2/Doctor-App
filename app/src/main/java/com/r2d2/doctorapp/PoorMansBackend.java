@@ -52,7 +52,7 @@ public final class PoorMansBackend {
                     // I'm assuming doctors is just temporary, so this might need changes later
                     DatabaseReference appRef = FirebaseDatabase.getInstance().getReference("doctors");
                     DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("Doctors");
-                    appRef.addValueEventListener(new ValueEventListener() {
+                    appRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                             for (DataSnapshot docChild : snapshot.getChildren()){
@@ -63,6 +63,7 @@ public final class PoorMansBackend {
                                         Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
                                         // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?
                                         docRef.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
+                                        appChild.getRef().removeValue();
                                     }
                                 }
                             }
