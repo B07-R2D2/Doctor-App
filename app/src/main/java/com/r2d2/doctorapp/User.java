@@ -175,7 +175,7 @@ public abstract class User {
     @NonNull
     @Override
     public String toString() {
-        return profile.firstName + ", " + profile.lastName;
+        return profile.firstName + " " + profile.lastName;
     }
 
     /** Read-only record of information for this user. */
