@@ -16,9 +16,11 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.Instant;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public final class PoorMansBackend {
 
@@ -46,39 +48,84 @@ public final class PoorMansBackend {
                     Log.i(LOG_TAG, "Released maintenance lock");
                 }, () -> {
                     Log.i(LOG_TAG, "Running maintenance pass");
-
-                    // ------ For register list ------
-                    long currentTime = Instant.now().getEpochSecond();
-                    DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("Doctors");
-                    docRef.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            for (DataSnapshot docChild : snapshot.getChildren()){
-                                for (DataSnapshot appChild : docChild.child("appointments").getChildren()){
-                                    Appointment app = appChild.getValue(Appointment.class);
-                                    // If there is a patient and the current time has surpassed the appointment time, add to past patients
-                                    if (!(app.getPatientName().equals("")) && currentTime > app.getTimeStamp()){
-                                        Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
-                                        // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?
-                                        docRef.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
-                                        appChild.getRef().removeValue();
-                                    }
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
-
-                        }
-                    });
-                    
+                    pruneAppointments();
                 }
             );
             lock.start();
         } else {
             Log.i(LOG_TAG, "Already started");
         }
+    }
+
+    /** Prune past appointments and update doctor's register list (past patients). */
+    private void pruneAppointments() {
+        long currentTime = Instant.now().getEpochSecond();
+        DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("Doctors");
+        docRef.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot docChild : snapshot.getChildren()) {
+                    Doctor doc = new Doctor(snapshot.getRef().getDatabase(), docChild.getValue(Doctor.Profile.class));
+                    Log.d(LOG_TAG, "pruning appointments for " + doc.getProfile().getUsername());
+
+                    doc.setAppointments(doc.getProfile().getAppointments().stream()
+                        .filter(appointment -> {
+
+                            // Does appointment need to be pruned?
+                            if (currentTime > appointment.getTimeStamp()) {
+                                // Yes.
+
+                                // Update doctor's past patients if necessary.
+                                String patientUsername = appointment.getPatientName();
+                                if (!patientUsername.isEmpty()) {
+                                    // Appointment was booked (and presumably attended) by a patient.
+
+                                    List<String> pastPatientUsernames = doc.getProfile().getPastPatients();
+                                    if (!pastPatientUsernames.contains(patientUsername)) {
+                                        Log.i(LOG_TAG, "adding " + appointment.getPatientName() + " as past patient of " + appointment.getDoctorName());
+                                        doc.getProfile().getPastPatients().add(patientUsername);
+                                    } else {
+                                        Log.i(LOG_TAG, appointment.getPatientName() + " is already a past patient of " + appointment.getDoctorName());
+                                    }
+
+                                    // Remove from patient's appointment list and add to past appointment list.
+                                    Patient patient = new Patient(snapshot.getRef().getDatabase(), patientUsername);
+                                    patient.addOneTimeObserver(() -> {
+                                        Log.i(LOG_TAG,
+                                            "pruning appt from patient, with doctor: " + appointment.getDoctorName() +
+                                            ", patient: " + appointment.getPatientName() +
+                                            ", timestamp: " + appointment.getTimeStamp()
+                                        );
+                                        patient.getProfile().getAppointments().remove(appointment);
+                                        patient.getProfile().getPastAppointments().add(appointment);
+                                        patient.pushToDatabase();
+                                    });
+                                }
+
+                                Log.i(LOG_TAG,
+                                    "pruning appt from doctor, with doctor: " + appointment.getDoctorName() +
+                                    ", patient: " + appointment.getPatientName() +
+                                    ", timestamp: " + appointment.getTimeStamp()
+                                );
+                                return false;
+                            }
+
+                            // No; leave appointment in list.
+                            return true;
+
+                        })
+                        .collect(Collectors.toList())
+                    );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                Log.w(LOG_TAG, "Appointment pruning onCancelled: " + error.toException());
+            }
+
+        });
     }
 
     public void stop() {
