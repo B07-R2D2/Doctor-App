@@ -23,7 +23,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
     private DoctorHome home;
-    private static ArrayList<Patient.Profile> patientlists;
+    private static ArrayList<Patient.Profile> apptlists;
     private RecyclerView recyclerView;
 //    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctors").child(EXTRA_USERNAME).child("appointments");
 
@@ -33,7 +33,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_doctor_home_page);
 
         recyclerView = findViewById(R.id.rvdhome);
-        patientlists = new ArrayList<Patient.Profile>();
+        apptlists = new ArrayList<Appointment>();
 
         Intent intent = getIntent();
         Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), intent.getStringExtra(EXTRA_USERNAME));
@@ -46,8 +46,8 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child: snapshot.getChildren()) {
                     Appointment appt = child.getValue(Appointment.class);
-                    if(appt.getPatient() != ""){
-                        patientlists.add(new Patient.Profile());
+                    if(appt.getPatientName() != ""){
+                        apptlists.add(appt);
                     }
                 }
             }
@@ -61,7 +61,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     }
 
     public void setAdaptor(){
-        recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(patientlists);
+        recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(apptlists);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());

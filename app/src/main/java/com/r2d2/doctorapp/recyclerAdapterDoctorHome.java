@@ -14,13 +14,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdapterDoctorHome.MyViewHolder> {
 
-    private final ArrayList<Patient> patientlists;
+    private final ArrayList<Appointment> apptlists;
 
-    public recyclerAdapterDoctorHome(ArrayList<Patient> patientlists){
-        this.patientlists = patientlists;
+    public recyclerAdapterDoctorHome(ArrayList<Appointment> apptlists){
+        this.apptlists = apptlists;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -50,13 +51,14 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorHome.MyViewHolder holder, int position) {
-        String name = patientlists.get(position).getProfile().toString();
+        String name = apptlists.get(position).getPatientName;
+        Date time = new Date(apptlists.get(position).getTimeStamp());
 
-        holder.text.setText(name + "@"+"");
+        holder.text.setText(name + "@"+ time;
     }
 
     @Override
     public int getItemCount() {
-        return patientlists.size();
+        return apptlists.size();
     }
 }
