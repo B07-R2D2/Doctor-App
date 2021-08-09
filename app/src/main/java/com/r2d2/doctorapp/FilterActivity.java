@@ -89,7 +89,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         }
         // Path is set to the specialization given by specFilter
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctorsSpecial/"+ specFilter);
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
