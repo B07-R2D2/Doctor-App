@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.Date;
 
 public class Patient extends User {
 
@@ -67,8 +65,8 @@ public class Patient extends User {
     }
 
     // constructor for creating a new patient out of a profile
-    public Patient(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("Patients").child(username), username, profile);
+    public Patient(FirebaseDatabase db, Profile profile) {
+        super(db.getReference("Patients").child(profile.getUsername()), profile);
     }
 
     @NonNull
