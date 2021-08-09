@@ -17,6 +17,7 @@ import com.google.firebase.database.FirebaseDatabase;
 public class DoctorProfileActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.DoctorProfileActivity.extra_doctor_profile";
     private Button deleteButton;
+    private Button registerListButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +26,16 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Doctor.Profile doctorProfile = (Doctor.Profile) intent.getSerializableExtra(EXTRA_DOCTOR_PROFILE);
-        //Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), "filler");
+
+        registerListButton = (Button) findViewById(R.id.registerListButton);
+        registerListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("DoctorProfileActivity", "clicked past patients button");
+                Intent intent = new Intent(v.getContext(), RegisterListActivity.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         deleteButton = (Button) findViewById(R.id.doctorDeleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
