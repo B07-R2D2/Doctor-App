@@ -15,7 +15,6 @@ public class PatientSignupActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        presenter = new PatientSignupView(this);
         setContentView(R.layout.activity_patientsignup);
         presenter = new PatientSignupView(this);
     }
