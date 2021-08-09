@@ -33,6 +33,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Log.d("DoctorProfileActivity", "clicked past patients button");
                 Intent intent = new Intent(v.getContext(), RegisterListActivity.class);
+                intent.putExtra(RegisterListActivity.EXTRA_DOCTOR_PROFILE, doctorProfile);
                 v.getContext().startActivity(intent);
             }
         });

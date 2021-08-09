@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -20,13 +21,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterListActivity extends AppCompatActivity {
-
+    public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.RegisterListActivity.extra_doctor_profile";
     private ArrayList<Patient.Profile> patientList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_list);
+
+        Intent intent = getIntent();
+        Doctor.Profile doctorProfile = (Doctor.Profile) intent.getSerializableExtra(EXTRA_DOCTOR_PROFILE);
+
+        DatabaseReference ref0 = FirebaseDatabase.getInstance().getReference("Doctors");
+        //ref0.child(doctorProfile.getUsername()).child("past patients").child("patient username here").setValue(true);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Patients");
         ref.addValueEventListener(new ValueEventListener() {
