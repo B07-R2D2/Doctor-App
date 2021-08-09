@@ -13,7 +13,6 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * adapter for Recycler view
@@ -90,7 +89,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position) {
         Appointment app = timeSlotList.get(position);             // current timeslot to be binded
-        holder.timeSlotTxt.setText(app.timeSlotText());
+        holder.timeSlotTxt.setText(app.toString());
         holder.appointment = app;
     }
 

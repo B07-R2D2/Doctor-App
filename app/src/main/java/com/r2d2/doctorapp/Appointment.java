@@ -46,17 +46,20 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.Objects;
 
 public class Appointment implements Serializable {
     private String doctorName, patientName;
     private long timeStamp;
 
-    public Appointment(String doctorName, String patientName, long timeSlot) {
+    public Appointment(String doctorName, String patientName, long timeStamp) {
         this.doctorName = doctorName;
         this.patientName = patientName;
-        this.timeStamp = timeSlot;
+        this.timeStamp = timeStamp;
     }
 
     public Appointment() {
@@ -65,9 +68,13 @@ public class Appointment implements Serializable {
         this.timeStamp = -1;
     }
 
-    public String timeSlotText() {
-        Date d = new Date(timeStamp);
-        return d.getMonth() + "/" + d.getDate() + " " + d.getHours() + ":00 ~ " + (d.getHours() + 1) + ":00";
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter
+                .ofPattern("MM/dd HH:00")
+                .withZone(ZoneId.of("America/Toronto"))
+                .withLocale(Locale.getDefault());
+        return formatter.format(Instant.ofEpochSecond(timeStamp)) + " ~ " + formatter.format(Instant.ofEpochSecond(timeStamp + 60 * 60));
     }
 
     public String getDoctorName() {
