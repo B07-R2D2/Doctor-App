@@ -49,7 +49,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
     }
 
     private void showConfirmation(Doctor.Profile doctorProfile){
-        Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecialization());
+        //Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecialization());
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.confirm_delete_dialog, null);
@@ -79,7 +79,8 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void deleteDoctor(Doctor.Profile doctorProfile){
         String username = doctorProfile.getUsername();
-        String spec = doctorProfile.getSpecialization().toLowerCase();
+        //String spec = doctorProfile.getSpecialization().toLowerCase();
+        String spec = "";
         DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
         DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
 

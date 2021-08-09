@@ -1,8 +1,10 @@
 package com.r2d2.doctorapp;
 
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -10,6 +12,9 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Doctor extends User {
 
@@ -18,16 +23,17 @@ public class Doctor extends User {
         private String uni = "";
         private int doctorId;
         private String specialization = "";
+        protected ArrayList<String> specializations;
 
         public Profile() {
         }
 
-        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, String specialization) {
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, ArrayList<String> specializations) {
             super(firstName, lastName, username, password, gender, sin, appointments);
             this.bio = bio;
             this.uni = uni;
             this.doctorId = doctorId;
-            this.specialization = specialization;
+            this.specializations = specializations;
         }
 
         public String getBio() {
@@ -42,8 +48,8 @@ public class Doctor extends User {
             return doctorId;
         }
 
-        public String getSpecialization() {
-            return specialization;
+        public ArrayList<String> getSpecializations() {
+            return specializations;
         }
 
 // comment out these bc we don't need them and they cause errors (not sure if we'll use them in the future tho)
@@ -113,14 +119,17 @@ public class Doctor extends User {
     @Override
     protected void pushToDatabase() {
         super.pushToDatabase();
-        Profile profile = getProfile();;
-        Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + profile.getSpecialization() + " " + profile.getGender());
-        if (!profile.getSpecialization().equals("")) {
-            getRef().getDatabase()
-                    .getReference("DoctorsSpecial")
-                    .child(profile.getSpecialization().toLowerCase())
-                    .child(profile.getUsername())
-                    .setValue(profile);
+        Profile profile = getProfile();
+        ArrayList<String> specializations = profile.getSpecializations();
+        for (String spec : specializations) {
+            Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + spec + " " + profile.getGender());
+            if (!spec.equals("")) {
+                getRef().getDatabase()
+                        .getReference("DoctorsSpecial")
+                        .child(spec.toLowerCase())
+                        .child(profile.getUsername())
+                        .setValue(profile);
+            }
         }
     }
 
@@ -139,11 +148,12 @@ public class Doctor extends User {
         pushToDatabase();
     }
 
-    public void setSpecialization(String specialization) {
-        getProfile().specialization = specialization;
+    public void setSpecializations(ArrayList<String> specializations) {
+        getProfile().specializations = specializations;
         pushToDatabase();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public static ArrayList<Appointment> makeOneWeekOfAppointments(String doctorUsername) {
         ArrayList<Appointment> appointments = new ArrayList<>();
         Date d = new Date();
