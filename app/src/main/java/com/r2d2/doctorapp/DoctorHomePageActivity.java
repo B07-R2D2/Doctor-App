@@ -45,8 +45,8 @@ public class DoctorHomePageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child: snapshot.getChildren()) {
-                    Patient.Profile doc = child.getValue(Patient.Profile.class);
-                    if(child.child("patientName").getKey() != ""){
+                    Appointment appt = child.getValue(Appointment.class);
+                    if(appt.getPatient() != ""){
                         patientlists.add(new Patient.Profile());
                     }
                 }
