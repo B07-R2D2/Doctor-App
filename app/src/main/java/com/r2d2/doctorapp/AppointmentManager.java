@@ -5,7 +5,6 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -71,9 +70,9 @@ public class AppointmentManager {
             }
         }
         // set appointment of doctor & patient to newDoctorList & newPatientList
-        Doctor newDoc = new Doctor(db, doctor.getUsername(), doctor);
+        Doctor newDoc = new Doctor(db, doctor);
         newDoc.setAppointments(newDoctorList);
-        Patient newPat = new Patient(db, patient.getUsername(), patient);
+        Patient newPat = new Patient(db, patient);
         newPat.setAppointments(newPatientList);
     }
 
@@ -107,9 +106,9 @@ public class AppointmentManager {
             }
 
             // set appointment of doctor & patient to newDoctorList & newPatientList
-            Doctor newDoc = new Doctor(db, doctor.getUsername(), doctor);
+            Doctor newDoc = new Doctor(db, doctor);
             newDoc.setAppointments(newDoctorList);
-            Patient newPat = new Patient(db, patient.getUsername(), patient);
+            Patient newPat = new Patient(db, patient);
             newPat.setAppointments(newPatientList);
         } else {
             Log.i("Appointment", "Either patient or doctor doesn't have this appointment");

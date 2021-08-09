@@ -4,10 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-
-import java.util.Date;
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.Date;
 import java.util.List;
 
 public class Patient extends User {
@@ -26,6 +24,7 @@ public class Patient extends User {
         //private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
         //private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
         //private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
+        private List<String> doctorHistory = new ArrayList<>();
 
         public String getMedicalCondition() {
             return medicalCondition;
@@ -42,6 +41,10 @@ public class Patient extends User {
         // initialize appointments
         public Profile() {
             super.appointments = new ArrayList<>();
+        }
+
+        public List<String> getDoctorHistory() {
+            return doctorHistory;
         }
 
     }
@@ -70,8 +73,8 @@ public class Patient extends User {
     }
 
     // constructor for creating a new patient out of a profile
-    public Patient(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("patients").child(username), username, profile);
+    public Patient(FirebaseDatabase db, Profile profile) {
+        super(db.getReference("Patients").child(profile.getUsername()), profile);
     }
 
 //    // constructor for creating a new patient out of a profile
@@ -123,4 +126,10 @@ public class Patient extends User {
         getProfile().getFutureAppointment().remove(p);
     }
     */
+    public void setDoctorHistory(List<String> doctorHistory) {
+        getProfile().doctorHistory = doctorHistory;
+        pushToDatabase();
+    }
+
 }
+

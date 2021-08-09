@@ -27,6 +27,19 @@ public abstract class User {
         protected ArrayList<Appointment> appointments;
         // appointments[56]: 7 days a week, 8 timeslots a day. (9 ~ 17)
 
+        public Profile() {
+        }
+
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments) {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.username = username;
+            this.password = password;
+            this.gender = gender;
+            this.sin = sin;
+            this.appointments = appointments;
+        }
+
         public ArrayList<Appointment> getAppointments() {
             return appointments;
         }
@@ -80,10 +93,15 @@ public abstract class User {
     }
 
     // this is for creating a User (Doctor/patient) from a profile
-    public User(DatabaseReference ref, String username, Profile profile) {
+    /**
+     * Construct a User with profile {@code profile}.
+     * @param ref database reference to write user data to, and then track
+     * @param profile user data to write
+     */
+    public User(DatabaseReference ref, Profile profile) {
         this.ref = ref;
         this.profile = profile;
-        this.profile.username = username;
+        pushToDatabase();
         listenForValueEvents();
     }
 
