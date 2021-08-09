@@ -181,7 +181,6 @@ public final class PoorMansBackend {
             lockRef.child(DB_KEY_CHECK_IN).setValue(new Date().getTime());
             ownedByUs = true;
             onAcquired.run();
-            whileOwned.run();
         }
 
         private void checkIn() {
