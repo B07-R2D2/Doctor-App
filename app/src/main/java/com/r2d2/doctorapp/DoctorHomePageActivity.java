@@ -34,7 +34,6 @@ public class DoctorHomePageActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
     
-//    private DoctorHome home;
 //    private static ArrayList<Patient.Profile> apptlists;
 
     // private DoctorHome home;
@@ -110,7 +109,6 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     }
 
     public void viewPatientInfo(View view){
-//        home.findPatientInfo();
         Intent intent = new Intent(this, PatientProfileActivity.class);
         startActivity(intent);
     }

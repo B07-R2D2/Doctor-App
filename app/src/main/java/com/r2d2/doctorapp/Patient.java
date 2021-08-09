@@ -74,10 +74,10 @@ public class Patient extends User {
         super(db.getReference("patients").child(username), username, profile);
     }
 
-    // constructor for creating a new patient out of a profile
-    public Patient(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("Patients").child(username), username, profile);
-    }
+//    // constructor for creating a new patient out of a profile
+//    public Patient(FirebaseDatabase db, String username, Profile profile) {
+//        super(db.getReference("Patients").child(username), username, profile);
+//    }
 
     @NonNull
     @Override
