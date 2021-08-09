@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -23,14 +24,12 @@ import java.util.List;
 
 public class FilterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    public static final String EXTRA_PATIENT_PROFILE = "com.r2d2.DoctorApp.FilterActivity.extra_patient_profile";
     private Spinner genderSpinner;
     private TextView nbrResults;
     private ArrayList<Doctor.Profile> filteredResults = new ArrayList<>();
     private String[] genders = {"Select a gender...", "Any gender", "Male", "Female"};  // assuming we only allow male and female
     private String specFilter;
     private String genderFilter;
-    private Patient.Profile currentPatient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,13 +38,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
         nbrResults = findViewById(R.id.resultsCountText);
 
-        // Initializing currentPatient so we can push to ExActivity later
-        Intent intent = getIntent();
-        currentPatient = (Patient.Profile) intent.getSerializableExtra(EXTRA_PATIENT_PROFILE);
-
-
         // Spinner (drop down menu) for selecting a specializaiton
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctorsSpecial");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -88,8 +82,8 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             return;
         }
         // Path is set to the specialization given by specFilter
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctorsSpecial/"+ specFilter);
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial/"+ specFilter);
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 // Iterates through each doctor and adds them to filteredResults if gender matches genderFilter
@@ -114,7 +108,17 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.doctorRecycler);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults, specFilter, currentPatient);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults, doctorProfile -> {
+            Toast.makeText(this, doctorProfile.getFirstName() + " " + doctorProfile.getLastName(), Toast.LENGTH_SHORT).show();
+
+            Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), doctorProfile.getUsername());
+            doctor.addOneTimeObserver(() -> {
+                // Go to the next activity upon selecting a doctor
+                Intent intent = new Intent(this, ExActivity.class);
+                intent.putExtra(ExActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
+                startActivity(intent);
+            });
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
