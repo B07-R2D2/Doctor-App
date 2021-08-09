@@ -92,7 +92,8 @@ public class Doctor extends User {
     // constructor for creating a new doctor out of a profile
     @RequiresApi(api = Build.VERSION_CODES.O)
     public Doctor(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("doctors").child(username), username, profile);
+
+        super(db.getReference("Doctors").child(username), username, profile);
 
         addOneTimeObserver(() -> {
             if (getProfile().appointments != null) return;

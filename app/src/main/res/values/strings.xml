@@ -5,12 +5,15 @@
     <string name="activity_label_patient_sign_up">Sign up as Patient (1/2)</string>
     <string name="activity_label_patient_sign_up_2">Sign up as Patient (2/2)</string>
     <string name="activity_label_doctor_home">Home</string>
+    <string name="activity_label_doctor_profile">Doctor Profile</string>
+    <string name="activity_label_doctor_calendar">Schedule</string>
     <string name="activity_label_filter">Find New Specialist</string>
     <string name="activity_label_login">Log in</string>
     <string name="activity_label_availability">Availability</string>
     <string name="activity_label_patient_home">Home</string>
     <string name="activity_label_patient_profile">Medical Profile</string>
     <string name="activity_label_doctor_history">Specialist History</string>
+    <string name="activity_label_register_list">Past Patients</string>
     <string name="doctor_date">Monday 1st, August</string>
     <string name="book">Book</string>
     <string name="Booked">Booked</string>

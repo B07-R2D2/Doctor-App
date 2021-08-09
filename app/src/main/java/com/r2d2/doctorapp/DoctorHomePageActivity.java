@@ -1,6 +1,8 @@
 package com.r2d2.doctorapp;
 
 import androidx.annotation.NonNull;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +11,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,6 +33,7 @@ import java.util.ArrayList;
 public class DoctorHomePageActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
+    
 //    private DoctorHome home;
 //    private static ArrayList<Patient.Profile> apptlists;
 
@@ -31,6 +43,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     private ArrayList<Patient.Profile> ppList;
     private RecyclerView recyclerView;
 //    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctors").child(EXTRA_USERNAME).child("appointments");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,4 +114,5 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         Intent intent = new Intent(this, PatientProfileActivity.class);
         startActivity(intent);
     }
+
 }

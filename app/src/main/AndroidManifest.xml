@@ -33,10 +33,24 @@
             android:parentActivityName=".PatientSignupActivity" />
 
         <!-- Doctors -->
-        <activity android:name=".DoctorHomePageActivity"
+        <activity
+            android:name=".DoctorHomePageActivity"
             android:label="@string/activity_label_doctor_home"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
+        <activity
+            android:name=".DoctorProfileActivity"
+            android:label="@string/activity_label_doctor_profile"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorHomePageActivity" />
+        <activity
+            android:name=".DoctorCalendarActivity"
+            android:label="@string/activity_label_doctor_calendar" />
+        <activity
+            android:name=".RegisterListActivity"
+            android:label="@string/activity_label_register_list"
+            android:launchMode="singleTop"
+            android:parentActivityName=".DoctorProfileActivity" />
 
         <!-- Doctor search -->
         <activity
@@ -48,13 +62,14 @@
             android:name=".ExActivity"
             android:launchMode="singleTop"
             android:parentActivityName=".FilterActivity" />
-
+    
         <!-- Log in -->
         <activity
             android:name=".LoginActivity"
             android:label="@string/activity_label_login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -81,7 +96,6 @@
             android:label="@string/activity_label_doctor_history"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientProfileActivity" />
-
     </application>
 
 </manifest>
