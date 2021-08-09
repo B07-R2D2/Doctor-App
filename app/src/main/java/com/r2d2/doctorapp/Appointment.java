@@ -52,7 +52,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Objects;
 
-public class Appointment implements Serializable {
+public class Appointment implements Serializable, Comparable<Appointment> {
     private String doctorName, patientName;
     private long timeStamp;
 
@@ -116,5 +116,12 @@ public class Appointment implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(doctorName, patientName, timeStamp);
+    }
+
+    @Override
+    public int compareTo(Appointment appointment) {
+        if (timeStamp < appointment.timeStamp) return -1;
+        if (timeStamp == appointment.timeStamp) return 0;
+        return 1;
     }
 }

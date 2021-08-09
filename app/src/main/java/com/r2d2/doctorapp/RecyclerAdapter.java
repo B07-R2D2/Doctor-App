@@ -13,10 +13,11 @@ import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * adapter for Recycler view
- * NOTE: REQUIRES DateTimeInterval to be Comparable
  */
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerViewHolder> {
@@ -35,7 +36,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         this.patient = patient;
 
         this.timeSlotList = new ArrayList<>();
-        for (Appointment a : doctor.getAppointments()) {
+        List<Appointment> appointments = doctor.getAppointments();
+        Collections.sort(appointments);
+        for (Appointment a : appointments) {
             if (a.getPatientName().equals("")) {
                 this.timeSlotList.add(a);
             }
