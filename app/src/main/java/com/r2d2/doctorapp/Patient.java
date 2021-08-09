@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 public class Patient extends User {
 
     public static class Profile extends User.Profile {
@@ -20,6 +22,11 @@ public class Patient extends User {
 
         public String getMedicalCondition() {
             return medicalCondition;
+        }
+
+        // initialize appointments
+        public Profile() {
+            super.appointments = new ArrayList<>();
         }
     }
 
@@ -43,7 +50,12 @@ public class Patient extends User {
      * @param username username of patient (may or may not exist in database)
      */
     public Patient(FirebaseDatabase db, String username) {
-        super(db.getReference("Patients").child(username), username);
+        super(db.getReference("patients").child(username), username);
+    }
+
+    // constructor for creating a new patient out of a profile
+    public Patient(FirebaseDatabase db, String username, Profile profile) {
+        super(db.getReference("patients").child(username), username, profile);
     }
 
     @NonNull
@@ -58,4 +70,3 @@ public class Patient extends User {
     }
 
 }
-

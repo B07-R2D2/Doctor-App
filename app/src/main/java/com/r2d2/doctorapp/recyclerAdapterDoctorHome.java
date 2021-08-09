@@ -10,35 +10,34 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-import java.util.Date;
 
 public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdapterDoctorHome.MyViewHolder> {
 
     private final ArrayList<Appointment> apptlists;
+    private ArrayList<Patient.Profile> ppList;
 
-    public recyclerAdapterDoctorHome(ArrayList<Appointment> apptlists){
+    public recyclerAdapterDoctorHome(ArrayList<Appointment> apptlists, ArrayList<Patient.Profile> ppList){
         this.apptlists = apptlists;
+        this.ppList = ppList;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView text;
-        private Button button;
+        private TextView text;      // patient name, time
+        private Button button;      // button that says "patient"
+        Patient.Profile patient;
 
         public MyViewHolder(final View view){
             super(view);
             text = view.findViewById(R.id.textView14);
             button = view.findViewById(R.id.button2);
 
-//            button.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
+            // when clicked send to patient profile page
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
+                intent.putExtra("PatientProfile", patient);
+                v.getContext().startActivity(intent);
+            });
         }
     }
 
@@ -51,14 +50,17 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorHome.MyViewHolder holder, int position) {
-        String name = apptlists.get(position).getPatientName;
-        Date time = new Date(apptlists.get(position).getTimeStamp());
+        String name = apptlists.get(position).getPatientName();
+        String time = apptlists.get(position).toString();   // appointment.toString() returns the date and time
+        holder.text.setText(name + " @ "+ time);
+        holder.patient = ppList.get(position);
 
-        holder.text.setText(name + "@"+ time;
     }
 
     @Override
     public int getItemCount() {
         return apptlists.size();
     }
+
 }
+

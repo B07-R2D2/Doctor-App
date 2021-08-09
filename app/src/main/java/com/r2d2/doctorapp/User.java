@@ -24,6 +24,12 @@ public abstract class User {
         private String password = "";
         private String gender = "Other";
         private int sin;
+        protected ArrayList<Appointment> appointments;
+        // appointments[56]: 7 days a week, 8 timeslots a day. (9 ~ 17)
+
+        public ArrayList<Appointment> getAppointments() {
+            return appointments;
+        }
 
         public String getFirstName() {
             return firstName;
@@ -70,6 +76,18 @@ public abstract class User {
         this.ref = ref;
         this.profile = newProfile();
         this.profile.username = username;
+        listenForValueEvents();
+    }
+
+    // this is for creating a User (Doctor/patient) from a profile
+    public User(DatabaseReference ref, String username, Profile profile) {
+        this.ref = ref;
+        this.profile = profile;
+        this.profile.username = username;
+        listenForValueEvents();
+    }
+
+    private void listenForValueEvents() {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -89,7 +107,7 @@ public abstract class User {
         });
     }
 
-    private List<Runnable> observers = new ArrayList<>();
+    private final List<Runnable> observers = new ArrayList<>();
 
     /**
      * Observe this object to perform an action when new data arrives.
@@ -104,9 +122,12 @@ public abstract class User {
      * @param action function to run exactly once, when new data arrives
      */
     public void addOneTimeObserver(Runnable action) {
-        observers.add(() -> {
-            removeObserver(action);
-            action.run();
+        observers.add(new Runnable() {
+            @Override
+            public void run() {
+                removeObserver(this);
+                action.run();
+            }
         });
     }
 
@@ -173,9 +194,15 @@ public abstract class User {
         profile.gender = gender;
         pushToDatabase();
     }
-    
+
     public void setPassword(String password) {
         profile.password = password;
         pushToDatabase();
     }
+
+    public void setAppointments(ArrayList<Appointment> appointments) {
+        getProfile().appointments = appointments;
+        pushToDatabase();
+    }
+
 }
