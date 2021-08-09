@@ -11,9 +11,6 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-
 // Note:  AvailablilitySchedule will need to implement Serializable (to be passed into this Activity)
 //        DateTimeInterval will need to implement Comparable<DateTimeInterval> (hashset -> ArrayList -> sort and display)
 public class AvailabilityActivity extends AppCompatActivity {
@@ -41,6 +38,8 @@ public class AvailabilityActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void setAdapter() {
+        if (doctor.getAppointments() == null) return;
+
         // the adapter takes in a schedule and displays the contents
         RecyclerAdapter adapter = new RecyclerAdapter(doctor, patient);
 

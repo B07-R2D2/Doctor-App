@@ -49,10 +49,8 @@ public final class PoorMansBackend {
 
                     // ------ For register list ------
                     long currentTime = Instant.now().getEpochSecond();
-                    // I'm assuming doctors is just temporary, so this might need changes later
-                    DatabaseReference appRef = FirebaseDatabase.getInstance().getReference("doctors");
                     DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("Doctors");
-                    appRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    docRef.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
                             for (DataSnapshot docChild : snapshot.getChildren()){
