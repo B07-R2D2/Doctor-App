@@ -76,6 +76,18 @@ public abstract class User {
         this.ref = ref;
         this.profile = newProfile();
         this.profile.username = username;
+        listenForValueEvents();
+    }
+
+    // this is for creating a User (Doctor/patient) from a profile
+    public User(DatabaseReference ref, String username, Profile profile) {
+        this.ref = ref;
+        this.profile = profile;
+        this.profile.username = username;
+        listenForValueEvents();
+    }
+
+    private void listenForValueEvents() {
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,13 +105,6 @@ public abstract class User {
                 Log.w("User onCancelled", error.toException());
             }
         });
-    }
-
-    // this is for creating a User (Doctor/patient) from a profile
-    public User(DatabaseReference ref, String username, Profile profile) {
-        this.ref = ref;
-        this.profile = profile;
-        this.profile.username = username;
     }
 
     private final List<Runnable> observers = new ArrayList<>();
