@@ -55,9 +55,10 @@ public final class PoorMansBackend {
                     appRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
-                            for (DataSnapshot child : snapshot.getChildren()){
-                                for (DataSnapshot child2 : child.child("appointments").getChildren()){
-                                    Appointment app = child2.getValue(Appointment.class);
+                            for (DataSnapshot docChild : snapshot.getChildren()){
+                                for (DataSnapshot appChild : docChild.child("appointments").getChildren()){
+                                    Appointment app = appChild.getValue(Appointment.class);
+                                    // If there is a patient and the current time has surpassed the appointment time, add to past patients
                                     if (!(app.getPatientName().equals("")) && currentTime > app.getTimeStamp()){
                                         Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
                                         // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?

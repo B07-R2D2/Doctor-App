@@ -32,22 +32,29 @@ public class RegisterListActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Doctor.Profile doctorProfile = (Doctor.Profile) intent.getSerializableExtra(EXTRA_DOCTOR_PROFILE);
 
-        DatabaseReference ref0 = FirebaseDatabase.getInstance().getReference("Doctors");
-
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Patients");
+        DatabaseReference patRef = FirebaseDatabase.getInstance().getReference("Patients");
+        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors").child(doctorProfile.getUsername()).child("past patients");
         ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                // Iterates over the doctor's past patients
                 for (DataSnapshot child : snapshot.getChildren()){
-                    Patient.Profile pat = child.getValue(Patient.Profile.class);
-                    patientList.add(pat);
+                    // Keys are the patient usernames
+                    String patientUsername = child.getKey();
+                    // probably not the best way to do this, will figure out later
+                    // also not even sure if it works
+                    Patient patient = new Patient(FirebaseDatabase.getInstance(), patientUsername);
+                    patient.addOneTimeObserver(()-> {
+                        patientList.add(patient.getProfile());
+                        initRecyclerView();
+                    });
                 }
-                initRecyclerView();
+                //initRecyclerView();
             }
 
             @Override
             public void onCancelled(DatabaseError error) {
-                Log.w("RLActivity onCancelled", error.toException());
+
             }
         });
     }
