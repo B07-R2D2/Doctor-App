@@ -1,9 +1,6 @@
 package com.r2d2.doctorapp;
 
-import android.os.Build;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,25 +16,6 @@ public class Doctor extends User {
         private String uni = "";
         private int doctorId;
         private String specialization = "";
-
-        @RequiresApi(api = Build.VERSION_CODES.O)
-        public Profile() {
-            super.appointments = new ArrayList<Appointment>();
-            String name = super.getUsername();
-            Date d = new Date();
-            d.setHours(9);
-            d.setMinutes(0);
-            d.setSeconds(0);
-            Instant ori = d.toInstant();
-            for (int i = 0; i < 7; i++) {                           // 7 days in a week
-                for (int j = 0; j < 8; j++) {                       // 8 timeslots a day
-                    Instant cur = ori.plus(i, ChronoUnit.DAYS);
-                    cur = cur.plus(j, ChronoUnit.HOURS);
-                    Appointment app = new Appointment(name, "", cur.getEpochSecond());
-                    super.appointments.add(app);
-                }
-            }
-        }
 
         public String getBio() {
             return bio;
@@ -90,7 +68,6 @@ public class Doctor extends User {
         return Profile.class;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected Profile newProfile() {
         return new Profile();
@@ -106,12 +83,36 @@ public class Doctor extends User {
      * @param username username of doctor (may or may not exist in database)
      */
     public Doctor(FirebaseDatabase db, String username) {
-        super(db.getReference("doctors").child(username), username);
+        this(db, username, new Profile());
     }
 
     // constructor for creating a new doctor out of a profile
     public Doctor(FirebaseDatabase db, String username, Profile profile) {
         super(db.getReference("doctors").child(username), username, profile);
+
+        addOneTimeObserver(() -> {
+            if (getProfile().appointments != null) return;
+
+            ArrayList<Appointment> appointments = new ArrayList<>();
+            getProfile().appointments = appointments;
+            String name = getProfile().getUsername();
+
+            Date d = new Date();
+            d.setHours(9);
+            d.setMinutes(0);
+            d.setSeconds(0);
+            Instant ori = d.toInstant();
+            for (int i = 0; i < 7; i++) {                           // 7 days in a week
+                for (int j = 0; j < 8; j++) {                       // 8 timeslots a day
+                    Instant cur = ori.plus(i, ChronoUnit.DAYS);
+                    cur = cur.plus(j, ChronoUnit.HOURS);
+                    Appointment app = new Appointment(name, "", cur.getEpochSecond());
+                    appointments.add(app);
+                }
+            }
+
+            pushToDatabase();
+        });
     }
 
     @NonNull
