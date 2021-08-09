@@ -1,13 +1,13 @@
 package com.r2d2.doctorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class ExActivity extends AppCompatActivity {
+
+    public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.ExActivity.extra_doctor_profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

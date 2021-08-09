@@ -1,11 +1,13 @@
 package com.r2d2.doctorapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -106,7 +108,17 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.doctorRecycler);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults, doctorProfile -> {
+            Toast.makeText(this, doctorProfile.getFirstName() + " " + doctorProfile.getLastName(), Toast.LENGTH_SHORT).show();
+
+            Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), doctorProfile.getUsername());
+            doctor.addOneTimeObserver(() -> {
+                // Go to the next activity upon selecting a doctor
+                Intent intent = new Intent(this, ExActivity.class);
+                intent.putExtra(ExActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
+                startActivity(intent);
+            });
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

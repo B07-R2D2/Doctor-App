@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Patient extends User {
 
     public static class Profile extends User.Profile {
@@ -17,9 +20,14 @@ public class Patient extends User {
          */
 
         private String medicalCondition = "";
+        private List<String> doctorHistory = new ArrayList<>();
 
         public String getMedicalCondition() {
             return medicalCondition;
+        }
+
+        public List<String> getDoctorHistory() {
+            return doctorHistory;
         }
     }
 
@@ -54,6 +62,11 @@ public class Patient extends User {
 
     public void setMedicalCondition(String med) {
         getProfile().medicalCondition = med;
+        pushToDatabase();
+    }
+
+    public void setDoctorHistory(List<String> doctorHistory) {
+        getProfile().doctorHistory = doctorHistory;
         pushToDatabase();
     }
 
