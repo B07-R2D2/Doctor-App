@@ -33,7 +33,6 @@ public class RegisterListActivity extends AppCompatActivity {
         Doctor.Profile doctorProfile = (Doctor.Profile) intent.getSerializableExtra(EXTRA_DOCTOR_PROFILE);
 
         DatabaseReference ref0 = FirebaseDatabase.getInstance().getReference("Doctors");
-        //ref0.child(doctorProfile.getUsername()).child("past patients").child("patient username here").setValue(true);
 
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Patients");
         ref.addValueEventListener(new ValueEventListener() {

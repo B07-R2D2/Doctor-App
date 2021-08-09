@@ -1,6 +1,7 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -9,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.DataSnapshot;
@@ -24,10 +26,15 @@ public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
     private LoginView presenter;
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        //This is the app entry point.
+        //PoorMansBackend.getInstance().start();
+
         presenter = new LoginView(this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -59,5 +66,12 @@ public class LoginActivity extends AppCompatActivity {
         // Do something in response to button
         presenter.sendDoctorSignup();
     }
+
+//    @Override
+//    protected void onDestroy() {
+//        // This is the app exit point.
+//        PoorMansBackend.getInstance().stop();
+//        super.onDestroy();
+//    }
 
 }
