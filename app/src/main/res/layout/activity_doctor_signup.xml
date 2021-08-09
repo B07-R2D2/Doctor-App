@@ -4,17 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="100dp"
     tools:context=".DoctorSignupActivity">
 
     <ScrollView
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
 
 
         <LinearLayout
@@ -108,8 +106,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Enter First Name"
@@ -130,8 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Enter Last Name"
@@ -142,9 +140,9 @@
                 android:layout_width="185dp"
                 android:layout_height="33dp"
                 android:layout_gravity="center"
+                android:layout_marginTop="16dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:layout_marginTop="16dp"
                 android:text="Gender"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
@@ -152,8 +150,8 @@
                 android:id="@+id/editTextTextPersonName9"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
                 android:layout_gravity="center"
+                android:layout_marginBottom="16dp"
                 android:ems="10"
                 android:gravity="center"
                 android:hint="Enter Gender"
@@ -162,11 +160,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:orientation="horizontal"
+                android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginRight="16dp"
-                android:layout_marginLeft="16dp">
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal">
 
 
                 <Button
@@ -174,9 +172,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
                     android:onClick="backButton"
                     android:text="Back"
                     app:backgroundTint="#00BCD4" />
@@ -186,9 +184,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:layout_marginRight="16dp"
                     android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_weight="1"
                     android:onClick="sendMessage"
                     android:text="Continue"
                     app:backgroundTint="#00BCD4" />

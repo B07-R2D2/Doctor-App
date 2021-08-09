@@ -1,10 +1,10 @@
 package com.r2d2.doctorapp;
 
-import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class PatientSignupActivity extends AppCompatActivity {
     public static final String setUSERNAME = "com.example.DoctorApp.SETUSERMESSAGE";
@@ -17,6 +17,7 @@ public class PatientSignupActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         presenter = new PatientSignupView(this);
         setContentView(R.layout.activity_patientsignup);
+        presenter = new PatientSignupView(this);
     }
     public void sendInfo(View view) {
         // sends username,password, first name and last name to the next activity

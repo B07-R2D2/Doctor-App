@@ -39,7 +39,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String dateStuff = send4.getText().toString().trim();
         int Sin = 0;
         try {
-           Sin = Integer.parseInt(sinString);
+            Sin = Integer.parseInt(sinString);
         }
         catch (NumberFormatException error)
         {

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Date;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,10 +29,18 @@ public class Patient extends User {
         public String getMedicalCondition() {
             return medicalCondition;
         }
+
         public Date getDateOfBirth() {return DateOfBirth;}
         //public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
         //public LinkedList<Doctor> getDoctorList() {return DocList;}
         //public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
+
+
+        // initialize appointments
+        public Profile() {
+            super.appointments = new ArrayList<>();
+        }
+
     }
 
     @Override
@@ -55,6 +64,11 @@ public class Patient extends User {
      */
     public Patient(FirebaseDatabase db, String username) {
         super(db.getReference("Patients").child(username), username);
+    }
+
+    // constructor for creating a new patient out of a profile
+    public Patient(FirebaseDatabase db, String username, Profile profile) {
+        super(db.getReference("Patients").child(username), username, profile);
     }
 
     @NonNull
@@ -102,4 +116,3 @@ public class Patient extends User {
     }
     */
 }
-

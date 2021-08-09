@@ -18,10 +18,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
 
     private ArrayList<Doctor.Profile> doctors;
+    private String specFilter;
+    private Patient.Profile currentPatient;
     private Context context;
 
-    public RecyclerViewAdapter(Context context, ArrayList<Doctor.Profile> doctors) {
+    public RecyclerViewAdapter(Context context, ArrayList<Doctor.Profile> doctors, String specFilter, Patient.Profile currentPatient) {
         this.doctors = doctors;
+        this.specFilter = specFilter;
+        this.currentPatient = currentPatient;
         this.context = context;
     }
 
@@ -46,8 +50,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 Toast.makeText(context, formatDoctorName(doctor), Toast.LENGTH_SHORT).show();
 
                 // Go to the next activity upon selecting a doctor
-                Intent intent = new Intent(v.getContext(), ExActivity.class);
-                //intent.putExtra("test", (Parcelable) doctors.get(position));
+                Intent intent = new Intent(v.getContext(), AvailabilityActivity.class);
+                intent.putExtra(AvailabilityActivity.EXTRA_DOCTOR_PROFILE, doctor);
+                intent.putExtra(AvailabilityActivity.EXTRA_PATIENT_PROFILE, currentPatient);
+                // intent.putExtra(ExActivity.EXTRA_SPECFILTER, specFilter);
                 v.getContext().startActivity(intent);
             }
         });

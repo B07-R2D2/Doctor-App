@@ -14,7 +14,7 @@ public class PatientHome {
 
     public void goToFindSpecialist() {
         Intent intent = new Intent(view, FilterActivity.class);
-        // TODO: Push patient profile or similar as extra
+        intent.putExtra(FilterActivity.EXTRA_PATIENT_PROFILE, patient.getProfile());
         view.startActivity(intent);
     }
 
