@@ -1,8 +1,10 @@
 package com.r2d2.doctorapp;
 
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -10,6 +12,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.time.Instant;
 import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -29,6 +34,7 @@ public final class PoorMansBackend {
     private final UUID ourID = UUID.randomUUID();
     private final Timer timer = new Timer();
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void start() {
         if (lock == null) {
             Log.i(LOG_TAG, "Start");
@@ -40,6 +46,33 @@ public final class PoorMansBackend {
                     Log.i(LOG_TAG, "Released maintenance lock");
                 }, () -> {
                     Log.i(LOG_TAG, "Running maintenance pass");
+
+                    // ------ For register list ------
+                    long currentTime = Instant.now().getEpochSecond();
+                    DatabaseReference docRef = FirebaseDatabase.getInstance().getReference("Doctors");
+                    docRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                            for (DataSnapshot docChild : snapshot.getChildren()){
+                                for (DataSnapshot appChild : docChild.child("appointments").getChildren()){
+                                    Appointment app = appChild.getValue(Appointment.class);
+                                    // If there is a patient and the current time has surpassed the appointment time, add to past patients
+                                    if (!(app.getPatientName().equals("")) && currentTime > app.getTimeStamp()){
+                                        Log.i(LOG_TAG, "adding " + app.getPatientName() + " to " + app.getDoctorName() + " past patients");
+                                        // i think this keeps trying to add it to past patients even when its already in the list, so maybe change this?
+                                        docRef.child(app.getDoctorName()).child("past patients").child(app.getPatientName()).setValue(true);
+                                        appChild.getRef().removeValue();
+                                    }
+                                }
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull @NotNull DatabaseError error) {
+
+                        }
+                    });
+                    
                 }
             );
             lock.start();

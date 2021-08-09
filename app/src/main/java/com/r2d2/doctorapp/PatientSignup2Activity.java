@@ -35,7 +35,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String sinString = send3.getText().toString().trim();
         int SIN = 0;
         try {
-           SIN = Integer.parseInt(sinString);
+            SIN = Integer.parseInt(sinString);
         }
         catch (NumberFormatException error)
         {

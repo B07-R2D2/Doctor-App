@@ -18,7 +18,7 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // This is the app entry point.
+        //This is the app entry point.
         PoorMansBackend.getInstance().start();
 
         presenter = new LoginView(this);
