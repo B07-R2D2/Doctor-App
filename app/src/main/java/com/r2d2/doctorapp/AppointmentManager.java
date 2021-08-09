@@ -94,13 +94,25 @@ public class AppointmentManager {
         ArrayList<Appointment> newPatientList = new ArrayList<>(patient.getAppointments());
         if (newPatientList.contains(appointment) && newDoctorList.contains(appointment)) {
             newPatientList.remove(appointment);
-            newDoctorList.remove(appointment);
+            for (Appointment a: newDoctorList) {
+                if (a.getTimeStamp() == appointment.getTimeStamp()) {
+                    if (a.getPatientName().equals("")) {
+                        Log.i("Appointment", "Appointment already removed");
+                        return;
+                    }
+
+                    a.setPatientName("");
+                    break;
+                }
+            }
 
             // set appointment of doctor & patient to newDoctorList & newPatientList
             Doctor newDoc = new Doctor(db, doctor.getUsername(), doctor);
             newDoc.setAppointments(newDoctorList);
             Patient newPat = new Patient(db, patient.getUsername(), patient);
             newPat.setAppointments(newPatientList);
+        } else {
+            Log.i("Appointment", "Either patient or doctor doesn't have this appointment");
         }
     }
 }

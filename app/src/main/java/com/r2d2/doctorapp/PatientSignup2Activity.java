@@ -19,6 +19,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_signup2);
+        presenter = new PatientSignup2View(this);
     }
 
     public void signup(View view) {
@@ -34,7 +35,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         String sinString = send3.getText().toString().trim();
         int SIN = 0;
         try {
-           SIN = Integer.parseInt(sinString);
+            SIN = Integer.parseInt(sinString);
         }
         catch (NumberFormatException error)
         {
