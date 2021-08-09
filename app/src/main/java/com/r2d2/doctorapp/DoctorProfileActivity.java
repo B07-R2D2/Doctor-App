@@ -47,7 +47,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         docBio = findViewById(R.id.doctorProfileBio);
         docName.setText(doctorProfile.getFirstName() + " " + doctorProfile.getLastName());
         docGender.setText(doctorProfile.getGender());
-        docSpec.setText(doctorProfile.getSpecialization());
+        docSpec.setText(doctorProfile.getSpecializations().toString());
         docBio.setText(doctorProfile.getBio());
 
         // Getting past patients from database and initializing the RecyclerView
@@ -87,7 +87,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
     }
 
     private void showConfirmation(Doctor.Profile doctorProfile){
-        //Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecialization());
+        Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecializations().toString());
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.confirm_delete_dialog, null);
@@ -117,14 +117,17 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void deleteDoctor(Doctor.Profile doctorProfile){
         String username = doctorProfile.getUsername();
-        //String spec = doctorProfile.getSpecialization().toLowerCase();
-        String spec = "";
-        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
-        DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
+        ArrayList<String> specializations = doctorProfile.getSpecializations();
 
-        // Removing from database
+        // Remove doctor from Doctors
+        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
         loginRef.removeValue();
-        specRef.removeValue();
+
+        // Remove doctor from DoctorsSpecial
+        for (String spec : specializations) {
+            DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
+            specRef.removeValue();
+        }
 
         Toast.makeText(this, "Deleting " + username, Toast.LENGTH_SHORT).show();
 
