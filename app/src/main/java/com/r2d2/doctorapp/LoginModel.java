@@ -1,8 +1,6 @@
 package com.r2d2.doctorapp;
 
-import android.content.Intent;
 import android.util.Log;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

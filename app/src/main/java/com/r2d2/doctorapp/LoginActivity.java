@@ -12,7 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    private LoginPresenter presenter;
+    public LoginPresenter presenter;
+    public LoginModel m;
 
     public void displayMessage()
     {
@@ -27,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //This is the app entry point.
         //PoorMansBackend.getInstance().start();
-        LoginModel m = new LoginModel();
+        m = new LoginModel();
         presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -41,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    //static adds ValueEvent Listener Automatically
     public void checkLogin(View view) {
         // Do something in response to button
         EditText send = (EditText) findViewById(R.id.EnterUsername);
