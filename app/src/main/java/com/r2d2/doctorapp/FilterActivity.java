@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -42,7 +43,6 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
         // Initializing currentPatient so we can push to ExActivity later
         Intent intent = getIntent();
         currentPatient = (Patient.Profile) intent.getSerializableExtra(EXTRA_PATIENT_PROFILE);
-
 
         // Spinner (drop down menu) for selecting a specializaiton
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference("DoctorsSpecial");
@@ -114,7 +114,19 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.doctorRecycler);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults, specFilter, currentPatient);
+        RecyclerViewAdapter adapter = new RecyclerViewAdapter(this, filteredResults, doctorProfile -> {
+            Toast.makeText(this, doctorProfile.getFirstName() + " " + doctorProfile.getLastName(), Toast.LENGTH_SHORT).show();
+
+            Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), doctorProfile.getUsername());
+            doctor.addOneTimeObserver(() -> {
+                // Go to the next activity upon selecting a doctor
+                Intent intent = new Intent(this, AvailabilityActivity.class);
+                intent.putExtra(AvailabilityActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
+                intent.putExtra(AvailabilityActivity.EXTRA_PATIENT_PROFILE, currentPatient);
+                // intent.putExtra(ExActivity.EXTRA_SPECFILTER, specFilter);
+                startActivity(intent);
+            });
+        });
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

@@ -6,21 +6,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 public class Patient extends User {
 
     public static class Profile extends User.Profile {
-        /*
-        private String firstName;
-        private String lastName;
-        private String userName;
-        private String password;
-        private String gender;
-        private int sin;
-         */
+
         private String medicalCondition = "";
         private Long DateOfBirth = System.currentTimeMillis();
         private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
@@ -30,6 +22,7 @@ public class Patient extends User {
         public String getMedicalCondition() {
             return medicalCondition;
         }
+
         public Long getDateOfBirth() {return DateOfBirth;}
         public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
         public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
@@ -38,6 +31,13 @@ public class Patient extends User {
         // initialize appointments
         public Profile() {
             super.appointments = new ArrayList<>();
+
+        public long getDateOfBirth() {
+            return DateOfBirth;
+        }
+
+        public List<Appointment> getPastAppointments() {
+            return PastAppointList;
         }
     }
 
@@ -66,7 +66,7 @@ public class Patient extends User {
 
     // constructor for creating a new patient out of a profile
     public Patient(FirebaseDatabase db, Profile profile) {
-        super(db.getReference("Patients").child(profile.getUsername()), profile.getUsername(),profile);
+        super(db.getReference("Patients").child(profile.getUsername()), profile);
     }
 
     @NonNull
@@ -84,44 +84,13 @@ public class Patient extends User {
 
     public void setDate(Long d)
     {
-        getProfile().DateOfBirth = d;
-        pushToDatabase();
-    }
-    public void addPastAppointment(Appointment p)
-    {
-        getProfile().getPastAppointment().add(p);
-        pushToDatabase();
-    }
-    public void addDoctor(String d)
-    {
-        getProfile().doctorHistory.add(d);
-        pushToDatabase();
-    }
-    public void addFutureAppointment(Appointment p)
-    {
-        getProfile().getFutureAppointment().add(p);
-        pushToDatabase();
-    }
-    public void DeletePastAppointment(Appointment p)
-    {
-        getProfile().getPastAppointment().remove(p);
-        pushToDatabase();
-    }
-    public void DeleteDoctor(String d)
-    {
-        getProfile().doctorHistory.remove(d);
-        pushToDatabase();
-    }
-    public void DeleteFutureAppointment(Appointment p)
-    {
-        getProfile().getFutureAppointment().remove(p);
+        getProfile().dateOfBirth = d;
         pushToDatabase();
     }
 
-    public void setDoctorHistory(LinkedList<String> doctorHistory) {
-        getProfile().doctorHistory = doctorHistory;
+    public void setPastAppointments(List<Appointment> pastAppointments) {
+        getProfile().pastAppointments = pastAppointments;
         pushToDatabase();
     }
 
 }
-
