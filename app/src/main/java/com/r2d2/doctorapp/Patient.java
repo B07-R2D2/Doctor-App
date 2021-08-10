@@ -5,30 +5,26 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Patient extends User {
 
     public static class Profile extends User.Profile {
-
         private String medicalCondition = "";
-        private Date DateOfBirth = new Date();
+        private Long dateOfBirth = System.currentTimeMillis();
         private List<Appointment> pastAppointments = new ArrayList<>();
-
-        public Profile() {
-        }
 
         public String getMedicalCondition() {
             return medicalCondition;
         }
 
-        public Date getDateOfBirth() {return DateOfBirth;}
+        public Long getDateOfBirth() {
+            return dateOfBirth;
+        }
 
         public List<Appointment> getPastAppointments() {
             return pastAppointments;
         }
-
     }
 
     @Override
@@ -56,7 +52,7 @@ public class Patient extends User {
 
     // constructor for creating a new patient out of a profile
     public Patient(FirebaseDatabase db, Profile profile) {
-        super(db.getReference("Patients").child(profile.getUsername()), profile);
+        super(db.getReference("Patients").child(profile.getUsername()),profile);
     }
 
     @NonNull
@@ -72,9 +68,9 @@ public class Patient extends User {
         pushToDatabase();
     }
 
-    public void setDate(Date d)
+    public void setDate(Long d)
     {
-        getProfile().DateOfBirth = d;
+        getProfile().dateOfBirth = d;
         pushToDatabase();
     }
 

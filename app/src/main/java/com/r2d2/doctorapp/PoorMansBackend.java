@@ -26,6 +26,14 @@ public final class PoorMansBackend {
 
     private static final String LOG_TAG = "PoorMansBackend";
 
+    /**
+     * To test maintenance code and get everyone else out of your way, set to true.
+     * Do not use in production!!!!!
+     */
+    private static final boolean aggressiveLockThief = false;
+
+    private static final long lockCheckIntervalMs = aggressiveLockThief ? (2 * 1000) : (10 * 1000);
+
     private static final PoorMansBackend instance = new PoorMansBackend();
 
     public static PoorMansBackend getInstance() {
@@ -71,6 +79,8 @@ public final class PoorMansBackend {
 
                     doc.setAppointments(doc.getProfile().getAppointments().stream()
                         .filter(appointment -> {
+
+                            if (appointment == null) return false;
 
                             // Does appointment need to be pruned?
                             if (currentTime > appointment.getTimeStamp()) {
@@ -215,7 +225,7 @@ public final class PoorMansBackend {
         }
 
         public void start() {
-            timer.schedule(timerTask, 0, 10 * 1000 /* 10 seconds */);
+            timer.schedule(timerTask, 0, lockCheckIntervalMs);
         }
 
         public void stop() {
