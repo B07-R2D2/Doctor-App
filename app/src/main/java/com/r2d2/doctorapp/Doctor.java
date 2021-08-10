@@ -21,6 +21,7 @@ public class Doctor extends User {
         private String uni = "";
         private int doctorId;
         protected List<String> specializations = new ArrayList<>();
+        private List<String> pastPatients = new ArrayList<>();
 
         public Profile() {
         }
@@ -47,6 +48,10 @@ public class Doctor extends User {
 
         public List<String> getSpecializations() {
             return specializations;
+        }
+
+        public List<String> getPastPatients() {
+            return pastPatients;
         }
 
 // comment out these bc we don't need them and they cause errors (not sure if we'll use them in the future tho)
@@ -147,6 +152,11 @@ public class Doctor extends User {
 
     public void setSpecializations(ArrayList<String> specializations) {
         getProfile().specializations = specializations;
+        pushToDatabase();
+    }
+
+    public void setPastPatients(List<String> pastPatients) {
+        getProfile().pastPatients = pastPatients;
         pushToDatabase();
     }
 

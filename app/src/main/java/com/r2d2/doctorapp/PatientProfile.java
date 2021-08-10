@@ -25,8 +25,8 @@ public class PatientProfile {
     }
 
     public void goToDoctorHistory() {
-        Intent intent = new Intent(view, DoctorHistoryActivity.class);
-        intent.putExtra(DoctorHistoryActivity.EXTRA_PATIENT_PROFILE, patientProfile);
+        Intent intent = new Intent(view, AppointmentHistoryActivity.class);
+        intent.putExtra(AppointmentHistoryActivity.EXTRA_PATIENT_PROFILE, patientProfile);
         view.startActivity(intent);
     }
 
