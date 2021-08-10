@@ -1,6 +1,5 @@
 package com.r2d2.doctorapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class DoctorProfileActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.DoctorProfileActivity.extra_doctor_profile";
-    private ArrayList<Patient.Profile> patientList = new ArrayList<>();
+    private List<Patient.Profile> patientList = new ArrayList<>();
     private Button deleteButton;
     private TextView docName;
     private TextView docGender;
@@ -124,7 +123,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.registerListRecycler);
-        RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, patientList);
+        RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, new ArrayList<>(patientList));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }

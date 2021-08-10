@@ -1,10 +1,8 @@
 package com.r2d2.doctorapp;
 
-import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -20,7 +18,7 @@ public class Doctor extends User {
         private String bio = "";
         private String uni = "";
         private int doctorId;
-        protected List<String> specializations = new ArrayList<>();
+        private List<String> specializations = new ArrayList<>();
         private List<String> pastPatients = new ArrayList<>();
 
         public Profile() {
@@ -160,7 +158,6 @@ public class Doctor extends User {
         pushToDatabase();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public static ArrayList<Appointment> makeOneWeekOfAppointments(String doctorUsername) {
         ArrayList<Appointment> appointments = new ArrayList<>();
         Date d = new Date();
