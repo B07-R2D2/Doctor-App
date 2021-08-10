@@ -51,12 +51,12 @@ public class LoginActivity extends AppCompatActivity {
         presenter.checkLogin(usernameMessage,passwordMessage);
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
     }
-    public void sendPatientSignup() {
+    public void sendPatientSignup(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, PatientSignupActivity.class);
         this.startActivity(intent);
     }
-    public void sendDoctorSignup() {
+    public void sendDoctorSignup(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, DoctorSignupActivity.class);
         this.startActivity(intent);
