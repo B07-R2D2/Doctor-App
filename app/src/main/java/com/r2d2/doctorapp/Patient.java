@@ -4,8 +4,14 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+<<<<<<< Updated upstream
 import java.util.Date;
 import java.util.ArrayList;
+=======
+import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.Date;
+>>>>>>> Stashed changes
 import java.util.LinkedList;
 import java.util.List;
 
@@ -21,26 +27,38 @@ public class Patient extends User {
         private int sin;
          */
         private String medicalCondition = "";
+<<<<<<< Updated upstream
         private Date DateOfBirth = new Date();
         //private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
         //private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
         //private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
+=======
+        private Timestamp DateOfBirth = new Timestamp(System.currentTimeMillis());
+        private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
+        private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
+        private LinkedList<String> doctorHistory = new LinkedList<String>();
+>>>>>>> Stashed changes
 
         public String getMedicalCondition() {
             return medicalCondition;
         }
-
-        public Date getDateOfBirth() {return DateOfBirth;}
-        //public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
-        //public LinkedList<Doctor> getDoctorList() {return DocList;}
-        //public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
-
+        public Timestamp getDateOfBirth() {return DateOfBirth;}
+        public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
+        public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
+        public LinkedList<String> getDoctorHistory() {
+            return doctorHistory;
+        }
 
         // initialize appointments
         public Profile() {
             super.appointments = new ArrayList<>();
         }
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
     }
 
     @Override
@@ -84,35 +102,49 @@ public class Patient extends User {
         pushToDatabase();
     }
 
-    public void setDate(Date d)
+    public void setDate(Timestamp d)
     {
         getProfile().DateOfBirth = d;
         pushToDatabase();
     }
-    /*
     public void addPastAppointment(Appointment p)
     {
         getProfile().getPastAppointment().add(p);
+        pushToDatabase();
     }
-    public void addDoctor(Doctor d)
+    public void addDoctor(String d)
     {
-        getProfile().getDoctorList().add(d);
+        getProfile().doctorHistory.add(d);
+        pushToDatabase();
     }
     public void addFutureAppointment(Appointment p)
     {
         getProfile().getFutureAppointment().add(p);
+        pushToDatabase();
     }
     public void DeletePastAppointment(Appointment p)
     {
         getProfile().getPastAppointment().remove(p);
+        pushToDatabase();
     }
-    public void DeleteDoctor(Doctor d)
+    public void DeleteDoctor(String d)
     {
-        getProfile().getDoctorList().remove(d);
+        getProfile().doctorHistory.remove(d);
+        pushToDatabase();
     }
     public void DeleteFutureAppointment(Appointment p)
     {
         getProfile().getFutureAppointment().remove(p);
+        pushToDatabase();
     }
+<<<<<<< Updated upstream
     */
+=======
+
+    public void setDoctorHistory(LinkedList<String> doctorHistory) {
+        getProfile().doctorHistory = doctorHistory;
+        pushToDatabase();
+    }
+
+>>>>>>> Stashed changes
 }

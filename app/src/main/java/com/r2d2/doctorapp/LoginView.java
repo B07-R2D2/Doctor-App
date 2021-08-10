@@ -51,7 +51,7 @@ public class LoginView {
         pat.addValueEventListener(patientListener);
         doc.addValueEventListener(doctorListener);
     }
-    public void checkLogin(String Username, String Password)
+    public void checkLogin(String Username, String Password, android.widget.EditText send)
     {
         Intent intent = new Intent(view, PatientHomeActivity.class);
         Intent intent2 = new Intent(view,DoctorHomePageActivity.class);
@@ -66,6 +66,9 @@ public class LoginView {
                 view.startActivity((user instanceof Patient) ? intent : intent2);
             }
         }
+        send.setError("Username or Password is incorrect or account does not exist");
+        send.requestFocus();
+        return;
     }
     public void sendPatientSignup() {
         // Do something in response to button
