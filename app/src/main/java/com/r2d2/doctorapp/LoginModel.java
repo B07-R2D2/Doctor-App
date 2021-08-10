@@ -13,14 +13,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginModel {
-    private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
-    private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
-    private static final List<User> users = new ArrayList<>();
-    public LoginModel() {
-
-    }
-    static
+    private final DatabaseReference pat;
+    private final DatabaseReference doc;
+    private final List<User> users = new ArrayList<>();
+    public LoginModel(DatabaseReference p, DatabaseReference doc)
     {
+        this.doc = doc;
+        this.pat = p;
         ValueEventListener patientListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
