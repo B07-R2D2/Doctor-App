@@ -28,7 +28,7 @@ public class LoginActivity extends AppCompatActivity {
         //This is the app entry point.
         //PoorMansBackend.getInstance().start();
         LoginModel m = new LoginModel();
-        LoginPresenter presenter = new LoginPresenter(m,this);
+        presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -54,13 +54,11 @@ public class LoginActivity extends AppCompatActivity {
     public void sendPatientSignup(String Username) {
         // Do something in response to button
         Intent intent = new Intent(this, PatientSignupActivity.class);
-        intent.putExtra(givenUsername,Username);
         this.startActivity(intent);
     }
     public void sendDoctorSignup(String Username) {
         // Do something in response to button
         Intent intent = new Intent(this, DoctorSignupActivity.class);
-        intent.putExtra(givenUsername, Username);
         this.startActivity(intent);
     }
 
