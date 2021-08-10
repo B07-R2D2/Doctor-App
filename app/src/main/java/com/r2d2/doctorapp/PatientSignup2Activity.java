@@ -38,6 +38,7 @@ public class PatientSignup2Activity extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
             final Calendar c = Calendar.getInstance();
+            c.set(Iyear,Imonth,Iday,0,0,0);
             int year = c.get(Calendar.YEAR);
             int month = c.get(Calendar.MONTH);
             int day = c.get(Calendar.DAY_OF_MONTH);
@@ -58,7 +59,6 @@ public class PatientSignup2Activity extends AppCompatActivity {
         // Do something in response to clicking Submit
         Pattern genderpattern = Pattern.compile("(male|female|other)");
         Pattern sinpattern = Pattern.compile("^[1-9]\\d*");
-        Pattern datepattern = Pattern.compile("\\d{4} \\d{2} \\d{2}");
         EditText send = (EditText) findViewById(R.id.editTextTextMultiLine);
         EditText send2 = (EditText) findViewById(R.id.gender);
         EditText send3 = (EditText) findViewById(R.id.sinNumber);
@@ -102,9 +102,8 @@ public class PatientSignup2Activity extends AppCompatActivity {
         //get Date setup
         Calendar calendar = Calendar.getInstance();
         calendar.set(Iyear, Imonth, Iday, 0, 0, 0);
-        Timestamp DateOfBirth;
-        DateOfBirth = new Timestamp(calendar.getTimeInMillis());
-
+        Long DateOfBirth;
+        DateOfBirth = calendar.getTimeInMillis();
         presenter.backtologin(Sin,Gender,MedCon,DateOfBirth);
     }
     public void back(View view)

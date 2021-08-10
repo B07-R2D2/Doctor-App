@@ -57,8 +57,8 @@ public class LoginView {
         Intent intent2 = new Intent(view,DoctorHomePageActivity.class);
         intent.putExtra(view.givenUsername, Username);
         intent2.putExtra(view.givenUsername, Username);
-        Log.i("LoginView", "inside checkLogin");
-        Log.i("LoginView", "inside checkLogin2" + users.toString());
+        //Log.i("LoginView", "inside checkLogin");
+        //Log.i("LoginView", "inside checkLogin2" + users.toString());
         for(User user : users)
         {
             if(user.getProfile().getUsername().equals(Username) && user.getProfile().getPassword().equals(Password))
