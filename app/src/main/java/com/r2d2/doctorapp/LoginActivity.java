@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //This is the app entry point.
-        //PoorMansBackend.getInstance().start();
+        PoorMansBackend.getInstance().start();
         LoginModel m = new LoginModel();
         presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
