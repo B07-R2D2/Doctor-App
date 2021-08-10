@@ -4,14 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
-<<<<<<< Updated upstream
-import java.util.Date;
-import java.util.ArrayList;
-=======
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
->>>>>>> Stashed changes
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,17 +22,10 @@ public class Patient extends User {
         private int sin;
          */
         private String medicalCondition = "";
-<<<<<<< Updated upstream
-        private Date DateOfBirth = new Date();
-        //private LinkedList<Doctor> DocList = new LinkedList<Doctor>();
-        //private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
-        //private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
-=======
         private Timestamp DateOfBirth = new Timestamp(System.currentTimeMillis());
         private LinkedList<Appointment> PastAppointList = new LinkedList<Appointment>();
         private LinkedList<Appointment> FutureAppointList = new LinkedList<Appointment>();
         private LinkedList<String> doctorHistory = new LinkedList<String>();
->>>>>>> Stashed changes
 
         public String getMedicalCondition() {
             return medicalCondition;
@@ -45,20 +33,12 @@ public class Patient extends User {
         public Timestamp getDateOfBirth() {return DateOfBirth;}
         public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
         public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
-        public LinkedList<String> getDoctorHistory() {
-            return doctorHistory;
-        }
+        public LinkedList<String> getDoctorHistory() { return doctorHistory; }
 
         // initialize appointments
         public Profile() {
             super.appointments = new ArrayList<>();
         }
-
-<<<<<<< Updated upstream
-=======
-
-
->>>>>>> Stashed changes
     }
 
     @Override
@@ -85,8 +65,8 @@ public class Patient extends User {
     }
 
     // constructor for creating a new patient out of a profile
-    public Patient(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("Patients").child(username), username, profile);
+    public Patient(FirebaseDatabase db, Profile profile) {
+        super(db.getReference("Patients").child(profile.getUsername()), profile.getUsername(),profile);
     }
 
     @NonNull
@@ -137,14 +117,11 @@ public class Patient extends User {
         getProfile().getFutureAppointment().remove(p);
         pushToDatabase();
     }
-<<<<<<< Updated upstream
-    */
-=======
 
     public void setDoctorHistory(LinkedList<String> doctorHistory) {
         getProfile().doctorHistory = doctorHistory;
         pushToDatabase();
     }
 
->>>>>>> Stashed changes
 }
+
