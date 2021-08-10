@@ -1,5 +1,6 @@
 package com.r2d2.doctorapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,8 +15,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,22 +105,50 @@ public class DoctorProfileActivity extends AppCompatActivity {
     }
 
     private void deleteDoctor(Doctor.Profile doctorProfile){
-        String username = doctorProfile.getUsername();
+        String docUsername = doctorProfile.getUsername();
         List<String> specializations = doctorProfile.getSpecializations();
 
         // Remove doctor from Doctors
-        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
+        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(docUsername);
         loginRef.removeValue();
 
         // Remove doctor from DoctorsSpecial
         for (String spec : specializations) {
-            DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
+            DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(docUsername);
             specRef.removeValue();
         }
 
-        Toast.makeText(this, "Deleting " + username, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Deleting " + docUsername, Toast.LENGTH_SHORT).show();
 
-        // TODO: Cancel all appointments with this doctor
+        // Cancel all appointments with this doctor
+        DatabaseReference patRef = FirebaseDatabase.getInstance().getReference("Patients");
+        patRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull @NotNull DataSnapshot snapshot) {
+                for (DataSnapshot patChild : snapshot.getChildren()){
+                    Patient patient = new Patient(snapshot.getRef().getDatabase(), patChild.getValue(Patient.Profile.class));
+                    patient.addOneTimeObserver(() -> {
+                        List<Appointment> toRemove = new ArrayList<>();
+                        for (Appointment appt : patient.getProfile().getAppointments()){
+                            if (appt.getDoctorName().equals(docUsername)){
+                                // add to a separate list because im not tryna modify the list im iterating over
+                                toRemove.add(appt);
+                            }
+                        }
+                        for (Appointment appt : toRemove){
+                            Log.i("gonna remove", appt.getPatientName() + ", " + appt.getDoctorName() + ", " + appt.getTimeStamp());
+                            patient.getProfile().getAppointments().remove(appt);
+                            patient.pushToDatabase();
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull @NotNull DatabaseError error) {
+                Log.w("DoctorProfileActivity", "deleteDoctor onCancelled: " + error.toException());
+            }
+        });
 
         //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);
