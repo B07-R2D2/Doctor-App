@@ -24,13 +24,13 @@ public abstract class User {
         private String password = "";
         private String gender = "Other";
         private int sin;
-        protected ArrayList<Appointment> appointments;
+        protected List<Appointment> appointments = new ArrayList<>();
         // appointments[56]: 7 days a week, 8 timeslots a day. (9 ~ 17)
 
         public Profile() {
         }
 
-        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments) {
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, List<Appointment> appointments) {
             this.firstName = firstName;
             this.lastName = lastName;
             this.username = username;
@@ -40,7 +40,7 @@ public abstract class User {
             this.appointments = appointments;
         }
 
-        public ArrayList<Appointment> getAppointments() {
+        public List<Appointment> getAppointments() {
             return appointments;
         }
 
@@ -175,7 +175,7 @@ public abstract class User {
     @NonNull
     @Override
     public String toString() {
-        return profile.firstName + ", " + profile.lastName;
+        return profile.firstName + " " + profile.lastName;
     }
 
     /** Read-only record of information for this user. */
@@ -218,7 +218,7 @@ public abstract class User {
         pushToDatabase();
     }
 
-    public void setAppointments(ArrayList<Appointment> appointments) {
+    public void setAppointments(List<Appointment> appointments) {
         getProfile().appointments = appointments;
         pushToDatabase();
     }
