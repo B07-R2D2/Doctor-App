@@ -39,8 +39,10 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         addSpecButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String newSpec = addSpecText.getText().toString().trim();
-                specs.add(newSpec);
+                String newSpec = addSpecText.getText().toString().trim().toLowerCase();
+                if (!specs.contains(newSpec)) {
+                    specs.add(newSpec);
+                }
                 addedSpecText.setText("Added: " + specs.stream().map(Object::toString).collect(Collectors.joining(", ")));
                 addSpecText.getText().clear();
             }
