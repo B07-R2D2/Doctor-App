@@ -1,9 +1,8 @@
 package com.r2d2.doctorapp;
 
-import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -19,6 +18,17 @@ public class Doctor extends User {
         private String uni = "";
         private int doctorId;
         private String specialization = "";
+
+        public Profile() {
+        }
+
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, String specialization) {
+            super(firstName, lastName, username, password, gender, sin, appointments);
+            this.bio = bio;
+            this.uni = uni;
+            this.doctorId = doctorId;
+            this.specialization = specialization;
+        }
 
         public String getBio() {
             return bio;
@@ -86,38 +96,12 @@ public class Doctor extends User {
      * @param username username of doctor (may or may not exist in database)
      */
     public Doctor(FirebaseDatabase db, String username) {
-        this(db, username, new Profile());
+        super(db.getReference("Doctors").child(username), username);
     }
 
     // constructor for creating a new doctor out of a profile
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    public Doctor(FirebaseDatabase db, String username, Profile profile) {
-        super(db.getReference("Doctors").child(username), username, profile);
-
-        addOneTimeObserver(() -> {
-            if (getProfile().appointments != null) return;
-
-            ArrayList<Appointment> appointments = new ArrayList<>();
-            getProfile().appointments = appointments;
-            String name = getProfile().getUsername();
-
-            Date d = new Date();
-            d.setHours(9);
-            d.setMinutes(0);
-            d.setSeconds(0);
-            Instant ori = d.toInstant();
-            for (int i = 0; i < 7; i++) {                           // 7 days in a week
-                for (int j = 0; j < 8; j++) {                       // 8 timeslots a
-                    // can't book for today (bc time rn might be after booking time
-                    Instant cur = ori.plus(i + 1, ChronoUnit.DAYS);
-                    cur = cur.plus(j, ChronoUnit.HOURS);
-                    Appointment app = new Appointment(name, "", cur.getEpochSecond());
-                    appointments.add(app);
-                }
-            }
-
-            pushToDatabase();
-        });
+    public Doctor(FirebaseDatabase db, Profile profile) {
+        super(db.getReference("Doctors").child(profile.getUsername()), profile);
     }
 
     @NonNull
@@ -129,7 +113,8 @@ public class Doctor extends User {
     @Override
     protected void pushToDatabase() {
         super.pushToDatabase();
-        Profile profile = getProfile();
+        Profile profile = getProfile();;
+        Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + profile.getSpecialization() + " " + profile.getGender());
         if (!profile.getSpecialization().equals("")) {
             getRef().getDatabase()
                     .getReference("DoctorsSpecial")
@@ -157,6 +142,25 @@ public class Doctor extends User {
     public void setSpecialization(String specialization) {
         getProfile().specialization = specialization;
         pushToDatabase();
+    }
+
+    public static ArrayList<Appointment> makeOneWeekOfAppointments(String doctorUsername) {
+        ArrayList<Appointment> appointments = new ArrayList<>();
+        Date d = new Date();
+        d.setHours(9);
+        d.setMinutes(0);
+        d.setSeconds(0);
+        Instant ori = d.toInstant();
+        for (int i = 0; i < 7; i++) {                           // 7 days in a week
+            for (int j = 0; j < 8; j++) {                       // 8 timeslots a
+                // can't book for today (bc time rn might be after booking time
+                Instant cur = ori.plus(i + 1, ChronoUnit.DAYS);
+                cur = cur.plus(j, ChronoUnit.HOURS);
+                Appointment app = new Appointment(doctorUsername, "", cur.getEpochSecond());
+                appointments.add(app);
+            }
+        }
+        return appointments;
     }
 
 }
