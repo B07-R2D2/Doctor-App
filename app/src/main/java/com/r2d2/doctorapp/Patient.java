@@ -19,7 +19,7 @@ public class Patient extends User {
         private int sin;
          */
         private String medicalCondition = "";
-        private Long DateOfBirth = System.currentTimeMillis();
+        private long dateOfBirth = System.currentTimeMillis();
         private LinkedList<Appointment> PastAppointList = new LinkedList<>();
         private LinkedList<Appointment> FutureAppointList = new LinkedList<>();
         private LinkedList<String> doctorHistory = new LinkedList<>();
@@ -27,7 +27,7 @@ public class Patient extends User {
         public String getMedicalCondition() {
             return medicalCondition;
         }
-        public Long getDateOfBirth() {return DateOfBirth;}
+        public Long getDateOfBirth() {return dateOfBirth;}
         public LinkedList<Appointment> getPastAppointments() {return PastAppointList;}
         public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
         public LinkedList<String> getDoctorHistory() { return doctorHistory; }
@@ -79,9 +79,9 @@ public class Patient extends User {
         pushToDatabase();
     }
 
-    public void setDate(Long d)
+    public void setDate(long d)
     {
-        getProfile().DateOfBirth = d;
+        getProfile().dateOfBirth = d;
         pushToDatabase();
     }
     public void addPastAppointment(Appointment p)
