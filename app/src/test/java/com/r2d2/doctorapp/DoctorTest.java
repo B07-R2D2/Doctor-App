@@ -41,7 +41,7 @@ public class DoctorTest {
         d1.setBio("Good Doctor");
         d1.setUni("University of Toronto");
         d1.setDoctorId(123466);
-        d1.setSpecialization("Psychology");
+        //d1.setSpecialization("Psychology");
     }
 
     @Test

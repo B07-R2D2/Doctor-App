@@ -1,5 +1,7 @@
 package com.r2d2.doctorapp;
 
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
@@ -16,18 +18,18 @@ public class Doctor extends User {
         private String bio = "";
         private String uni = "";
         private int doctorId;
-        private String specialization = "";
+        private List<String> specializations = new ArrayList<>();
         private List<String> pastPatients = new ArrayList<>();
 
         public Profile() {
         }
 
-        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, String specialization) {
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, ArrayList<String> specializations) {
             super(firstName, lastName, username, password, gender, sin, appointments);
             this.bio = bio;
             this.uni = uni;
             this.doctorId = doctorId;
-            this.specialization = specialization;
+            this.specializations = specializations;
         }
 
         public String getBio() {
@@ -42,8 +44,8 @@ public class Doctor extends User {
             return doctorId;
         }
 
-        public String getSpecialization() {
-            return specialization;
+        public List<String> getSpecializations() {
+            return specializations;
         }
 
         public List<String> getPastPatients() {
@@ -118,12 +120,16 @@ public class Doctor extends User {
     protected void pushToDatabase() {
         super.pushToDatabase();
         Profile profile = getProfile();
-        if (!profile.getSpecialization().equals("")) {
-            getRef().getDatabase()
-                    .getReference("DoctorsSpecial")
-                    .child(profile.getSpecialization().toLowerCase())
-                    .child(profile.getUsername())
-                    .setValue(profile);
+        List<String> specializations = profile.getSpecializations();
+        for (String spec : specializations) {
+            Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + spec + " " + profile.getGender());
+            if (!spec.equals("")) {
+                getRef().getDatabase()
+                        .getReference("DoctorsSpecial")
+                        .child(spec.toLowerCase())
+                        .child(profile.getUsername())
+                        .setValue(profile);
+            }
         }
     }
 
@@ -142,8 +148,8 @@ public class Doctor extends User {
         pushToDatabase();
     }
 
-    public void setSpecialization(String specialization) {
-        getProfile().specialization = specialization;
+    public void setSpecializations(ArrayList<String> specializations) {
+        getProfile().specializations = specializations;
         pushToDatabase();
     }
 

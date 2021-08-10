@@ -1,6 +1,5 @@
 package com.r2d2.doctorapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,10 +19,11 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class DoctorProfileActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.DoctorProfileActivity.extra_doctor_profile";
-    private ArrayList<Patient.Profile> patientList = new ArrayList<>();
+    private List<Patient.Profile> patientList = new ArrayList<>();
     private Button deleteButton;
     private TextView docName;
     private TextView docGender;
@@ -45,7 +45,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         docBio = findViewById(R.id.doctorProfileBio);
         docName.setText(doctorProfile.getFirstName() + " " + doctorProfile.getLastName());
         docGender.setText(doctorProfile.getGender());
-        docSpec.setText(doctorProfile.getSpecialization());
+        docSpec.setText(doctorProfile.getSpecializations().stream().map(Object::toString).collect(Collectors.joining(", ")));
         docBio.setText(doctorProfile.getBio());
 
         // Getting past patients and initializing the RecyclerView
@@ -70,7 +70,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
     }
 
     private void showConfirmation(Doctor.Profile doctorProfile){
-        Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecialization());
+        Log.d("DoctorProfileActivity", "Want to delete: " + doctorProfile.getUsername() + ", " + doctorProfile.getSpecializations().toString());
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         final View dialogView = inflater.inflate(R.layout.confirm_delete_dialog, null);
@@ -100,13 +100,17 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void deleteDoctor(Doctor.Profile doctorProfile){
         String username = doctorProfile.getUsername();
-        String spec = doctorProfile.getSpecialization().toLowerCase();
-        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
-        DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
+        List<String> specializations = doctorProfile.getSpecializations();
 
-        // Removing from database
+        // Remove doctor from Doctors
+        DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
         loginRef.removeValue();
-        specRef.removeValue();
+
+        // Remove doctor from DoctorsSpecial
+        for (String spec : specializations) {
+            DatabaseReference specRef = FirebaseDatabase.getInstance().getReference("DoctorsSpecial").child(spec).child(username);
+            specRef.removeValue();
+        }
 
         Toast.makeText(this, "Deleting " + username, Toast.LENGTH_SHORT).show();
 
@@ -119,7 +123,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.registerListRecycler);
-        RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, patientList);
+        RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, new ArrayList<>(patientList));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
