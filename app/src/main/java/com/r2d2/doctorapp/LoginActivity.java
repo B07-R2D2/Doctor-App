@@ -1,5 +1,6 @@
 package com.r2d2.doctorapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,8 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    private LoginView presenter;
+    private LoginPresenter presenter;
 
+    public void displayMessage()
+    {
+        EditText send = (EditText) findViewById(R.id.EnterPassword);
+        send.setError("Username or Password is incorrect or account does not exist");
+        send.requestFocus();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //This is the app entry point.
         //PoorMansBackend.getInstance().start();
-
-        presenter = new LoginView(this);
+        LoginModel m = new LoginModel();
+        LoginPresenter presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -41,16 +48,20 @@ public class LoginActivity extends AppCompatActivity {
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
         String usernameMessage = send.getText().toString();
         String passwordMessage = send2.getText().toString();
-        presenter.checkLogin(usernameMessage,passwordMessage,send2);
+        presenter.checkLogin(usernameMessage,passwordMessage);
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
     }
-    public void sendPatientSignup(View view) {
+    public void sendPatientSignup(String Username) {
         // Do something in response to button
-        presenter.sendPatientSignup();
+        Intent intent = new Intent(this, PatientSignupActivity.class);
+        intent.putExtra(givenUsername,Username);
+        this.startActivity(intent);
     }
-    public void sendDoctorSignup(View view) {
+    public void sendDoctorSignup(String Username) {
         // Do something in response to button
-        presenter.sendDoctorSignup();
+        Intent intent = new Intent(this, DoctorSignupActivity.class);
+        intent.putExtra(givenUsername, Username);
+        this.startActivity(intent);
     }
 
     @Override

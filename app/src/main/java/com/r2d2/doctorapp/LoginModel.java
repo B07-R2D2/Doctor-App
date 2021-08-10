@@ -12,13 +12,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LoginView {
-    private final LoginActivity view;
+public class LoginModel {
     private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
     private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
     private static final List<User> users = new ArrayList<>();
-    public LoginView(LoginActivity view) {
-        this.view = view;
+    public LoginModel() {
+
     }
     static
     {
@@ -51,34 +50,19 @@ public class LoginView {
         pat.addValueEventListener(patientListener);
         doc.addValueEventListener(doctorListener);
     }
-    public void checkLogin(String Username, String Password, android.widget.EditText send)
+    public int checkLogin(String Username, String Password)
     {
-        Intent intent = new Intent(view, PatientHomeActivity.class);
-        Intent intent2 = new Intent(view,DoctorHomePageActivity.class);
-        intent.putExtra(view.givenUsername, Username);
-        intent2.putExtra(view.givenUsername, Username);
-        //Log.i("LoginView", "inside checkLogin");
-        //Log.i("LoginView", "inside checkLogin2" + users.toString());
+        int userType = 0;
         for(User user : users)
         {
             if(user.getProfile().getUsername().equals(Username) && user.getProfile().getPassword().equals(Password))
             {
-                view.startActivity((user instanceof Patient) ? intent : intent2);
+                if((user instanceof Patient))
+                    userType = 1;
+                else
+                    userType = 2;
             }
         }
-        send.setError("Username or Password is incorrect or account does not exist");
-        send.requestFocus();
-        return;
+        return userType;
     }
-    public void sendPatientSignup() {
-        // Do something in response to button
-        Intent intent = new Intent(view, PatientSignupActivity.class);
-        view.startActivity(intent);
-    }
-    public void sendDoctorSignup() {
-        // Do something in response to button
-        Intent intent = new Intent(view, DoctorSignupActivity.class);
-        view.startActivity(intent);
-    }
-
 }
