@@ -12,9 +12,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Doctor extends User {
 
@@ -22,8 +20,7 @@ public class Doctor extends User {
         private String bio = "";
         private String uni = "";
         private int doctorId;
-        private String specialization = "";
-        protected ArrayList<String> specializations;
+        protected List<String> specializations = new ArrayList<>();
 
         public Profile() {
         }
@@ -48,7 +45,7 @@ public class Doctor extends User {
             return doctorId;
         }
 
-        public ArrayList<String> getSpecializations() {
+        public List<String> getSpecializations() {
             return specializations;
         }
 
@@ -120,7 +117,7 @@ public class Doctor extends User {
     protected void pushToDatabase() {
         super.pushToDatabase();
         Profile profile = getProfile();
-        ArrayList<String> specializations = profile.getSpecializations();
+        List<String> specializations = profile.getSpecializations();
         for (String spec : specializations) {
             Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + spec + " " + profile.getGender());
             if (!spec.equals("")) {

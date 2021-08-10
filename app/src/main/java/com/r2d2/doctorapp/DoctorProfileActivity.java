@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class DoctorProfileActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.DoctorProfileActivity.extra_doctor_profile";
@@ -47,7 +49,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         docBio = findViewById(R.id.doctorProfileBio);
         docName.setText(doctorProfile.getFirstName() + " " + doctorProfile.getLastName());
         docGender.setText(doctorProfile.getGender());
-        docSpec.setText(doctorProfile.getSpecializations().toString());
+        docSpec.setText(doctorProfile.getSpecializations().stream().map(Object::toString).collect(Collectors.joining(", ")));
         docBio.setText(doctorProfile.getBio());
 
         // Getting past patients from database and initializing the RecyclerView
@@ -58,15 +60,13 @@ public class DoctorProfileActivity extends AppCompatActivity {
                 // Iterates over the doctor's past patients
                 for (DataSnapshot child : snapshot.getChildren()){
                     String patientUsername = child.getValue(String.class);
-                    // probably not the best way to do this, will figure out later
-                    // also not even sure if it works
                     Patient patient = new Patient(FirebaseDatabase.getInstance(), patientUsername);
+
                     patient.addOneTimeObserver(()-> {
                         patientList.add(patient.getProfile());
                         initRecyclerView();
                     });
                 }
-                //initRecyclerView();
             }
 
             @Override
@@ -117,7 +117,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
 
     private void deleteDoctor(Doctor.Profile doctorProfile){
         String username = doctorProfile.getUsername();
-        ArrayList<String> specializations = doctorProfile.getSpecializations();
+        List<String> specializations = doctorProfile.getSpecializations();
 
         // Remove doctor from Doctors
         DatabaseReference loginRef = FirebaseDatabase.getInstance().getReference("Doctors").child(username);
