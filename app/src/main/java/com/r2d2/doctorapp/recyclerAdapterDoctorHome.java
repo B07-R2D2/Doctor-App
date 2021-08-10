@@ -1,6 +1,7 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
             text = view.findViewById(R.id.textView14);
             button = view.findViewById(R.id.button2);
 
-            // when clicked send to patient profile page
+//             when clicked send to patient profile page
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
                 intent.putExtra("PatientProfile", patient);
@@ -50,10 +51,17 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorHome.MyViewHolder holder, int position) {
+        if(apptlists.size()==0){
+            Log.i("info", "apptlist is empty");
+            holder.text.setText("No schedule today!!");
+        }
         String name = apptlists.get(position).getPatientName();
         String time = apptlists.get(position).toString();   // appointment.toString() returns the date and time
         holder.text.setText(name + " @ "+ time);
-        holder.patient = ppList.get(position);
+//        holder.patient = ppList.get(position);
+
+        if(apptlists.size()==0)
+            Log.i("info", "apptlist is empty");
 
     }
 

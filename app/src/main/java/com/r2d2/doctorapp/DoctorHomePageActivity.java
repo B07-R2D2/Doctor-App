@@ -36,13 +36,12 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     
 //    private static ArrayList<Patient.Profile> apptlists;
 
-    // private DoctorHome home;
     // find list of appointments, and then get corresponding patient profiles
-    private ArrayList<Appointment> apptlists;
-    private ArrayList<Patient.Profile> ppList;
+    private static ArrayList<Appointment> apptlists;
+    private static ArrayList<Patient.Profile> ppList;
     private RecyclerView recyclerView;
-//    private DatabaseReference ref = FirebaseDatabase.getInstance().getReference("doctors").child(EXTRA_USERNAME).child("appointments");
 
+    private ArrayList<String> testing;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,16 +65,20 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                     Appointment appt = child.getValue(Appointment.class);
                     if(!appt.getPatientName().equals("")){
                         apptlists.add(appt);
+                        Log.w("info", "emptyname " + appt.getPatientName());
                     }
                 }
+                setAdaptor();
+                Log.w("info", "apptlists size in onDataChange" + apptlists.size());
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("warning", "loadPost: onCancelled", error.toException());
             }
         });
 
+
+        Log.w("info", "apptlists size after onDataChange befor for" + apptlists.size());
         // not sure if we use addValueEventListener or addListenerForSingleValueEvent
         // appointment list
         // profile list
@@ -89,6 +92,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Patient.Profile currentProfile = snapshot.getValue(Patient.Profile.class);
                     ppList.add(currentProfile);
+
+                    Log.w("info", "apptlists size in onDataChange patient.profile" + apptlists.size());
+                    Log.w("info", "ppList size in onDataChange patient.profile" + ppList.size());
                 }
 
                 @Override
@@ -97,10 +103,14 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 }
             });
         }
-        setAdaptor();
+
+        Log.w("info", "apptlists size before setAdaptor " + apptlists.size());
+//        setAdaptor();
     }
 
     public void setAdaptor(){
+
+        Log.w("info", "apptlists size in setAdaptor " + apptlists.size());
         recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(apptlists, ppList);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -109,8 +119,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     }
 
     public void viewPatientInfo(View view){
-        Intent intent = new Intent(this, PatientProfileActivity.class);
-        startActivity(intent);
+//        Intent intent = new Intent(this, PatientProfileActivity.class);
+//
+////        intent.putExtra("PatientProfile", patient);
+//        startActivity(intent);
     }
-
 }
