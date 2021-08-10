@@ -64,9 +64,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        // This is the app exit point.
-        //PoorMansBackend.getInstance().stop();
-
         super.onDestroy();
     }
 }
