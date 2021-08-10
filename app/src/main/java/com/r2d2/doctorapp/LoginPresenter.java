@@ -13,12 +13,16 @@ public class LoginPresenter {
     }
     public void checkLogin(String Username, String Password)
     {
+        Intent intent = new Intent(view, PatientHomeActivity.class);
+        Intent intent2 = new Intent(view,DoctorHomePageActivity.class);
+        intent.putExtra(view.givenUsername, Username);
+        intent2.putExtra(view.givenUsername, Username);
         int found = model.checkLogin(Username,Password);
         if(found == 0)
             view.displayMessage();
         else if(found == 1)
-            view.sendPatientSignup(Username);
+            view.startActivity(intent);
         else
-            view.sendDoctorSignup(Username);
+            view.startActivity(intent2);
     }
 }

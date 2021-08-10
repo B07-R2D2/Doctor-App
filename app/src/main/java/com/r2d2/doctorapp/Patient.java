@@ -28,7 +28,7 @@ public class Patient extends User {
             return medicalCondition;
         }
         public Long getDateOfBirth() {return DateOfBirth;}
-        public LinkedList<Appointment> getPastAppointment() {return PastAppointList;}
+        public LinkedList<Appointment> getPastAppointments() {return PastAppointList;}
         public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
         public LinkedList<String> getDoctorHistory() { return doctorHistory; }
 
@@ -86,7 +86,7 @@ public class Patient extends User {
     }
     public void addPastAppointment(Appointment p)
     {
-        getProfile().getPastAppointment().add(p);
+        getProfile().getPastAppointments().add(p);
         pushToDatabase();
     }
     public void addDoctor(String d)
@@ -101,7 +101,7 @@ public class Patient extends User {
     }
     public void DeletePastAppointment(Appointment p)
     {
-        getProfile().getPastAppointment().remove(p);
+        getProfile().getPastAppointments().remove(p);
         pushToDatabase();
     }
     public void DeleteDoctor(String d)
