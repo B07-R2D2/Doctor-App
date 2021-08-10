@@ -73,7 +73,7 @@ public class AppointmentManager {
         // set appointment of doctor & patient to newDoctorList & newPatientList
         Doctor newDoc = new Doctor(db, doctor.getUsername(), doctor);
         newDoc.setAppointments(newDoctorList);
-        Patient newPat = new Patient(db, patient.getUsername(), patient);
+        Patient newPat = new Patient(db, patient);
         newPat.setAppointments(newPatientList);
     }
 
@@ -109,7 +109,7 @@ public class AppointmentManager {
             // set appointment of doctor & patient to newDoctorList & newPatientList
             Doctor newDoc = new Doctor(db, doctor.getUsername(), doctor);
             newDoc.setAppointments(newDoctorList);
-            Patient newPat = new Patient(db, patient.getUsername(), patient);
+            Patient newPat = new Patient(db, patient);
             newPat.setAppointments(newPatientList);
         } else {
             Log.i("Appointment", "Either patient or doctor doesn't have this appointment");

@@ -15,7 +15,7 @@ public class PatientSignup2View {
         this.view = view;
     }
 
-    public void backtologin(int SIN, String GEN, String MEDCON, Timestamp DOB)
+    public void backtologin(int SIN, String GEN, String MEDCON, Long DOB)
     {
         Intent backtoLogin = new Intent(view, LoginActivity.class);
         Intent get = view.getIntent();
