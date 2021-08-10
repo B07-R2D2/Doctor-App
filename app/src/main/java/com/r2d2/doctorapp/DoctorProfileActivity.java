@@ -15,13 +15,11 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DoctorProfileActivity extends AppCompatActivity {
     public static final String EXTRA_DOCTOR_PROFILE = "com.r2d2.DoctorApp.DoctorProfileActivity.extra_doctor_profile";
@@ -50,30 +48,15 @@ public class DoctorProfileActivity extends AppCompatActivity {
         docSpec.setText(doctorProfile.getSpecialization());
         docBio.setText(doctorProfile.getBio());
 
-        // Getting past patients from database and initializing the RecyclerView
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Doctors").child(doctorProfile.getUsername()).child("pastPatients");
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                // Iterates over the doctor's past patients
-                for (DataSnapshot child : snapshot.getChildren()){
-                    String patientUsername = child.getValue(String.class);
-                    // probably not the best way to do this, will figure out later
-                    // also not even sure if it works
-                    Patient patient = new Patient(FirebaseDatabase.getInstance(), patientUsername);
-                    patient.addOneTimeObserver(()-> {
-                        patientList.add(patient.getProfile());
-                        initRecyclerView();
-                    });
-                }
-                //initRecyclerView();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        // Getting past patients and initializing the RecyclerView
+        List<String> pastPatientUsernames = doctorProfile.getPastPatients();
+        for (String user : pastPatientUsernames){
+            Patient patient = new Patient(FirebaseDatabase.getInstance(), user);
+            patient.addOneTimeObserver(()-> {
+                patientList.add(patient.getProfile());
+                initRecyclerView();
+            });
+        }
 
         // Button to delete the doctor's account
         deleteButton = (Button) findViewById(R.id.doctorDeleteButton);
