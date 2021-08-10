@@ -13,7 +13,7 @@ public class Patient extends User {
     public static class Profile extends User.Profile {
 
         private String medicalCondition = "";
-        private Timestamp DateOfBirth = new Timestamp(System.currentTimeMillis());
+        private Timestamp dateOfBirth = new Timestamp(System.currentTimeMillis());
         private List<Appointment> pastAppointments = new ArrayList<>();
 
         public String getMedicalCondition() {
@@ -21,7 +21,7 @@ public class Patient extends User {
         }
 
         public Timestamp getDateOfBirth() {
-            return DateOfBirth;
+            return dateOfBirth;
         }
 
         public List<Appointment> getPastAppointments() {
@@ -72,7 +72,7 @@ public class Patient extends User {
 
     public void setDate(Timestamp d)
     {
-        getProfile().DateOfBirth = d;
+        getProfile().dateOfBirth = d;
         pushToDatabase();
     }
 
