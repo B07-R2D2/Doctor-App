@@ -9,6 +9,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public class DoctorSignup2Activity extends AppCompatActivity {
@@ -77,10 +82,11 @@ public class DoctorSignup2Activity extends AppCompatActivity {
 
         int doctorId = new Integer(dId).intValue();
         int sin = new Integer(sin1).intValue();
+        ArrayList<String> specs = new ArrayList<String>(Arrays.asList(specialization.split(",[ ]*")));
 
         Doctor doctor = new Doctor(
             FirebaseDatabase.getInstance(),
-            new Doctor.Profile(firstname, lastname, username, password, gender, sin, Doctor.makeOneWeekOfAppointments(username), bio, uni, doctorId, specialization)
+            new Doctor.Profile(firstname, lastname, username, password, gender, sin, Doctor.makeOneWeekOfAppointments(username), bio, uni, doctorId, specs)
         );
 
         //Send user back to log in page.

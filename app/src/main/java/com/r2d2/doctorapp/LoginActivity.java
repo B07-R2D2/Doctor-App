@@ -27,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         //This is the app entry point.
-        //PoorMansBackend.getInstance().start();
-        m = new LoginModel();
+        PoorMansBackend.getInstance().start();
+        LoginModel m = new LoginModel();
         presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -62,9 +62,6 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        // This is the app exit point.
-        PoorMansBackend.getInstance().stop();
-
         super.onDestroy();
     }
 }

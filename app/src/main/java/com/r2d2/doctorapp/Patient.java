@@ -5,19 +5,11 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.List;
 
 public class Patient extends User {
 
     public static class Profile extends User.Profile {
-        /*
-        private String firstName;
-        private String lastName;
-        private String userName;
-        private String password;
-        private String gender;
-        private int sin;
-         */
         private String medicalCondition = "";
         private long dateOfBirth = System.currentTimeMillis();
         private LinkedList<Appointment> PastAppointList = new LinkedList<>();
@@ -27,7 +19,7 @@ public class Patient extends User {
         public String getMedicalCondition() {
             return medicalCondition;
         }
-        public Long getDateOfBirth() {return dateOfBirth;}
+        public Long getdateOfBirth() {return dateOfBirth;}
         public LinkedList<Appointment> getPastAppointments() {return PastAppointList;}
         public LinkedList<Appointment> getFutureAppointment() {return FutureAppointList;}
         public LinkedList<String> getDoctorHistory() { return doctorHistory; }
@@ -115,8 +107,8 @@ public class Patient extends User {
         pushToDatabase();
     }
 
-    public void setDoctorHistory(LinkedList<String> doctorHistory) {
-        getProfile().doctorHistory = doctorHistory;
+    public void setPastAppointments(List<Appointment> pastAppointments) {
+        getProfile().pastAppointments = pastAppointments;
         pushToDatabase();
     }
 
