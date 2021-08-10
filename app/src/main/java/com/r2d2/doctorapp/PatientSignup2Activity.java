@@ -1,27 +1,57 @@
 package com.r2d2.doctorapp;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+
+import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
 public class PatientSignup2Activity extends AppCompatActivity {
     public final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+    public static int Iyear,Imonth,Iday;
     private PatientSignup2View presenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_signup2);
         presenter = new PatientSignup2View(this);
+    }
+
+    public static class DatePickerFragment extends DialogFragment
+            implements DatePickerDialog.OnDateSetListener {
+
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
+            // Use the current date as the default date in the picker
+            final Calendar c = Calendar.getInstance();
+            int year = c.get(Calendar.YEAR);
+            int month = c.get(Calendar.MONTH);
+            int day = c.get(Calendar.DAY_OF_MONTH);
+
+            // Create a new instance of DatePickerDialog and return it
+            return new DatePickerDialog(getActivity(), this, year, month, day);
+        }
+
+        public void onDateSet(DatePicker view, int year, int month, int day) {
+            // Do something with the date chosen by the user
+            PatientSignup2Activity.Iyear = year;
+            PatientSignup2Activity.Imonth = month;
+            PatientSignup2Activity.Iday = day;
+        }
     }
 
     public void signup(View view) {
@@ -32,11 +62,9 @@ public class PatientSignup2Activity extends AppCompatActivity {
         EditText send = (EditText) findViewById(R.id.editTextTextMultiLine);
         EditText send2 = (EditText) findViewById(R.id.gender);
         EditText send3 = (EditText) findViewById(R.id.sinNumber);
-        EditText send4 = (EditText) findViewById(R.id.DateInfo);
         String MedCon = send.getText().toString().trim();
         String Gender = send2.getText().toString().trim();
         String sinString = send3.getText().toString().trim();
-        String dateStuff = send4.getText().toString().trim();
         int Sin = 0;
         try {
             Sin = Integer.parseInt(sinString);
@@ -71,33 +99,21 @@ public class PatientSignup2Activity extends AppCompatActivity {
             send2.requestFocus();
             return;
         }
-        if(dateStuff.isEmpty())
-        {
-            send4.setError("Please enter your date of birth in Year Month Day format");
-            send4.requestFocus();
-            return;
-        }
-        if(datepattern.matcher(dateStuff).matches() == false)
-        {
-            send4.setError("Please enter your date of birth in Year Month Day format");
-            send4.requestFocus();
-            return;
-        }
         //get Date setup
-        String year = dateStuff.substring(0,3);
-        String month = dateStuff.substring(5,6);
-        String day = dateStuff.substring(8);
-        int Iyear = Integer.parseInt(year);
-        int Imonth = Integer.parseInt(month);
-        int Iday = Integer.parseInt(day);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Iyear, Imonth, Iday, 0, 0, 0);
-        Date DOB = calendar.getTime();
+        Timestamp DateOfBirth;
+        DateOfBirth = new Timestamp(calendar.getTimeInMillis());
 
-        presenter.backtologin(Sin,Gender,MedCon,DOB);
+        presenter.backtologin(Sin,Gender,MedCon,DateOfBirth);
     }
     public void back(View view)
     {
         presenter.back();
+    }
+
+    public void showDatePickerDialog(View view) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 }

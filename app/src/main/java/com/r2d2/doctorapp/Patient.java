@@ -4,8 +4,8 @@ import androidx.annotation.NonNull;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class Patient extends User {
@@ -13,22 +13,20 @@ public class Patient extends User {
     public static class Profile extends User.Profile {
 
         private String medicalCondition = "";
-        private Date DateOfBirth = new Date();
+        private Timestamp dateOfBirth = new Timestamp(System.currentTimeMillis());
         private List<Appointment> pastAppointments = new ArrayList<>();
-
-        public Profile() {
-        }
 
         public String getMedicalCondition() {
             return medicalCondition;
         }
 
-        public Date getDateOfBirth() {return DateOfBirth;}
+        public Timestamp getDateOfBirth() {
+            return dateOfBirth;
+        }
 
         public List<Appointment> getPastAppointments() {
             return pastAppointments;
         }
-
     }
 
     @Override
@@ -72,9 +70,9 @@ public class Patient extends User {
         pushToDatabase();
     }
 
-    public void setDate(Date d)
+    public void setDate(Timestamp d)
     {
-        getProfile().DateOfBirth = d;
+        getProfile().dateOfBirth = d;
         pushToDatabase();
     }
 
@@ -84,4 +82,3 @@ public class Patient extends User {
     }
 
 }
-

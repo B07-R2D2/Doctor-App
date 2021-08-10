@@ -41,7 +41,7 @@ public class LoginActivity extends AppCompatActivity {
         EditText send2 = (EditText) findViewById(R.id.EnterPassword);
         String usernameMessage = send.getText().toString();
         String passwordMessage = send2.getText().toString();
-        presenter.checkLogin(usernameMessage,passwordMessage);
+        presenter.checkLogin(usernameMessage,passwordMessage,send2);
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
     }
     public void sendPatientSignup(View view) {
