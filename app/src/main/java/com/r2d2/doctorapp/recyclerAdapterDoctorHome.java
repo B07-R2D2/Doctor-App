@@ -36,7 +36,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 //             when clicked send to patient profile page
             button.setOnClickListener(v -> {
                 Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
-                intent.putExtra("PatientProfile", patient);
+                intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
                 v.getContext().startActivity(intent);
             });
         }
@@ -52,16 +52,16 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorHome.MyViewHolder holder, int position) {
         if(apptlists.size()==0){
-            Log.i("info", "apptlist is empty");
             holder.text.setText("No schedule today!!");
+            return;
         }
+        Log.w("info", "apptlists size in onBindViewHolder" + apptlists.size());
+        Log.w("info", "ppList size in onBindViewHolder" + ppList.size());
+
         String name = apptlists.get(position).getPatientName();
         String time = apptlists.get(position).toString();   // appointment.toString() returns the date and time
         holder.text.setText(name + " @ "+ time);
-//        holder.patient = ppList.get(position);
-
-        if(apptlists.size()==0)
-            Log.i("info", "apptlist is empty");
+        holder.patient = ppList.get(position);
 
     }
 
