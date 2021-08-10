@@ -24,7 +24,7 @@ public abstract class User {
         private String password = "";
         private String gender = "Other";
         private int sin;
-        protected ArrayList<Appointment> appointments;
+        protected ArrayList<Appointment> appointments = new ArrayList<>();
         // appointments[56]: 7 days a week, 8 timeslots a day. (9 ~ 17)
 
         public Profile() {
@@ -175,7 +175,7 @@ public abstract class User {
     @NonNull
     @Override
     public String toString() {
-        return profile.firstName + ", " + profile.lastName;
+        return profile.firstName + " " + profile.lastName;
     }
 
     /** Read-only record of information for this user. */
