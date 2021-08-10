@@ -6,8 +6,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Patient extends User {
@@ -18,20 +16,13 @@ public class Patient extends User {
         private Timestamp DateOfBirth = new Timestamp(System.currentTimeMillis());
         private List<Appointment> pastAppointments = new ArrayList<>();
 
-        public Profile() {
-        }
-
         public String getMedicalCondition() {
             return medicalCondition;
         }
-        public Timestamp getDateOfBirth() {return DateOfBirth;}
 
-        // initialize appointments
-        public Profile() {
-            super.appointments = new ArrayList<>();
+        public Timestamp getDateOfBirth() {
+            return DateOfBirth;
         }
-
-        public Date getDateOfBirth() {return DateOfBirth;}
 
         public List<Appointment> getPastAppointments() {
             return pastAppointments;
