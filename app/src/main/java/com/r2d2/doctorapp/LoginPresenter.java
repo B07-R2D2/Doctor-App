@@ -25,4 +25,14 @@ public class LoginPresenter {
         else
             view.startActivity(intent2);
     }
+    public void sendPatientSignup() {
+        // Do something in response to button
+        Intent intent = new Intent(view, PatientSignupActivity.class);
+        view.startActivity(intent);
+    }
+    public void sendDoctorSignup() {
+        // Do something in response to button
+        Intent intent = new Intent(view, DoctorSignupActivity.class);
+        view.startActivity(intent);
+    }
 }

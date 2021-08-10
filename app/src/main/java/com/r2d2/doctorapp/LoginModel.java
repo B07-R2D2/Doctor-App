@@ -14,10 +14,8 @@ public class LoginModel {
     private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
     private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
     private static final List<User> users = new ArrayList<>();
-    public LoginModel() {
 
-    }
-    static
+    public LoginModel()
     {
         ValueEventListener patientListener = new ValueEventListener() {
             @Override
@@ -48,6 +46,7 @@ public class LoginModel {
         pat.addValueEventListener(patientListener);
         doc.addValueEventListener(doctorListener);
     }
+
     public int checkLogin(String Username, String Password)
     {
         int userType = 0;
