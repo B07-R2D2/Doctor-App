@@ -46,7 +46,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     public void setAdaptor() {
         List<Appointment> apptlists= doctorCalendar.getAppointments();
         filterTodaySchedule(apptlists);
-        recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(apptlists, doctorCalendar.getPatientProfiles());
+        recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(apptlists, doctorCalendar.getPatientProfiles(), "DoctorHome");
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
