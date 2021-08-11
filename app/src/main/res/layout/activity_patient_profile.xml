@@ -39,7 +39,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/patient_profile_full_name"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/patient_profile_full_name"
@@ -47,7 +47,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
                 </TableRow>
 
                 <TableRow
@@ -61,7 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/patient_profile_gender"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:id="@+id/patient_profile_gender"
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
                         android:layout_marginLeft="8dp"
-                        android:textSize="24sp" />
+                        android:textSize="20sp" />
                 </TableRow>
 
             </TableLayout>
@@ -89,7 +89,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:text="@string/patient_profile_medical_condition"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <TextView
                     android:id="@+id/patient_profile_medical_condition"
@@ -100,7 +100,8 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
-                    android:textSize="24sp" />
+                    android:layout_marginBottom="8dp"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -119,7 +120,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginRight="24dp"
                     android:text="@string/patient_profile_past_appointments"
-                    android:textSize="24sp" />
+                    android:textSize="20sp" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/appointment_history_recycler"
