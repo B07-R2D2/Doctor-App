@@ -62,8 +62,8 @@ public class LoginTest {
         LoginPresenter p = new LoginPresenter(model, view);
         when(model.checkLogin("k", "")).thenReturn(0);
         p.checkLogin("k", "");
-        // this works when using the the login
-        // verify(view).displayErrorMessage(RESOURCE_STRING);
+        //this works when using the the login
+        verify(view).displayErrorMessage(RESOURCE_STRING);
     }
 
     @Test
