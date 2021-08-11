@@ -1,7 +1,5 @@
 package com.r2d2.doctorapp;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
@@ -17,8 +15,7 @@ import java.util.function.Function;
 public class LoginModel {
     private final Map<String, User> patients = new HashMap<>(), doctors = new HashMap<>();
 
-    public LoginModel(FirebaseDatabase db)
-    {
+    public LoginModel(FirebaseDatabase db) {
         listenForUsers(db.getReference("Patients"), patients, username -> new Patient(db, username));
         listenForUsers(db.getReference("Doctors"), doctors, username -> new Doctor(db, username));
     }
@@ -36,7 +33,6 @@ public class LoginModel {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("LoginActivity", error.toException());
             }
         });
     }
