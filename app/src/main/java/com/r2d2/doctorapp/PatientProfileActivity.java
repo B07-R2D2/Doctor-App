@@ -31,9 +31,11 @@ public class PatientProfileActivity extends AppCompatActivity {
 
         TextView fullName = (TextView) findViewById(R.id.patient_profile_full_name),
                  gender = (TextView) findViewById(R.id.patient_profile_gender),
+                 birthdate = (TextView) findViewById(R.id.patient_profile_birthdate),
                  medicalCondition = (TextView) findViewById(R.id.patient_profile_medical_condition);
         fullName.setText(patientProfile.getFullName());
         gender.setText(patientProfile.getGender());
+        birthdate.setText(patientProfile.getDateOfBirth());
         medicalCondition.setText(patientProfile.getMedicalCondition());
 
         RecyclerView recyclerView = findViewById(R.id.appointment_history_recycler);

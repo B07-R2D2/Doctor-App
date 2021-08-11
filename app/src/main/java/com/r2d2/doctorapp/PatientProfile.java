@@ -1,5 +1,8 @@
 package com.r2d2.doctorapp;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class PatientProfile {
 
     private final Patient.Profile patientProfile;
@@ -16,6 +19,12 @@ public class PatientProfile {
 
     public String getGender() {
         return patientProfile.getGender();
+    }
+
+    private final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+
+    public String getDateOfBirth() {
+        return dateFormat.format(new Date(patientProfile.getDateOfBirth()));
     }
 
     public String getMedicalCondition() {
