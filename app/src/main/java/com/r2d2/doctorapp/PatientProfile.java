@@ -2,6 +2,8 @@ package com.r2d2.doctorapp;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.function.Consumer;
 
 public class PatientProfile {
 
@@ -29,6 +31,10 @@ public class PatientProfile {
 
     public String getMedicalCondition() {
         return patientProfile.getMedicalCondition();
+    }
+
+    public void fetchPastAppointmentInfo(Consumer<List<String>> callback) {
+        AppointmentInfo.fetchAppointmentInfo(patientProfile.getPastAppointments(), callback);
     }
 
 }

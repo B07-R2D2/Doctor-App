@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
 public class PatientProfileActivity extends AppCompatActivity {
 
     /** Value may be null! */
     public static final String EXTRA_PATIENT_PROFILE = "com.r2d2.DoctorApp.PatientProfileActivity.extra_patient_profile";
 
     private PatientProfile patientProfile;
-    private AppointmentHistory appointmentHistory;
+    private AppointmentInfo appointmentInfo;
+
+    private RecyclerView appointmentHistoryRecycler;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -27,7 +31,6 @@ public class PatientProfileActivity extends AppCompatActivity {
         Intent intent = getIntent();
         Patient.Profile profile = (Patient.Profile) intent.getSerializableExtra(EXTRA_PATIENT_PROFILE);
         patientProfile = new PatientProfile(profile, this);
-        appointmentHistory = new AppointmentHistory(profile, this);
 
         TextView fullName = (TextView) findViewById(R.id.patient_profile_full_name),
                  gender = (TextView) findViewById(R.id.patient_profile_gender),
@@ -38,13 +41,25 @@ public class PatientProfileActivity extends AppCompatActivity {
         birthdate.setText(patientProfile.getDateOfBirth());
         medicalCondition.setText(patientProfile.getMedicalCondition());
 
-        RecyclerView recyclerView = findViewById(R.id.appointment_history_recycler);
+        appointmentHistoryRecycler = findViewById(R.id.appointment_history_recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        appointmentHistory.fetchAppointmentInfo(info -> {
-            recyclerView.setAdapter(new PlainTextRecyclerAdapter(info));
+        appointmentHistoryRecycler.setLayoutManager(layoutManager);
+        appointmentHistoryRecycler.addItemDecoration(new DividerItemDecoration(this, layoutManager.getOrientation()));
+        appointmentHistoryRecycler.setItemAnimator(new DefaultItemAnimator());
+        appointmentHistoryRecycler.setAdapter(new PlainTextRecyclerAdapter(new ArrayList<>()));
+        updateAppointmentHistory();
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
+
+        updateAppointmentHistory();
+    }
+
+    private void updateAppointmentHistory() {
+        patientProfile.fetchPastAppointmentInfo(info -> {
+            appointmentHistoryRecycler.setAdapter(new PlainTextRecyclerAdapter(info));
         });
     }
 
