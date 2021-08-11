@@ -74,27 +74,27 @@ public class DoctorSignupActivity extends AppCompatActivity {
         Pattern genderpattern = Pattern.compile("(male|female|other)");
         Pattern numberPattern = Pattern.compile("^[1-9]\\d*");
         if(username.isEmpty()){
-            usernameField.setError("Please Enter Username");
+            usernameField.setError("Please enter username");
             usernameField.requestFocus();
             return;
         }
         if(password.isEmpty()){
-            passwordField.setError("Please Enter Password");
+            passwordField.setError("Please enter password");
             passwordField.requestFocus();
             return;
         }
         if(firstname.isEmpty()){
-            firstNameField.setError("Please Enter your First name");
+            firstNameField.setError("Please enter your first name");
             firstNameField.requestFocus();
             return;
         }
         if(lastname.isEmpty()){
-            lastNameField.setError("Please Enter your last name");
+            lastNameField.setError("Please enter your last name");
             lastNameField.requestFocus();
             return;
         }
         if(gender.isEmpty()){
-            genderField.setError("Please Enter your Gender");
+            genderField.setError("Please enter your gender");
             genderField.requestFocus();
             return;
         }
@@ -104,37 +104,37 @@ public class DoctorSignupActivity extends AppCompatActivity {
             return;
         }
         if(uni.isEmpty()){
-            uniField.setError("Please Enter where you attend university");
+            uniField.setError("Please enter where you attended university");
             uniField.requestFocus();
             return;
         }
         if(specs.isEmpty()){
-            addSpecText.setError("Please Enter your specialization");
+            addSpecText.setError("Please add at least one specialization");
             addSpecText.requestFocus();
             return;
         }
         if(dId.isEmpty()){
-            doctorIDField.setError("Please Enter your Doctor's Id Number");
+            doctorIDField.setError("Please enter your Doctor ID Number");
             doctorIDField.requestFocus();
             return;
         }
         else if(!numberPattern.matcher(dId).matches()){
-            doctorIDField.setError("Doctor's Id requires all digits and cannot start with zero");
+            doctorIDField.setError("Doctor ID requires all digits and cannot start with zero");
             doctorIDField.requestFocus();
             return;
         }
         if(sin1.isEmpty()){
-            sinField.setError("Please Enter your Health Number");
+            sinField.setError("Please enter your Health Number");
             sinField.requestFocus();
             return;
         }
         else if(!numberPattern.matcher(sin1).matches()){
-            sinField.setError("SIN Number requires all digits and cannot start with zero");
+            sinField.setError("Health Number requires all digits and cannot start with zero");
             sinField.requestFocus();
             return;
         }
         if(bio.isEmpty()){
-            bioField.setError("Please Enter a a short bio about yourself");
+            bioField.setError("Please enter a short bio about yourself");
             bioField.requestFocus();
             return;
         }
