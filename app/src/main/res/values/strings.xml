@@ -34,5 +34,5 @@
     <string name="patient_profile_full_name">Name:</string>
     <string name="patient_profile_gender">Gender:</string>
     <string name="patient_profile_medical_condition">Medical conditions:</string>
-    <string name="patient_profile_view_history">Appointment History</string>
+    <string name="patient_profile_past_appointments">Appointment History</string>
 </resources>

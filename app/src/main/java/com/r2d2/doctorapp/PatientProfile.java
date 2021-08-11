@@ -1,7 +1,5 @@
 package com.r2d2.doctorapp;
 
-import android.content.Intent;
-
 public class PatientProfile {
 
     private final Patient.Profile patientProfile;
@@ -22,12 +20,6 @@ public class PatientProfile {
 
     public String getMedicalCondition() {
         return patientProfile.getMedicalCondition();
-    }
-
-    public void goToDoctorHistory() {
-        Intent intent = new Intent(view, AppointmentHistoryActivity.class);
-        intent.putExtra(AppointmentHistoryActivity.EXTRA_PATIENT_PROFILE, patientProfile);
-        view.startActivity(intent);
     }
 
 }
