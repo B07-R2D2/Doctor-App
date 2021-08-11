@@ -1,11 +1,11 @@
 package com.r2d2.doctorapp;
 
-import android.content.Intent;
 import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
@@ -13,49 +13,50 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LoginModel {
-    private static final DatabaseReference pat = FirebaseDatabase.getInstance().getReference("Patients");
-    private static final DatabaseReference doc = FirebaseDatabase.getInstance().getReference("Doctors");
-    private static final List<User> users = new ArrayList<>();
-    public LoginModel() {
+    private final List<User> users = new ArrayList<>();
 
-    }
-    static
+    public LoginModel(FirebaseDatabase db)
     {
-        ValueEventListener patientListener = new ValueEventListener() {
+        db.getReference("Patients").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Patient(pat.getDatabase(), child.getKey()));
+                    users.add(new Patient(db, child.getKey()));
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("LoginActivity", error.toException());
             }
-        };
-        ValueEventListener doctorListener = new ValueEventListener() {
+        });
+        db.getReference("Doctors").addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Doctor(doc.getDatabase(), child.getKey()));
+                    users.add(new Doctor(db, child.getKey()));
                 }
             }
 
             @Override
-            public void onCancelled(DatabaseError error) {
+            public void onCancelled(@NonNull DatabaseError error) {
                 Log.w("LoginActivity", error.toException());
             }
-        };
-        pat.addValueEventListener(patientListener);
-        doc.addValueEventListener(doctorListener);
+        });
     }
-    public int checkLogin(String Username, String Password)
+
+    /**
+     * Check if a user exists for the given username and password.
+     * @param username username to look for
+     * @param password password to look for
+     * @return type of user: if no user found, 0; if patient found, 1; if doctor found, 2
+     */
+    public int checkLogin(String username, String password)
     {
         int userType = 0;
         for(User user : users)
         {
-            if(user.getProfile().getUsername().equals(Username) && user.getProfile().getPassword().equals(Password))
+            if(user.getProfile().getUsername().equals(username) && user.getProfile().getPassword().equals(password))
             {
                 if((user instanceof Patient))
                     userType = 1;
