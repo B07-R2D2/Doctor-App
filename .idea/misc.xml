@@ -11,6 +11,7 @@
         <entry key="app/src/main/res/layout/activity_doctor_history.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/activity_doctor_home.xml" value="0.16145833333333334" />
         <entry key="app/src/main/res/layout/activity_doctor_home_page.xml" value="0.21851851851851853" />
+        <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.23143115942028986" />
         <entry key="app/src/main/res/layout/activity_doctor_signup.xml" value="0.15833333333333333" />
         <entry key="app/src/main/res/layout/activity_doctor_signup2.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/activity_filter.xml" value="0.2734375" />
@@ -20,6 +21,7 @@
         <entry key="app/src/main/res/layout/activity_patient_signup2.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/layout_listitem.xml" value="0.11851851851851852" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.38271604938271603" />
+        <entry key="app/src/main/res/layout/list_view_for_doctor_calender.xml" value="0.13854166666666667" />
         <entry key="app/src/main/res/layout/placeholder.xml" value="0.335" />
         <entry key="app/src/main/res/layout/recycler_item.xml" value="0.11851851851851852" />
       </map>

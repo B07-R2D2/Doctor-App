@@ -33,13 +33,13 @@ import java.util.ArrayList;
 public class DoctorHomePageActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = LoginActivity.givenUsername;
+    public static final String setUSERNAME = "com.example.DoctorApp.SETUSERMESSAGE";
 
     // find list of appointments, and then get corresponding patient profiles
     private static ArrayList<Appointment> apptlists;
     private static ArrayList<Patient.Profile> ppList;
     private RecyclerView recyclerView;
-
-    private ArrayList<String> testing;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +49,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvdhome);
         apptlists = new ArrayList<>();
         ppList = new ArrayList<>();
-
         Intent intent = getIntent();
-        Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), intent.getStringExtra(EXTRA_USERNAME));
+        this.username = intent.getStringExtra(EXTRA_USERNAME);
+        Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), username);
 
         DatabaseReference ref = doctor.getRef().child("appointments");
 
@@ -71,9 +71,6 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                             Patient.Profile currentProfile = snapshot.getValue(Patient.Profile.class);
                             ppList.add(currentProfile);
                             setAdaptor();
-
-                            Log.w("info", "apptlists size in onDataChange patient.profile" + apptlists.size());
-                            Log.w("info", "ppList size in onDataChange patient.profile" + ppList.size());
                         }
 
                         @Override
@@ -81,10 +78,8 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                             Log.w("warning", "failed to get patientprofile, DoctorHomePage", error.toException());
                         }
                     });
-                        Log.w("info", "emptyname " + appt.getPatientName());
                     }
                 }
-                Log.w("info", "apptlists size in onDataChange" + apptlists.size());
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -102,6 +97,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         recyclerView.setAdapter(adaptor);
     }
 
-    public void viewPatientInfo(View view){
+    public void viewFullWeekSchedule(View view){
+        Intent intent2 = new Intent(this,DoctorCalendarActivity.class);
+        intent2.putExtra(setUSERNAME, username);
+        startActivity(intent2);
     }
 }
