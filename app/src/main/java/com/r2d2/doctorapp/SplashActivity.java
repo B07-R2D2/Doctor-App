@@ -6,7 +6,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.view.animation.AnimationUtils;
+import android.widget.ViewFlipper;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -15,24 +16,11 @@ public class SplashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-//        Thread splash = new Thread(){
-//            @Override
-//            public void run() {
-//                try{
-//                    sleep(4*1000);
-//                    //finish(); //if you put finish() here, the transition looks different, no idea why
-//                    Intent intent = new Intent(getBaseContext(), LoginActivity.class);
-//                    startActivity(intent);
-//                    finish();
-//                    // this doesn't work :(
-//                    overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-//                }
-//                catch (InterruptedException e){
-//
-//                }
-//            }
-//        };
-//        splash.start();
+        ViewFlipper flipper;
+        flipper = ((ViewFlipper)findViewById(R.id.flipper));
+        flipper.startFlipping();
+        flipper.setInAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_in));
+        flipper.setOutAnimation(AnimationUtils.loadAnimation(getApplicationContext(), android.R.anim.fade_out));
 
         ConstraintLayout layout = (ConstraintLayout) findViewById(R.id.splashLayout);
         layout.setOnClickListener(new View.OnClickListener() {
