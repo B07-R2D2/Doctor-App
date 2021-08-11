@@ -18,6 +18,7 @@ public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
     private LoginPresenter presenter;
 
+    //display error if username or password does not match
     public void displayMessage()
     {
         EditText send = (EditText) findViewById(R.id.EnterPassword);
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    //static adds ValueEvent Listener Automatically
+
     public void checkLogin(View view) {
         // Do something in response to button
         EditText send = (EditText) findViewById(R.id.EnterUsername);
@@ -58,12 +59,12 @@ public class LoginActivity extends AppCompatActivity {
         //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
     }
     public void sendPatientSignup() {
-        // Do something in response to button
+        // Patient Signup in response to button
         Intent intent = new Intent(this, PatientSignupActivity.class);
         this.startActivity(intent);
     }
     public void sendDoctorSignup() {
-        // Do something in response to button
+        // Doctor Signup in response to button
         Intent intent = new Intent(this, DoctorSignupActivity.class);
         this.startActivity(intent);
     }

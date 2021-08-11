@@ -11,6 +11,7 @@ public class LoginPresenter {
         this.model = Model;
         this.view = View;
     }
+
     public void checkLogin(String Username, String Password)
     {
         Intent intent = new Intent(view, PatientHomeActivity.class);

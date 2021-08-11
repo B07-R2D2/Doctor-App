@@ -16,10 +16,12 @@ public class LoginModel {
     private final DatabaseReference pat;
     private final DatabaseReference doc;
     private final List<User> users = new ArrayList<>();
-    public LoginModel(DatabaseReference p, DatabaseReference doc)
+    //initialize the databases
+
+    public LoginModel(DatabaseReference p, DatabaseReference d)
     {
-        this.doc = doc;
         this.pat = p;
+        this.doc = d;
         ValueEventListener patientListener = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -49,6 +51,8 @@ public class LoginModel {
         pat.addValueEventListener(patientListener);
         doc.addValueEventListener(doctorListener);
     }
+
+    //check login and return corresponding int to signify Patient,Doctor,Or User Does not Exist
     public int checkLogin(String Username, String Password)
     {
         int userType = 0;
