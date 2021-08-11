@@ -1,5 +1,7 @@
 package com.r2d2.doctorapp;
 
+import android.content.Context;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -9,9 +11,9 @@ import java.util.function.Consumer;
 public class AppointmentHistory {
 
     private final Patient.Profile patient;
-    private final AppointmentHistoryActivity view;
+    private final Context view;
 
-    public AppointmentHistory(Patient.Profile patient, AppointmentHistoryActivity view) {
+    public AppointmentHistory(Patient.Profile patient, Context view) {
         this.patient = patient;
         this.view = view;
     }
