@@ -1,17 +1,10 @@
 package com.r2d2.doctorapp;
 
 
-import android.content.Intent;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -22,10 +15,18 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 
 public class LoginTest {
+
+    private static final String RESOURCE_STRING = "RESOURCE_STRING";
+
     @Mock
     LoginActivity view;
     @Mock
     LoginModel model;
+
+    @Before
+    public void before() {
+        when(view.getString(anyInt())).thenReturn(RESOURCE_STRING);
+    }
 
     @Test
     public void testPresenterNotFound()
@@ -33,7 +34,7 @@ public class LoginTest {
         LoginPresenter p = new LoginPresenter(model,view);
         when(model.checkLogin("k123","k333")).thenReturn(0);
         p.checkLogin("k123","k333");
-        verify(view).displayMessage();
+        verify(view).displayErrorMessage(RESOURCE_STRING);
     }
     @Test
     public void testPresenterPatient()
@@ -51,4 +52,5 @@ public class LoginTest {
         p.checkLogin("k2","k2");
         verify(view).startActivity(any());
     }
+
 }
