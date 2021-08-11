@@ -10,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recyclerAdapterDoctorCalender.MyViewHolder> {
 
-    private final ArrayList<Appointment> appointments;
-    private ArrayList<Patient.Profile> patientProfiles;
+    private final List<Appointment> appointments;
+    private List<Patient.Profile> patientProfiles;
 
-    public recyclerAdapterDoctorCalender(ArrayList<Appointment> appointments, ArrayList<Patient.Profile> patientProfiles){
+    public recyclerAdapterDoctorCalender(List<Appointment> appointments, List<Patient.Profile> patientProfiles){
         this.appointments = appointments;
         this.patientProfiles = patientProfiles;
     }
