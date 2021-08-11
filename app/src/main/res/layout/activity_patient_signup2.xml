@@ -40,7 +40,7 @@
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SIN number"
+        android:text="Health Care Number"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,7 +62,7 @@
         app:layout_constraintVertical_bias="0.302" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/button_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="back"
@@ -76,7 +76,7 @@
         app:layout_constraintVertical_bias="0.834" />
 
     <Button
-        android:id="@+id/Continue"
+        android:id="@+id/button_sign_up"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="signup"

@@ -1,6 +1,7 @@
 package com.r2d2.doctorapp;
 
-import android.content.Intent;
+import java.text.DateFormat;
+import java.util.Date;
 
 public class PatientProfile {
 
@@ -20,14 +21,14 @@ public class PatientProfile {
         return patientProfile.getGender();
     }
 
-    public String getMedicalCondition() {
-        return patientProfile.getMedicalCondition();
+    private final DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.LONG);
+
+    public String getDateOfBirth() {
+        return dateFormat.format(new Date(patientProfile.getDateOfBirth()));
     }
 
-    public void goToDoctorHistory() {
-        Intent intent = new Intent(view, AppointmentHistoryActivity.class);
-        intent.putExtra(AppointmentHistoryActivity.EXTRA_PATIENT_PROFILE, patientProfile);
-        view.startActivity(intent);
+    public String getMedicalCondition() {
+        return patientProfile.getMedicalCondition();
     }
 
 }
