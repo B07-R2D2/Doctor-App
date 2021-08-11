@@ -49,8 +49,8 @@ public class DoctorProfileActivity extends AppCompatActivity {
         docGender = findViewById(R.id.doctorProfileGender);
         docSpec = findViewById(R.id.doctorProfileSpecialization);
         docBio = findViewById(R.id.doctorProfileBio);
-        docName.setText(doctorProfile.getFirstName() + " " + doctorProfile.getLastName());
-        docGender.setText(doctorProfile.getGender());
+        docName.setText("Dr. " + capitalize(doctorProfile.getFirstName()) + " " + capitalize(doctorProfile.getLastName()));
+        docGender.setText(capitalize(doctorProfile.getGender()));
         docSpec.setText(doctorProfile.getSpecializations().stream().map(Object::toString).collect(Collectors.joining(", ")));
         docBio.setText(doctorProfile.getBio());
 
@@ -160,5 +160,9 @@ public class DoctorProfileActivity extends AppCompatActivity {
         RecyclerViewAdapter2 adapter = new RecyclerViewAdapter2(this, new ArrayList<>(patientList));
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    private String capitalize(String s){
+        return s.substring(0,1).toUpperCase() + s.substring(1).toLowerCase();
     }
 }
