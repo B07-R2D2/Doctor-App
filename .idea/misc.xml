@@ -3,19 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/activity_availability.xml" value="0.264" />
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/activity_main.xml" value="0.23854166666666668" />
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/recycler_item.xml" value="0.4" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_appointment_history.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_availability.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_doctor_calendar.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_doctor_home_page.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_doctor_profile.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_doctor_signup.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_doctor_signup2.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_ex.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/activity_login.xml" value="0.17753623188405798" />
-        <entry key="..\:/course/b07csc/make_own_tests/Doctor-App/app/src/main/res/layout/recycler_item.xml" value="0.4" />
       </map>
     </option>
   </component>

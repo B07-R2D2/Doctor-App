@@ -47,7 +47,7 @@
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
             android:launchMode="singleTop"
-            android:parentActivityName=".AppointmentHistoryActivity" />
+            android:parentActivityName=".PatientHomeActivity" />
         <activity
             android:name=".ExActivity"
             android:launchMode="singleTop"
@@ -81,11 +81,6 @@
             android:label="@string/activity_label_patient_profile"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
-        <activity
-            android:name=".AppointmentHistoryActivity"
-            android:label="@string/activity_label_appointment_history"
-            android:launchMode="singleTop"
-            android:parentActivityName=".PatientProfileActivity" />
     </application>
 
 </manifest>
