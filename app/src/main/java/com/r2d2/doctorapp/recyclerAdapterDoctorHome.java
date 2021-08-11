@@ -1,6 +1,7 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.solver.LinearSystem;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
@@ -50,22 +52,38 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorHome.MyViewHolder holder, int position) {
-        if(apptlists.size()==0){
+        if(checkAppointmentListIsEmpty(apptlists)){
+
             holder.text.setText("No schedule today!!");
+            holder.button.setVisibility(View.INVISIBLE);
             return;
         }
-
         String name = apptlists.get(position).getPatientName();
-        String time = apptlists.get(position).toString();   // appointment.toString() returns the date and time
-        holder.text.setText(name + " @ "+ time);
-        holder.patient = ppList.get(position);
+        String time = apptlists.get(position).toString();
+        Log.i("info", "name is: " + name + "position: " + position + "applist length: " + apptlists.size());
+        if(!name.isEmpty()){
+            holder.text.setText(name + " @ "+ time);
+            holder.patient = ppList.get(position);
+        }
+    }
 
+    // checks if apptlists is empty
+    public boolean checkAppointmentListIsEmpty(List<Appointment> apptlists){
+        int count = 0;
+        for (Appointment appointment :apptlists){
+            if (appointment.getPatientName().isEmpty())
+                count++;
+        }
+        if (count == apptlists.size())
+            return true;
+        return false;
     }
 
     @Override
     public int getItemCount() {
+        if(checkAppointmentListIsEmpty(apptlists))
+            return 1;
         return apptlists.size();
     }
-
 }
 

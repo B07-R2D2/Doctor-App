@@ -29,7 +29,7 @@ public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recycler
 
         public MyViewHolder(final View view){
             super(view);
-            text = view.findViewById(R.id.textView15);
+            text = view.findViewById(R.id.textView16);
             button = view.findViewById(R.id.button3);
 
 //             when clicked send to patient profile page
@@ -51,7 +51,9 @@ public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recycler
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorCalender.MyViewHolder holder, int position) {
         if(appointments.size()==0){
-            holder.text.setText("No schedule today!!");
+            holder.text.setText("No Appointments Today!!");
+            holder.text.setVisibility(View.INVISIBLE);
+            holder.button.setVisibility(View.INVISIBLE);
             return;
         }
 

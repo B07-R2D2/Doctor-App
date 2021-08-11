@@ -1,12 +1,21 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import java.time.Instant;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 public class DoctorCalendarActivity extends AppCompatActivity {
 
@@ -23,17 +32,38 @@ public class DoctorCalendarActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        Intent da1 = getIntent();
-        String username = da1.getStringExtra(DoctorHomePageActivity.setUSERNAME);
+        Intent intent = getIntent();
+        String username = intent.getStringExtra(DoctorHomePageActivity.setUSERNAME);
         doctorCalendar = new DoctorCalendar();
         doctorCalendar.fetchAppointments(username, this::setAdaptor);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void setAdaptor() {
-        recyclerAdapterDoctorCalender adaptor = new recyclerAdapterDoctorCalender(doctorCalendar.getAppointments(), doctorCalendar.getPatientProfiles());
+        List<Appointment> apptlists= doctorCalendar.getAppointments();
+        filterTodayWeek(apptlists);
+        recyclerAdapterDoctorCalender adaptor = new recyclerAdapterDoctorCalender(apptlists, doctorCalendar.getPatientProfiles());
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adaptor);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void filterTodayWeek(List<Appointment> apptlists){
+        Instant instant = Instant.now();
+        long currTime = instant.getEpochSecond();
+
+        List<Appointment> temp = new ArrayList<>();
+
+        for(Appointment a : apptlists){
+            long appttime = a.getTimeStamp();
+
+            if(appttime > currTime){
+                temp.add(a);
+            }
+        }
+        apptlists.clear();
+        apptlists.addAll(temp);
     }
 }
