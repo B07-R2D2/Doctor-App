@@ -150,7 +150,7 @@
                     android:layout_weight="1"
                     android:onClick="back"
                     android:text="@string/patient_signup_button_title_back"
-                    app:backgroundTint="#00BCD4" />
+                    app:backgroundTint="@color/secondary" />
 
                 <Button
                     android:id="@+id/button_sign_up"
@@ -162,7 +162,7 @@
                     android:layout_weight="1"
                     android:onClick="signUp"
                     android:text="@string/patient_signup_button_title_sign_up"
-                    app:backgroundTint="#00BCD4" />
+                    app:backgroundTint="@color/secondary" />
             </LinearLayout>
 
         </LinearLayout>
