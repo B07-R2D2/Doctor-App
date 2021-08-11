@@ -11,18 +11,15 @@ public class LoginPresenter {
         this.model = Model;
         this.view = View;
     }
-    public void checkLogin(String Username, String Password)
+    public void checkLogin(String username, String password)
     {
-        Intent intent = new Intent(view, PatientHomeActivity.class);
-        Intent intent2 = new Intent(view,DoctorHomePageActivity.class);
-        intent.putExtra(view.givenUsername, Username);
-        intent2.putExtra(view.givenUsername, Username);
-        int found = model.checkLogin(Username,Password);
+        int found = model.checkLogin(username, password);
         if(found == 0)
-            view.displayMessage();
-        else if(found == 1)
+            view.displayErrorMessage(view.getString(R.string.login_user_not_found));
+        else {
+            Intent intent = new Intent(view, (found == 1) ? PatientHomeActivity.class : DoctorHomePageActivity.class);
+            intent.putExtra(view.givenUsername, username);
             view.startActivity(intent);
-        else
-            view.startActivity(intent2);
+        }
     }
 }

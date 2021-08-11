@@ -16,12 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
+
     private LoginPresenter presenter;
 
-    public void displayMessage()
+    public void displayErrorMessage(String message)
     {
         EditText send = (EditText) findViewById(R.id.EnterPassword);
-        send.setError("Username or Password is incorrect or account does not exist");
+        send.setError(message);
         send.requestFocus();
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -30,11 +31,11 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //This is the app entry point.
+        // This is the app entry point, so start background tasks here.
         PoorMansBackend.getInstance().start();
-        LoginModel m = new LoginModel(FirebaseDatabase.getInstance().getReference("Doctors"),
-        FirebaseDatabase.getInstance().getReference("Patients"));
-        presenter = new LoginPresenter(m,this);
+
+        presenter = new LoginPresenter(new LoginModel(FirebaseDatabase.getInstance()),this);
+
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -47,15 +48,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-    //static adds ValueEvent Listener Automatically
+
     public void checkLogin(View view) {
         // Do something in response to button
-        EditText send = (EditText) findViewById(R.id.EnterUsername);
-        EditText send2 = (EditText) findViewById(R.id.EnterPassword);
-        String usernameMessage = send.getText().toString();
-        String passwordMessage = send2.getText().toString();
-        presenter.checkLogin(usernameMessage,passwordMessage);
-        //loop through hashmap to check if user is patient or doctor and go into the corresponding homepage
+        EditText usernameField = (EditText) findViewById(R.id.EnterUsername);
+        EditText passwordField = (EditText) findViewById(R.id.EnterPassword);
+        String username = usernameField.getText().toString();
+        String password = passwordField.getText().toString();
+        presenter.checkLogin(username, password);
     }
     public void sendPatientSignup(View view) {
         // Do something in response to button
@@ -68,8 +68,4 @@ public class LoginActivity extends AppCompatActivity {
         this.startActivity(intent);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }
