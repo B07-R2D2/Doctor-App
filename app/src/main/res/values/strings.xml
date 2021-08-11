@@ -38,7 +38,7 @@
     <string name="doctor_signup_button_title_sign_up">Sign up</string>
 
     <string name="patient_signup_title">Sign up as Patient</string>
-    <string name="patient_signup_prompt_username">Username</string>
+    <string name="patient_signup_prompt_username">Enter Username</string>
     <string name="patient_signup_prompt_password">Enter Password</string>
     <string name="patient_signup_prompt_first_name">Enter First Name</string>
     <string name="patient_signup_prompt_last_name">Enter Last Name</string>
