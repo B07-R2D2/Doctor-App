@@ -1,14 +1,14 @@
 package com.r2d2.doctorapp;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,13 +46,13 @@ public class DoctorCalendarActivity extends AppCompatActivity {
 //
         DatabaseReference ref = doctor.getRef().child("appointments");
 
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot child: snapshot.getChildren()) {
                     Appointment appt = child.getValue(Appointment.class);
+                    apptlists.add(appt);
                     if(!appt.getPatientName().equals("")){
-                        apptlists.add(appt);
                         names.add(appt.getPatientName());
                         DatabaseReference ppref = FirebaseDatabase.getInstance().getReference("Patients").child(appt.getPatientName());
                         ppref.addListenerForSingleValueEvent(new ValueEventListener() {

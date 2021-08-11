@@ -1,7 +1,6 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,11 +35,11 @@ public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recycler
             button = view.findViewById(R.id.button3);
 
 //             when clicked send to patient profile page
-//            button.setOnClickListener(v -> {
-//                Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
-//                intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
-//                v.getContext().startActivity(intent);
-//            });
+            button.setOnClickListener(v -> {
+                Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
+                intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
+                v.getContext().startActivity(intent);
+            });
         }
     }
 
@@ -58,12 +57,15 @@ public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recycler
             return;
         }
 
-        String name = apptlists.get(position).getPatientName();
-        String time = apptlists.get(position).toString();   // appointment.toString() returns the date and time
-        if(name == ""){
+        Appointment appt = apptlists.get(position);
+        String time = appt.toString();   // appointment.toString() returns the date and time
+        if(appt.getPatientName().isEmpty()){
             holder.text.setText(time + " is not booked");
+            holder.button.setVisibility(View.INVISIBLE);
         }
         else{
+            Patient.Profile patientProfile = ppList.get(position);
+            String name = patientProfile.getFirstName() + " " + patientProfile.getLastName();
             holder.text.setText(name + " @ "+ time);
             holder.patient = ppList.get(position);
         }
