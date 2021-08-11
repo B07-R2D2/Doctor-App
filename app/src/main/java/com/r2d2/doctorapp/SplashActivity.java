@@ -19,9 +19,11 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 try{
                     sleep(4*1000);
+                    //finish(); //if you put finish() here, the transition looks different, no idea why
                     Intent intent = new Intent(getBaseContext(), LoginActivity.class);
                     startActivity(intent);
                     finish();
+                    // this doesn't work :(
                     overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
                 }
                 catch (InterruptedException e){
