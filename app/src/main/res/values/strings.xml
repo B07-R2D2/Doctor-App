@@ -14,7 +14,15 @@
     <string name="activity_label_patient_profile">Medical Profile</string>
     <string name="activity_label_appointment_history">Appointment History</string>
     <string name="activity_label_register_list">Past Patients</string>
+
+    <string name="login_title">Welcome! Please log in.</string>
+    <string name="login_username_prompt">Enter Username</string>
+    <string name="login_password_prompt">Enter Password</string>
+    <string name="login_button_title_log_in">Log in</string>
+    <string name="login_button_title_doctor_sign_up">Sign up as Doctor</string>
+    <string name="login_button_title_patient_sign_up">Sign up as Patient</string>
     <string name="login_user_not_found">Username or password is incorrect, or account does not exist</string>
+
     <string name="doctor_date">Monday 1st, August</string>
     <string name="book">Book</string>
     <string name="Booked">Booked</string>
