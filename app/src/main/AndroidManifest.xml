@@ -16,20 +16,12 @@
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".DoctorSignup2Activity"
-            android:label="@string/activity_label_doctor_sign_up_2"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorSignupActivity" />
-        <activity
             android:name=".PatientSignupActivity"
             android:label="@string/activity_label_patient_sign_up"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
-        <activity
-            android:name=".PatientSignup2Activity"
-            android:label="@string/activity_label_patient_sign_up_2"
-            android:launchMode="singleTop"
-            android:parentActivityName=".PatientSignupActivity" /> <!-- Doctors -->
+
+        <!-- Doctors -->
         <activity
             android:name=".DoctorHomePageActivity"
             android:label="@string/activity_label_doctor_home"
@@ -47,7 +39,7 @@
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
             android:launchMode="singleTop"
-            android:parentActivityName=".AppointmentHistoryActivity" />
+            android:parentActivityName=".PatientHomeActivity" />
         <activity
             android:name=".ExActivity"
             android:launchMode="singleTop"
@@ -80,11 +72,6 @@
             android:label="@string/activity_label_patient_profile"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
-        <activity
-            android:name=".AppointmentHistoryActivity"
-            android:label="@string/activity_label_appointment_history"
-            android:launchMode="singleTop"
-            android:parentActivityName=".PatientProfileActivity" />
     </application>
 
 </manifest>
