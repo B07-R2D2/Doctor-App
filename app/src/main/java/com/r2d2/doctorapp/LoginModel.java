@@ -46,7 +46,7 @@ public class LoginModel {
     }
 
     /**
-     * Checks if a user exists for the given username and password.
+     * Check if a user exists for the given username and password.
      * @param username username to look for
      * @param password password to look for
      * @return type of user: if no user found, 0; if patient found, 1; if doctor found, 2
