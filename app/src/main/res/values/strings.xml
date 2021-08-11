@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Doctor App</string>
-    <string name="activity_label_doctor_sign_up">Sign up as Doctor (1/2)</string>
-    <string name="activity_label_doctor_sign_up_2">Sign up as Doctor (2/2)</string>
+    <string name="activity_label_doctor_sign_up">Sign up as Doctor</string>
     <string name="activity_label_patient_sign_up">Sign up as Patient (1/2)</string>
     <string name="activity_label_patient_sign_up_2">Sign up as Patient (2/2)</string>
     <string name="activity_label_doctor_home">Home</string>
@@ -23,6 +22,22 @@
     <string name="login_button_title_patient_sign_up">Sign up as Patient</string>
     <string name="login_user_not_found">Username or password is incorrect, or account does not exist</string>
 
+    <string name="doctor_signup_title">Sign up as Doctor</string>
+    <string name="doctor_signup_prompt_username">Enter Username</string>
+    <string name="doctor_signup_prompt_password">Enter Password</string>
+    <string name="doctor_signup_prompt_first_name">Enter First Name</string>
+    <string name="doctor_signup_prompt_last_name">Enter Last Name</string>
+    <string name="doctor_signup_prompt_gender">Enter Gender</string>
+    <string name="doctor_signup_prompt_university">Enter University Name</string>
+    <string name="doctor_signup_prompt_specialization">Enter a Specialization</string>
+    <string name="doctor_signup_button_title_add_specialization">Add</string>
+    <string name="doctor_signup_label_added_specializations">Added:</string>
+    <string name="doctor_signup_prompt_doctor_id">Enter Doctor ID</string>
+    <string name="doctor_signup_prompt_health_number">Enter Health Number</string>
+    <string name="doctor_signup_prompt_bio">Enter Short Biography</string>
+    <string name="doctor_signup_button_title_back">Cancel</string>
+    <string name="doctor_signup_button_title_sign_up">Sign up</string>
+
     <string name="doctor_date">Monday 1st, August</string>
     <string name="book">Book</string>
     <string name="Booked">Booked</string>
@@ -33,6 +48,7 @@
     <string name="patient_home_view_profile">My Medical Profile</string>
     <string name="patient_profile_full_name">Name:</string>
     <string name="patient_profile_gender">Gender:</string>
+    <string name="patient_profile_birthdate">Date of birth:</string>
     <string name="patient_profile_medical_condition">Medical conditions:</string>
-    <string name="patient_profile_view_history">Appointment History</string>
+    <string name="patient_profile_past_appointments">Appointment History</string>
 </resources>
