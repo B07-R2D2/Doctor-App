@@ -10,6 +10,7 @@ import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Doctor extends User {
 
@@ -17,17 +18,18 @@ public class Doctor extends User {
         private String bio = "";
         private String uni = "";
         private int doctorId;
-        private String specialization = "";
+        private List<String> specializations = new ArrayList<>();
+        private List<String> pastPatients = new ArrayList<>();
 
         public Profile() {
         }
 
-        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, String specialization) {
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, ArrayList<Appointment> appointments, String bio, String uni, int doctorId, ArrayList<String> specializations) {
             super(firstName, lastName, username, password, gender, sin, appointments);
             this.bio = bio;
             this.uni = uni;
             this.doctorId = doctorId;
-            this.specialization = specialization;
+            this.specializations = specializations;
         }
 
         public String getBio() {
@@ -42,8 +44,12 @@ public class Doctor extends User {
             return doctorId;
         }
 
-        public String getSpecialization() {
-            return specialization;
+        public List<String> getSpecializations() {
+            return specializations;
+        }
+
+        public List<String> getPastPatients() {
+            return pastPatients;
         }
 
 // comment out these bc we don't need them and they cause errors (not sure if we'll use them in the future tho)
@@ -113,14 +119,17 @@ public class Doctor extends User {
     @Override
     protected void pushToDatabase() {
         super.pushToDatabase();
-        Profile profile = getProfile();;
-        Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + profile.getSpecialization() + " " + profile.getGender());
-        if (!profile.getSpecialization().equals("")) {
-            getRef().getDatabase()
-                    .getReference("doctorsSpecial")
-                    .child(profile.getSpecialization().toLowerCase())
-                    .child(profile.getUsername())
-                    .setValue(profile);
+        Profile profile = getProfile();
+        List<String> specializations = profile.getSpecializations();
+        for (String spec : specializations) {
+            Log.i("Doctor", "Pushing " + profile.getFirstName() + " " + profile.getLastName() + " " + spec + " " + profile.getGender());
+            if (!spec.equals("")) {
+                getRef().getDatabase()
+                        .getReference("DoctorsSpecial")
+                        .child(spec.toLowerCase())
+                        .child(profile.getUsername())
+                        .setValue(profile);
+            }
         }
     }
 
@@ -139,8 +148,13 @@ public class Doctor extends User {
         pushToDatabase();
     }
 
-    public void setSpecialization(String specialization) {
-        getProfile().specialization = specialization;
+    public void setSpecializations(ArrayList<String> specializations) {
+        getProfile().specializations = specializations;
+        pushToDatabase();
+    }
+
+    public void setPastPatients(List<String> pastPatients) {
+        getProfile().pastPatients = pastPatients;
         pushToDatabase();
     }
 

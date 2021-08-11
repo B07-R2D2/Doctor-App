@@ -21,6 +21,13 @@ public class LoginTest {
     @Mock
     LoginActivity view;
     @Mock
-    LoginView presenter;
+    LoginModel model;
+    @Mock
+
+    @Test
+    public void testPresenter()
+    {
+
+    }
 
 }

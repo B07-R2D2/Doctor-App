@@ -1,5 +1,6 @@
 package com.r2d2.doctorapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -11,8 +12,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LoginActivity extends AppCompatActivity {
     public static final String givenUsername = "com.example.DoctorApp.USERNAMEMESSAGE";
-    private LoginView presenter;
+    private LoginPresenter presenter;
 
+    public void displayMessage()
+    {
+        EditText send = (EditText) findViewById(R.id.EnterPassword);
+        send.setError("Username or Password is incorrect or account does not exist");
+        send.requestFocus();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +27,8 @@ public class LoginActivity extends AppCompatActivity {
 
         //This is the app entry point.
         PoorMansBackend.getInstance().start();
-
-        presenter = new LoginView(this);
+        LoginModel m = new LoginModel();
+        presenter = new LoginPresenter(m,this);
         EditText passwordEdit = (EditText) findViewById(R.id.EnterPassword);
         passwordEdit.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -46,18 +53,17 @@ public class LoginActivity extends AppCompatActivity {
     }
     public void sendPatientSignup(View view) {
         // Do something in response to button
-        presenter.sendPatientSignup();
+        Intent intent = new Intent(this, PatientSignupActivity.class);
+        this.startActivity(intent);
     }
     public void sendDoctorSignup(View view) {
         // Do something in response to button
-        presenter.sendDoctorSignup();
+        Intent intent = new Intent(this, DoctorSignupActivity.class);
+        this.startActivity(intent);
     }
 
     @Override
     protected void onDestroy() {
-        // This is the app exit point.
-        PoorMansBackend.getInstance().stop();
-
         super.onDestroy();
     }
 }

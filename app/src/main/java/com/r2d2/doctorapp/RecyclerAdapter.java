@@ -55,7 +55,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         public RecyclerViewHolder(final View view) {
             super(view);
-            timeSlotTxt = view.findViewById(R.id.time_slot);
+            timeSlotTxt = view.findViewById(R.id.plain_text_recycler_item_text);
             button = view.findViewById(R.id.book_button);
             // initialized slot at onBindViewHolder
             button.setOnClickListener(new View.OnClickListener() {

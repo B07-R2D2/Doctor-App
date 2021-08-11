@@ -46,18 +46,13 @@
         <activity
             android:name=".DoctorCalendarActivity"
             android:label="@string/activity_label_doctor_calendar" />
-        <activity
-            android:name=".RegisterListActivity"
-            android:label="@string/activity_label_register_list"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorProfileActivity" />
 
         <!-- Doctor search -->
         <activity
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
             android:launchMode="singleTop"
-            android:parentActivityName=".DoctorHistoryActivity" />
+            android:parentActivityName=".AppointmentHistoryActivity" />
         <activity
             android:name=".ExActivity"
             android:launchMode="singleTop"
@@ -92,8 +87,8 @@
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
         <activity
-            android:name=".DoctorHistoryActivity"
-            android:label="@string/activity_label_doctor_history"
+            android:name=".AppointmentHistoryActivity"
+            android:label="@string/activity_label_appointment_history"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientProfileActivity" />
     </application>
