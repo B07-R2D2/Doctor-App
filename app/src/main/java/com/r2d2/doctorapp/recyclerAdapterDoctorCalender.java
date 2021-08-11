@@ -14,14 +14,12 @@ import java.util.ArrayList;
 
 public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recyclerAdapterDoctorCalender.MyViewHolder> {
 
-    private final ArrayList<Appointment> apptlists;
-    private ArrayList<Patient.Profile> ppList;
-    private ArrayList<String> names;
+    private final ArrayList<Appointment> appointments;
+    private ArrayList<Patient.Profile> patientProfiles;
 
-    public recyclerAdapterDoctorCalender(ArrayList<Appointment> apptlists, ArrayList<Patient.Profile> ppList, ArrayList<String> names){
-        this.apptlists = apptlists;
-        this.ppList = ppList;
-        this.names = names;
+    public recyclerAdapterDoctorCalender(ArrayList<Appointment> appointments, ArrayList<Patient.Profile> patientProfiles){
+        this.appointments = appointments;
+        this.patientProfiles = patientProfiles;
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
@@ -52,27 +50,27 @@ public class recyclerAdapterDoctorCalender extends RecyclerView.Adapter<recycler
 
     @Override
     public void onBindViewHolder(@NonNull recyclerAdapterDoctorCalender.MyViewHolder holder, int position) {
-        if(apptlists.size()==0){
+        if(appointments.size()==0){
             holder.text.setText("No schedule today!!");
             return;
         }
 
-        Appointment appt = apptlists.get(position);
+        Appointment appt = appointments.get(position);
         String time = appt.toString();   // appointment.toString() returns the date and time
         if(appt.getPatientName().isEmpty()){
             holder.text.setText(time + " is not booked");
             holder.button.setVisibility(View.INVISIBLE);
         }
         else{
-            Patient.Profile patientProfile = ppList.get(position);
+            Patient.Profile patientProfile = patientProfiles.get(position);
             String name = patientProfile.getFirstName() + " " + patientProfile.getLastName();
             holder.text.setText(name + " @ "+ time);
-            holder.patient = ppList.get(position);
+            holder.patient = patientProfiles.get(position);
         }
     }
 
     @Override
     public int getItemCount() {
-        return apptlists.size();
+        return appointments.size();
     }
 }

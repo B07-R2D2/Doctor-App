@@ -2,19 +2,13 @@ package com.r2d2.doctorapp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
@@ -22,11 +16,12 @@ public class DoctorCalendarActivity extends AppCompatActivity {
 
     public static final String EXTRA_USERNAME = DoctorHomePageActivity.EXTRA_USERNAME;
 
-    private static ArrayList<Appointment> apptlists;
-    private static ArrayList<Patient.Profile> ppList;
+    private static ArrayList<Appointment> appointments;
+    private static ArrayList<Patient.Profile> patientProfiles;
     private RecyclerView recyclerView;
     private String username;
-    private ArrayList<String> names;
+
+    private int fetchedCount, totalCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,54 +30,46 @@ public class DoctorCalendarActivity extends AppCompatActivity {
 
         Intent da1 = getIntent();
         this.username = da1.getStringExtra(DoctorHomePageActivity.setUSERNAME);
-        this.names = new ArrayList<>();
 
         recyclerView = findViewById(R.id.recyclerView);
-        apptlists = new ArrayList<>();
-        ppList = new ArrayList<>();
-//        Intent intent = getIntent();
-//        this.username = intent.getStringExtra(EXTRA_USERNAME);
+        appointments = new ArrayList<>();
+        patientProfiles = new ArrayList<>();
+
         Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), username);
-//
-        DatabaseReference ref = doctor.getRef().child("appointments");
+        doctor.addOneTimeObserver(() -> {
+            // Partly copied from AppointmentHistory
 
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot child: snapshot.getChildren()) {
-                    Appointment appt = child.getValue(Appointment.class);
-                    apptlists.add(appt);
-                    if(!appt.getPatientName().equals("")){
-                        names.add(appt.getPatientName());
-                        DatabaseReference ppref = FirebaseDatabase.getInstance().getReference("Patients").child(appt.getPatientName());
-                        ppref.addListenerForSingleValueEvent(new ValueEventListener() {
+            fetchedCount = 0;
+            totalCount = appointments.size();
 
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                Patient.Profile currentProfile = snapshot.getValue(Patient.Profile.class);
-                                ppList.add(currentProfile);
-                                setAdaptor();
-                            }
+            for (Appointment appointment : appointments) {
+                appointments.add(appointment);
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                                Log.w("warning", "failed to get patientprofile, DoctorCalendarPage", error.toException());
-                            }
-                        });
-                    }else{
-                        names.add("");
-                    }
+                String patientName = appointment.getPatientName();
+                if (patientName.isEmpty()) {
+                    patientProfiles.add(null);
+                    checkIfFetchedAll();
+                } else {
+                    Patient patient = new Patient(doctor.getRef().getDatabase(), appointment.getPatientName());
+                    patient.addOneTimeObserver(() -> {
+                        patientProfiles.add(patient.getProfile());
+                        checkIfFetchedAll();
+                    });
                 }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("warning", "loadPost: onCancelled", error.toException());
             }
         });
     }
-    public void setAdaptor(){
 
-        recyclerAdapterDoctorCalender adaptor = new recyclerAdapterDoctorCalender(apptlists, ppList, names);
+    private void checkIfFetchedAll() {
+        fetchedCount++;
+        if (fetchedCount == totalCount) {
+            // We've fetched everything.
+            setAdaptor();
+        }
+    }
+
+    public void setAdaptor(){
+        recyclerAdapterDoctorCalender adaptor = new recyclerAdapterDoctorCalender(appointments, patientProfiles);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
