@@ -3,7 +3,9 @@ package com.r2d2.doctorapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,13 +17,37 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class DoctorSignup2Activity extends AppCompatActivity {
+
+    List<String> specs = new ArrayList<>();
+    EditText addSpecText;
+    Button addSpecButton;
+    TextView addedSpecText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_doctor_signup2);
+
+        // Stuff that allows adding multiple specializations
+        addSpecText = (EditText) findViewById(R.id.addSpecText);
+        addSpecButton = (Button) findViewById(R.id.addSpecButton);
+        addedSpecText = (TextView) findViewById(R.id.addedSpecText);
+
+        addSpecButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String newSpec = addSpecText.getText().toString().trim().toLowerCase();
+                if (!specs.contains(newSpec)) {
+                    specs.add(newSpec);
+                }
+                addedSpecText.setText("Added: " + specs.stream().map(Object::toString).collect(Collectors.joining(", ")));
+                addSpecText.getText().clear();
+            }
+        });
+
     }
 
     public void submitButton(View view){
@@ -33,12 +59,10 @@ public class DoctorSignup2Activity extends AppCompatActivity {
         String gender = da1.getStringExtra(DoctorSignupActivity.setGENDER);
 
         EditText editText1 = (EditText) findViewById(R.id.editTextTextPersonName2);
-        EditText editText2 = (EditText) findViewById(R.id.editTextTextPersonName3);
         EditText editText3 = (EditText) findViewById(R.id.editTextTextPersonName8);
         EditText editText4 = (EditText) findViewById(R.id.editTextTextPersonName);
         EditText editText5 = (EditText) findViewById(R.id.editTextTextPersonName10);
         String uni = editText1.getText().toString().trim();
-        String specialization = editText2.getText().toString().trim();
         String dId = editText3.getText().toString().trim();
         String sin1 = editText4.getText().toString().trim();
         String bio = editText5.getText().toString().trim();
@@ -49,9 +73,9 @@ public class DoctorSignup2Activity extends AppCompatActivity {
             editText1.requestFocus();
             return;
         }
-        if(specialization.isEmpty()){
-            editText2.setError("Please Enter your specialization");
-            editText2.requestFocus();
+        if(specs.isEmpty()){
+            addSpecText.setError("Please Enter your specialization");
+            addSpecText.requestFocus();
             return;
         }
         if(dId.isEmpty()){
@@ -82,11 +106,10 @@ public class DoctorSignup2Activity extends AppCompatActivity {
 
         int doctorId = new Integer(dId).intValue();
         int sin = new Integer(sin1).intValue();
-        ArrayList<String> specs = new ArrayList<String>(Arrays.asList(specialization.split(",[ ]*")));
 
         Doctor doctor = new Doctor(
             FirebaseDatabase.getInstance(),
-            new Doctor.Profile(firstname, lastname, username, password, gender, sin, Doctor.makeOneWeekOfAppointments(username), bio, uni, doctorId, specs)
+            new Doctor.Profile(firstname, lastname, username, password, gender, sin, Doctor.makeOneWeekOfAppointments(username), bio, uni, doctorId, new ArrayList<>(specs))
         );
 
         //Send user back to log in page.
