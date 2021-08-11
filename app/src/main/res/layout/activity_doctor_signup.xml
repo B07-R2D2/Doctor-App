@@ -177,7 +177,7 @@
                     android:layout_weight="1"
                     android:onClick="backButton"
                     android:text="Back"
-                    app:backgroundTint="#00BCD4" />
+                    app:backgroundTint="@color/secondary" />
 
                 <Button
                     android:id="@+id/Continue"
@@ -189,7 +189,7 @@
                     android:layout_weight="1"
                     android:onClick="sendMessage"
                     android:text="Continue"
-                    app:backgroundTint="#00BCD4" />
+                    app:backgroundTint="@color/secondary" />
             </LinearLayout>
 
         </LinearLayout>
