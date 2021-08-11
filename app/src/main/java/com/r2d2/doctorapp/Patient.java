@@ -5,7 +5,6 @@ import androidx.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class Patient extends User {
@@ -14,6 +13,15 @@ public class Patient extends User {
         private String medicalCondition = "";
         private Long dateOfBirth = System.currentTimeMillis();
         private List<Appointment> pastAppointments = new ArrayList<>();
+
+        public Profile() {
+        }
+
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, String medicalCondition, long dateOfBirth) {
+            super(firstName, lastName, username, password, gender, sin, new ArrayList<>());
+            this.medicalCondition = medicalCondition;
+            this.dateOfBirth = dateOfBirth;
+        }
 
         public String getMedicalCondition() {
             return medicalCondition;

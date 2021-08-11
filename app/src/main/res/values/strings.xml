@@ -1,8 +1,7 @@
 <resources>
     <string name="app_name">Doctor App</string>
     <string name="activity_label_doctor_sign_up">Sign up as Doctor</string>
-    <string name="activity_label_patient_sign_up">Sign up as Patient (1/2)</string>
-    <string name="activity_label_patient_sign_up_2">Sign up as Patient (2/2)</string>
+    <string name="activity_label_patient_sign_up">Sign up as Patient</string>
     <string name="activity_label_doctor_home">Home</string>
     <string name="activity_label_doctor_profile">Doctor Profile</string>
     <string name="activity_label_doctor_calendar">Schedule</string>
@@ -37,6 +36,18 @@
     <string name="doctor_signup_prompt_bio">Enter Short Biography</string>
     <string name="doctor_signup_button_title_back">Cancel</string>
     <string name="doctor_signup_button_title_sign_up">Sign up</string>
+
+    <string name="patient_signup_title">Sign up as Patient</string>
+    <string name="patient_signup_prompt_username">Enter Username</string>
+    <string name="patient_signup_prompt_password">Enter Password</string>
+    <string name="patient_signup_prompt_first_name">Enter First Name</string>
+    <string name="patient_signup_prompt_last_name">Enter Last Name</string>
+    <string name="patient_signup_prompt_gender">Enter Gender</string>
+    <string name="patient_signup_prompt_medical_condition">Enter Medical Conditions</string>
+    <string name="patient_signup_prompt_health_number">Enter Health Number</string>
+    <string name="patient_signup_button_button_title_set_date_of_birth">Set Date of Birth</string>
+    <string name="patient_signup_button_title_sign_up">Sign up</string>
+    <string name="patient_signup_button_title_back">Cancel</string>
 
     <string name="doctor_date">Monday 1st, August</string>
     <string name="book">Book</string>
