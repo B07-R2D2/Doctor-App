@@ -3,12 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/activity_availability.xml" value="0.264" />
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/activity_main.xml" value="0.23854166666666668" />
-        <entry key="..\:/course/b07csc/R2D2v2/Doctor-App/app/src/main/res/layout/recycler_item.xml" value="0.4" />
-        <entry key="app/src/main/res/layout/activity_appointment_history.xml" value="0.16077898550724637" />
-        <entry key="app/src/main/res/layout/activity_doctor_profile.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/activity_patient_profile.xml" value="0.335" />
       </map>
     </option>
   </component>

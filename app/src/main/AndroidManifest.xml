@@ -17,11 +17,6 @@
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".DoctorSignup2Activity"
-            android:label="@string/activity_label_doctor_sign_up_2"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorSignupActivity" />
-        <activity
             android:name=".PatientSignupActivity"
             android:label="@string/activity_label_patient_sign_up"
             android:launchMode="singleTop"
