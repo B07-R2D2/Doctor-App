@@ -34,6 +34,8 @@
     <string name="doctor_signup_prompt_doctor_id">Enter Doctor ID</string>
     <string name="doctor_signup_prompt_health_number">Enter Health Number</string>
     <string name="doctor_signup_prompt_bio">Enter Short Biography</string>
+    <string name="doctor_signup_button_title_back">Cancel</string>
+    <string name="doctor_signup_button_title_sign_up">Sign up</string>
 
     <string name="patient_signup_title">Sign up as Patient</string>
     <string name="patient_signup_prompt_username">Username</string>
