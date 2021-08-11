@@ -1,7 +1,6 @@
 package com.r2d2.doctorapp;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdapterDoctorHome.MyViewHolder> {
 
-    private final ArrayList<Appointment> apptlists;
-    private ArrayList<Patient.Profile> ppList;
+    private final List<Appointment> apptlists;
+    private List<Patient.Profile> ppList;
 
-    public recyclerAdapterDoctorHome(ArrayList<Appointment> apptlists, ArrayList<Patient.Profile> ppList){
+    public recyclerAdapterDoctorHome(List<Appointment> apptlists, List<Patient.Profile> ppList){
         this.apptlists = apptlists;
         this.ppList = ppList;
     }
