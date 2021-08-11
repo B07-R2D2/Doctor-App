@@ -57,6 +57,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
         Log.i("info", "getclass: " + this.getClass());
 
+        // if from DoctorHome class
         if(fromclass.equals("DoctorHome")){
 //            Log.i("info", "getclass: " this.getClass());
             if(checkAppointmentListIsEmpty(apptlists)){
@@ -72,7 +73,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
                 holder.text.setText(name + " @ "+ time);
                 holder.patient = ppList.get(position);
             }
-        }else if(fromclass.equals("DoctorCalendar")){
+        }else if(fromclass.equals("DoctorCalendar")){ // if from DoctorCalendar class
             Appointment appt = apptlists.get(position);
             String time = appt.toString();   // appointment.toString() returns the date and time
             if(appt.getPatientName().isEmpty()){
