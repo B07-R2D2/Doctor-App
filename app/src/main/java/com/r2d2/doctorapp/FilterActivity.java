@@ -128,6 +128,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
             });
         });
         recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutAnimation(recyclerView.getLayoutAnimation());
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
