@@ -45,6 +45,11 @@ public class PatientHomeActivity extends AppCompatActivity {
         patient.addObserver(this::updateUpcomingAppointments);
     }
 
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        updateUpcomingAppointments();
+    }
+
     private void updateUpcomingAppointments() {
         presenter.fetchUpcomingAppointmentInfo(this::setUpcomingAppointmentInfo);
     }
