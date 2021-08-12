@@ -62,7 +62,7 @@ public class UserUnitTest {
     @Test
     public void testToString() {
 
-        assertEquals("Dr. Jason, Hou", u1.toString());
+        assertEquals("Dr. Jason Hou", u1.toString());
     }
 
     @Test
