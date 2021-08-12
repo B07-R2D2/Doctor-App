@@ -61,7 +61,7 @@ public class PatientSignupActivity extends AppCompatActivity {
     }
 
     public void showDatePickerDialog(View view) {
-        datePicker = new DatePickerFragment();
+        if (datePicker == null) datePicker = new DatePickerFragment();
         datePicker.show(getSupportFragmentManager(), "datePicker");
     }
 
