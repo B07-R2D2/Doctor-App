@@ -34,7 +34,8 @@
             android:parentActivityName=".DoctorHomePageActivity" />
         <activity
             android:name=".DoctorCalendarActivity"
-            android:label="@string/activity_label_doctor_calendar" /> <!-- Doctor search -->
+            android:label="@string/activity_label_doctor_calendar"
+            android:parentActivityName=".DoctorProfileActivity" /> <!-- Doctor search -->
         <activity
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
