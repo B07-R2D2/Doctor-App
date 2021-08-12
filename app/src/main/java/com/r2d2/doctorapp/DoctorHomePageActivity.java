@@ -4,12 +4,15 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.time.Instant;
 import java.time.ZoneId;
@@ -25,9 +28,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
     public static final String setUSERNAME = "com.example.DoctorApp.SETUSERMESSAGE";
 
     private RecyclerView recyclerView;
-
     private String username;
     private DoctorCalendar doctorCalendar;
+    private Button profileButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +43,18 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         username = intent.getStringExtra(EXTRA_USERNAME);
         doctorCalendar = new DoctorCalendar();
         doctorCalendar.fetchAppointments(username, this::setAdaptor);
+
+        Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), username);
+        // Button to go to doctor profile
+        profileButton = (Button) findViewById(R.id.doctorProfileButton);
+        profileButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), DoctorProfileActivity.class);
+                intent.putExtra(DoctorProfileActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -82,10 +97,5 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         Intent intent2 = new Intent(this,DoctorCalendarActivity.class);
         intent2.putExtra(setUSERNAME, username);
         startActivity(intent2);
-    }
-    public void toProfileButton(View view){
-        Intent intent3 = new Intent(this,DoctorProfileActivity.class);
-        intent3.putExtra(setUSERNAME, new Doctor.Profile());
-        startActivity(intent3);
     }
 }
