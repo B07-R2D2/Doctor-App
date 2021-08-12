@@ -5,20 +5,22 @@ import android.util.Log;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DoctorCalendar {
 
     private static final String LOG_TAG = "DoctorCalendarActivity";
 
     private List<Appointment> appointments;
-    private List<Patient.Profile> patientProfiles;
+    private Map<String, Patient.Profile> patientProfiles;
 
     public List<Appointment> getAppointments() {
         return appointments;
     }
 
-    public List<Patient.Profile> getPatientProfiles() {
+    public Map<String, Patient.Profile> getPatientProfiles() {
         return patientProfiles;
     }
 
@@ -30,7 +32,7 @@ public class DoctorCalendar {
         this.callback = callback;
 
         appointments = new ArrayList<>();
-        patientProfiles = new ArrayList<>();
+        patientProfiles = new HashMap<>();
 
         Doctor doctor = new Doctor(FirebaseDatabase.getInstance(), doctorUsername);
         doctor.addOneTimeObserver(() -> {
@@ -40,15 +42,17 @@ public class DoctorCalendar {
             totalCount = appointments.size();
             Log.d(LOG_TAG, "Doctor has " + totalCount + " appointments");
 
+            int i = 0;
             for (Appointment appointment : appointments) {
+                i++;
                 String patientName = appointment.getPatientName();
                 if (patientName.isEmpty()) {
-                    patientProfiles.add(null);
                     checkIfFetchedAll();
                 } else {
                     Patient patient = new Patient(doctor.getRef().getDatabase(), appointment.getPatientName());
+                    final int patientIndex = i; // Ensures consistent order
                     patient.addOneTimeObserver(() -> {
-                        patientProfiles.add(patient.getProfile());
+                        patientProfiles.put(patientName, patient.getProfile());
                         checkIfFetchedAll();
                     });
                 }
