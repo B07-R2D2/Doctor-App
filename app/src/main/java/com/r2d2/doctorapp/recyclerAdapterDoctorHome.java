@@ -61,19 +61,20 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
         // if from DoctorHome class
         if(fromclass.equals("DoctorHome")){
-//            Log.i("info", "getclass: " this.getClass());
             if(checkAppointmentListIsEmpty(apptlists)){
 
-                holder.text.setText("No schedule today!!");
+                holder.text.setText("No appointments booked today!");
                 holder.button.setVisibility(View.INVISIBLE);
                 return;
             }
-            String name = apptlists.get(position).getPatientName();
-            String time = apptlists.get(position).toString();
-            Log.i("info", "name is: " + name + "position: " + position + "applist length: " + apptlists.size());
-            if(!name.isEmpty()){
+            Appointment appt = apptlists.get(position);
+            String time = appt.toString();
+            Log.i("info", "name is: " + appt.getPatientName() + "position: " + position + "applist length: " + apptlists.size());
+            if(!appt.getPatientName().isEmpty()){
+                Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
+                String name = (patientProfile == null) ? "Deleted patient" : patientProfile.getFirstName() + " " + patientProfile.getLastName();
                 holder.text.setText(name + " @ "+ time);
-                holder.patient = patientProfiles.get(name);
+                holder.patient = patientProfile;
             }
         }else if(fromclass.equals("DoctorCalendar")){ // if from DoctorCalendar class
             Appointment appt = apptlists.get(position);
