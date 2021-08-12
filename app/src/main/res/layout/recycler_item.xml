@@ -9,8 +9,8 @@
         android:id="@+id/plain_text_recycler_item_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -19,10 +19,10 @@
 
     <Button
         android:id="@+id/book_button"
-        android:layout_width="99dp"
+        android:layout_width="105dp"
         android:layout_height="46dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="@string/book"
         app:layout_constraintBaseline_toBaselineOf="@+id/plain_text_recycler_item_text"
         app:layout_constraintEnd_toEndOf="parent" />
