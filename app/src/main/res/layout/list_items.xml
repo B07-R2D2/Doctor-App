@@ -11,6 +11,8 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginLeft="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginRight="4dp"
         android:text="patient name"
         android:textSize="20sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/button2"

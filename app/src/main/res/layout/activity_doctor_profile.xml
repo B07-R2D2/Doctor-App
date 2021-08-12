@@ -10,31 +10,57 @@
         android:id="@+id/doctorDeleteButton"
         android:layout_width="92dp"
         android:layout_height="39dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginRight="12dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
         android:text="Delete"
         app:backgroundTint="#e01414"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileSpecialization" />
 
     <View
         android:id="@+id/doctorProfileDivider"
         style="@style/Divider"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/registerListRecycler"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfilePastPatients" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/registerListRecycler"
-        android:layout_width="0dp"
-        android:layout_height="339dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
+    <View
+        android:id="@+id/doctorProfileDivider2"
+        style="@style/Divider"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/registerListRecyclerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/doctorProfileDivider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileDivider">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/registerListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/doctorProfileName"
@@ -99,11 +125,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="Past Patients"
-        android:textSize="20dp"
         android:textColor="#03707d"
-        app:layout_constraintBottom_toTopOf="@+id/doctorProfileDivider"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileBio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
