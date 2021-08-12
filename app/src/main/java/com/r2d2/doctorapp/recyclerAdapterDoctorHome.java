@@ -9,24 +9,24 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.solver.LinearSystem;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Map;
 
 public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdapterDoctorHome.MyViewHolder> {
 
     private final List<Appointment> apptlists;
-    private List<Patient.Profile> ppList;
+    private Map<String, Patient.Profile> patientProfiles;
     private String fromclass;
 
-    public recyclerAdapterDoctorHome(List<Appointment> apptlists, List<Patient.Profile> ppList, String fromclass){
+    public recyclerAdapterDoctorHome(List<Appointment> apptlists, Map<String, Patient.Profile> patientProfiles, String fromclass){
         this.apptlists = apptlists;
-        this.ppList = ppList;
+        this.patientProfiles = patientProfiles;
         this.fromclass = fromclass;
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
         private TextView text;      // patient name, time
         private Button button;      // button that says "patient"
         Patient.Profile patient;
@@ -38,9 +38,11 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
 //             when clicked send to patient profile page
             button.setOnClickListener(v -> {
-                Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
-                intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
-                v.getContext().startActivity(intent);
+                if (patient != null) {
+                    Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
+                    intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
+                    v.getContext().startActivity(intent);
+                }
             });
         }
     }
@@ -71,7 +73,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
             Log.i("info", "name is: " + name + "position: " + position + "applist length: " + apptlists.size());
             if(!name.isEmpty()){
                 holder.text.setText(name + " @ "+ time);
-                holder.patient = ppList.get(position);
+                holder.patient = patientProfiles.get(name);
             }
         }else if(fromclass.equals("DoctorCalendar")){ // if from DoctorCalendar class
             Appointment appt = apptlists.get(position);
@@ -81,10 +83,11 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
                 holder.button.setVisibility(View.INVISIBLE);
             }
             else{
-                Patient.Profile patientProfile = ppList.get(position);
-                String name = patientProfile.getFirstName() + " " + patientProfile.getLastName();
+                Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
+                String name = (patientProfile == null) ? "Deleted patient" : patientProfile.getFirstName() + " " + patientProfile.getLastName();
                 holder.text.setText(name + " @ "+ time);
-                holder.patient = ppList.get(position);
+                holder.button.setVisibility(View.VISIBLE);
+                holder.patient = patientProfile;
             }
         }
 
