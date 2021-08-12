@@ -29,7 +29,6 @@ public class DoctorTest {
     public void before() {
         when(db.getReference(anyString())).thenReturn(ref);
         when(ref.child(anyString())).thenReturn(ref);
-        when(ref.getDatabase()).thenReturn(db);
 
         d1 = new Doctor(db, "Jasonnnn");
         d1.setFirstName("Jason");
