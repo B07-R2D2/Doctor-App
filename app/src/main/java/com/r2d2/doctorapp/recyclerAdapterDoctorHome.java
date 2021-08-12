@@ -62,36 +62,36 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
         // if from DoctorHome class
         if(fromclass.equals("DoctorHome")){
             if(checkAppointmentListIsEmpty(apptlists)){
-
                 holder.text.setText("No appointments booked today!");
                 holder.button.setVisibility(View.INVISIBLE);
                 return;
             }
+
             Appointment appt = apptlists.get(position);
-            String time = appt.toString();
-            Log.i("info", "name is: " + appt.getPatientName() + "position: " + position + "applist length: " + apptlists.size());
-            if(!appt.getPatientName().isEmpty()){
-                Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
-                String name = (patientProfile == null) ? "Deleted patient" : patientProfile.getFirstName() + " " + patientProfile.getLastName();
-                holder.text.setText(name + " @ "+ time);
-                holder.patient = patientProfile;
-            }
+            if(!appt.getPatientName().isEmpty())
+                setUpHolderWithPatient(holder, appt);
         }else if(fromclass.equals("DoctorCalendar")){ // if from DoctorCalendar class
             Appointment appt = apptlists.get(position);
-            String time = appt.toString();   // appointment.toString() returns the date and time
-            if(appt.getPatientName().isEmpty()){
-                holder.text.setText(time + " is not booked");
-                holder.button.setVisibility(View.INVISIBLE);
-            }
-            else{
-                Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
-                String name = (patientProfile == null) ? "Deleted patient" : patientProfile.getFirstName() + " " + patientProfile.getLastName();
-                holder.text.setText(name + " @ "+ time);
-                holder.button.setVisibility(View.VISIBLE);
-                holder.patient = patientProfile;
-            }
+            if(appt.getPatientName().isEmpty())
+                setUpHolderWithoutPatient(holder, appt);
+            else
+                setUpHolderWithPatient(holder, appt);
         }
+    }
 
+    private void setUpHolderWithPatient(MyViewHolder holder, Appointment appt) {
+        Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
+        String patientFullName = (patientProfile == null || patientProfile.getSin() == 0) ?
+                "Deleted patient" :
+                patientProfile.getFirstName() + " " + patientProfile.getLastName();
+        holder.text.setText(patientFullName + " @ "+ appt);
+        holder.button.setVisibility(View.VISIBLE);
+        holder.patient = patientProfile;
+    }
+
+    private void setUpHolderWithoutPatient(MyViewHolder holder, Appointment appt) {
+        holder.text.setText(appt + " is not booked");
+        holder.button.setVisibility(View.INVISIBLE);
     }
 
     // checks if apptlists is empty
