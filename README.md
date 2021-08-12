@@ -1,9 +1,13 @@
-# R2D2
+# DoctorApp
 
-## Comprehensive appointment management for medical clinics
+## By R2D2
 
-Welcome to our project repository. We used Git as a VCS and GitHub pull requests to coordinate code review and merges.
+Group 4 (supervised by Zoey) members:
 
-Our login module consists of LoginModel, LoginPresenter and LoginActivity; the tests are LoginTests.
+- Gregory, Ian (Scrum master)
+- Hou, Kuei-Sheng
+- La, Jeremy
+- Lee, Hsu Shen
+- Lu, Juefei
 
-Working Agreement, Planning Session notes, and Standup Meeting notes were kept in this Google Doc: https://docs.google.com/document/d/1c5S7iJZOrEpanVPd3tCZwUPYS5V8sbcDnImSjVpfG3Y/edit?usp=sharing
+Working Agreement, Planning Session notes, and Standup Meeting notes are in this Google Doc: https://docs.google.com/document/d/1c5S7iJZOrEpanVPd3tCZwUPYS5V8sbcDnImSjVpfG3Y/edit?usp=sharing
