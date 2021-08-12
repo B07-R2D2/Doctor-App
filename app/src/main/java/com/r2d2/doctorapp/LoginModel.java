@@ -1,46 +1,38 @@
 package com.r2d2.doctorapp;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class LoginModel {
-    private final List<User> users = new ArrayList<>();
+    private final Map<String, User> patients = new HashMap<>(), doctors = new HashMap<>();
 
-    public LoginModel(FirebaseDatabase db)
-    {
-        db.getReference("Patients").addValueEventListener(new ValueEventListener() {
+    public LoginModel(FirebaseDatabase db) {
+        listenForUsers(db.getReference("Patients"), patients, username -> new Patient(db, username));
+        listenForUsers(db.getReference("Doctors"), doctors, username -> new Doctor(db, username));
+    }
+
+    private void listenForUsers(DatabaseReference ref, Map<String,User> users, Function<String, User> createUser) {
+        ref.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                users.clear();
                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Patient(db, child.getKey()));
+                    String username = child.getKey();
+                    users.put(username, createUser.apply(username));
                 }
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("LoginActivity", error.toException());
-            }
-        });
-        db.getReference("Doctors").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                    users.add(new Doctor(db, child.getKey()));
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                Log.w("LoginActivity", error.toException());
             }
         });
     }
@@ -53,17 +45,11 @@ public class LoginModel {
      */
     public int checkLogin(String username, String password)
     {
-        int userType = 0;
-        for(User user : users)
-        {
-            if(user.getProfile().getUsername().equals(username) && user.getProfile().getPassword().equals(password))
-            {
-                if((user instanceof Patient))
-                    userType = 1;
-                else
-                    userType = 2;
-            }
+        User user = patients.get(username);
+        if (user == null) user = doctors.get(username);
+        if (user != null && user.getProfile().getPassword().equals(password)) {
+            return (user instanceof Patient) ? 1 : 2;
         }
-        return userType;
+        return 0;
     }
 }
