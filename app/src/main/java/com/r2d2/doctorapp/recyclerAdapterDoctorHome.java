@@ -81,11 +81,12 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
 
     private void setUpHolderWithPatient(MyViewHolder holder, Appointment appt) {
         Patient.Profile patientProfile = patientProfiles.get(appt.getPatientName());
-        String patientFullName = (patientProfile == null || patientProfile.getSin() == 0) ?
-                "Deleted patient" :
-                patientProfile.getFirstName() + " " + patientProfile.getLastName();
+        boolean isPatientValid = !(patientProfile == null || patientProfile.getSin() == 0);
+        String patientFullName = isPatientValid ?
+                patientProfile.getFirstName() + " " + patientProfile.getLastName() :
+                "Deleted patient";
         holder.text.setText(patientFullName + " @ "+ appt);
-        holder.button.setVisibility(View.VISIBLE);
+        holder.button.setVisibility(isPatientValid ? View.VISIBLE : View.INVISIBLE);
         holder.patient = patientProfile;
     }
 
