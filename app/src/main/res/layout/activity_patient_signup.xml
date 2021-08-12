@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DoctorSignupActivity">
+    tools:context=".PatientSignupActivity">
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_marginStart="24dp"
         android:layout_marginLeft="24dp"
         android:layout_marginTop="24dp"
@@ -20,23 +20,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:gravity="center"
-
-            android:orientation="vertical"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textView9"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -46,7 +36,7 @@
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="@string/doctor_signup_title"
+                android:text="@string/patient_signup_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 app:autoSizeTextType="uniform" />
 
@@ -58,7 +48,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_username"
+                android:hint="@string/patient_signup_prompt_username"
                 android:inputType="text" />
 
             <EditText
@@ -69,7 +59,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_password"
+                android:hint="@string/patient_signup_prompt_password"
                 android:inputType="textPassword" />
 
             <EditText
@@ -80,7 +70,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_first_name"
+                android:hint="@string/patient_signup_prompt_first_name"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -91,7 +81,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_last_name"
+                android:hint="@string/patient_signup_prompt_last_name"
                 android:inputType="textPersonName" />
 
             <EditText
@@ -99,77 +89,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
+                android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_gender"
+                android:hint="@string/patient_signup_prompt_gender"
                 android:inputType="text" />
-
-            <EditText
-                android:id="@+id/field_uni"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_university"
-                android:inputType="text" />
-
-            <LinearLayout
-                android:id="@+id/linearLayout1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_gravity="center"
-                android:layout_marginBottom="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/addSpecText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="0.5"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="@string/doctor_signup_prompt_specialization"
-                    android:inputType="textPersonName|text" />
-
-                <Button
-                    android:id="@+id/addSpecButton"
-                    android:layout_width="32dp"
-                    android:layout_height="38dp"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="8dp"
-                    android:layout_weight="0.5"
-                    android:text="@string/doctor_signup_button_title_add_specialization"
-                    android:textSize="12sp" />
-
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/addedSpecText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:text="@string/doctor_signup_label_added_specializations"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-            <EditText
-                android:id="@+id/field_doctor_id"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_weight="1"
-                android:ems="10"
-                android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_doctor_id"
-                android:inputType="number" />
 
             <EditText
                 android:id="@+id/field_sin"
@@ -179,23 +103,36 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_health_number"
+                android:hint="@string/patient_signup_prompt_health_number"
                 android:inputType="number" />
 
             <EditText
-                android:id="@+id/field_doctor_bio"
+                android:id="@+id/field_medical_condition"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:layout_weight="1"
                 android:ems="10"
                 android:gravity="center"
-                android:hint="@string/doctor_signup_prompt_bio"
-                android:inputType="textAutoCorrect|text" />
+                android:hint="@string/patient_signup_prompt_medical_condition"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/patient_signup_button_button_title_set_date_of_birth"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.498"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.654" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="match_parent"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="16dp"
@@ -211,8 +148,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_weight="1"
-                    android:onClick="backButton"
-                    android:text="@string/doctor_signup_button_title_back"
+                    android:onClick="back"
+                    android:text="@string/patient_signup_button_title_back"
                     app:backgroundTint="@color/secondary" />
 
                 <Button
@@ -223,8 +160,8 @@
                     android:layout_marginLeft="16dp"
                     android:layout_marginRight="16dp"
                     android:layout_weight="1"
-                    android:onClick="sendMessage"
-                    android:text="@string/doctor_signup_button_title_sign_up"
+                    android:onClick="signUp"
+                    android:text="@string/patient_signup_button_title_sign_up"
                     app:backgroundTint="@color/secondary" />
             </LinearLayout>
 

@@ -8,31 +8,59 @@
 
     <Button
         android:id="@+id/doctorDeleteButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_width="92dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="16dp"
         android:layout_marginRight="16dp"
         android:text="Delete"
         app:backgroundTint="#e01414"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileSpecialization" />
 
     <View
         android:id="@+id/doctorProfileDivider"
         style="@style/Divider"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toTopOf="@+id/registerListRecycler"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfilePastPatients" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/registerListRecycler"
-        android:layout_width="0dp"
-        android:layout_height="339dp"
+    <View
+        android:id="@+id/doctorProfileDivider2"
+        style="@style/Divider"
+        android:layout_marginBottom="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/registerListRecyclerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toTopOf="@+id/doctorProfileDivider2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileDivider">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/registerListRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    </androidx.core.widget.NestedScrollView>
 
     <TextView
         android:id="@+id/doctorProfileName"
@@ -42,6 +70,8 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Name"
+        android:textSize="20dp"
+        android:textColor="#03707d"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -53,30 +83,41 @@
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
         android:text="Gender"
+        android:textSize="16dp"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileSpecialization" />
+
+    <TextView
+        android:id="@+id/doctorProfileSpecialization"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Specialization"
+        android:textSize="16dp"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfileName" />
 
     <TextView
-        android:id="@+id/doctorProfileSpecialization"
-        android:layout_width="wrap_content"
+        android:id="@+id/doctorProfileBio"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="16dp"
-        android:text="Specialization"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Bio"
+        android:textColor="#000000"
+        android:textSize="14dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/doctorProfileGender" />
-
-    <TextView
-        android:id="@+id/doctorProfileBio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="16dp"
-        android:text="Bio"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/doctorProfileSpecialization" />
 
     <TextView
         android:id="@+id/doctorProfilePastPatients"
@@ -84,9 +125,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="16dp"
         android:text="Past Patients"
-        app:layout_constraintBottom_toTopOf="@+id/doctorProfileDivider"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:textColor="#03707d"
+        android:textSize="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/doctorProfileBio" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

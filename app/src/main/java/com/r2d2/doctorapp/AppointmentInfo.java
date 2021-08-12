@@ -1,23 +1,18 @@
 package com.r2d2.doctorapp;
 
+import android.util.Log;
+
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class AppointmentHistory {
+public class AppointmentInfo {
 
-    private final Patient.Profile patient;
-    private final AppointmentHistoryActivity view;
+    private static final String LOG_TAG = "AppointmentInfo";
 
-    public AppointmentHistory(Patient.Profile patient, AppointmentHistoryActivity view) {
-        this.patient = patient;
-        this.view = view;
-    }
-
-    public void fetchAppointmentInfo(Consumer<List<String>> callback) {
-        List<Appointment> appointments = patient.getPastAppointments();
+    public static void fetchAppointmentInfo(List<Appointment> appointments, Consumer<List<String>> callback) {
         int appointmentsCount = appointments.size();
 
         // Android Studio recommended this clever hack:
@@ -30,6 +25,7 @@ public class AppointmentHistory {
             doctor.addOneTimeObserver(() -> {
                 fetchedCount[0]++;
                 appointmentInfo.add(doctor + "\n" + appointment);
+                Log.d(LOG_TAG, "Fetched appointment: " + appointmentInfo.get(appointmentInfo.size() - 1));
 
                 if (fetchedCount[0] == appointmentsCount) {
                     callback.accept(appointmentInfo);

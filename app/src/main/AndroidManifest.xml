@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.DoctorApp">
-
         <!-- Sign up -->
         <activity
             android:name=".DoctorSignupActivity"
@@ -17,20 +16,10 @@
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
         <activity
-            android:name=".DoctorSignup2Activity"
-            android:label="@string/activity_label_doctor_sign_up_2"
-            android:launchMode="singleTop"
-            android:parentActivityName=".DoctorSignupActivity" />
-        <activity
             android:name=".PatientSignupActivity"
             android:label="@string/activity_label_patient_sign_up"
             android:launchMode="singleTop"
             android:parentActivityName=".LoginActivity" />
-        <activity
-            android:name=".PatientSignup2Activity"
-            android:label="@string/activity_label_patient_sign_up_2"
-            android:launchMode="singleTop"
-            android:parentActivityName=".PatientSignupActivity" />
 
         <!-- Doctors -->
         <activity
@@ -45,37 +34,32 @@
             android:parentActivityName=".DoctorHomePageActivity" />
         <activity
             android:name=".DoctorCalendarActivity"
-            android:label="@string/activity_label_doctor_calendar" />
-
-        <!-- Doctor search -->
+            android:label="@string/activity_label_doctor_calendar"
+            android:parentActivityName=".DoctorProfileActivity" /> <!-- Doctor search -->
         <activity
             android:name=".FilterActivity"
             android:label="@string/activity_label_filter"
             android:launchMode="singleTop"
-            android:parentActivityName=".AppointmentHistoryActivity" />
-        <activity
-            android:name=".ExActivity"
-            android:launchMode="singleTop"
-            android:parentActivityName=".FilterActivity" />
-    
-        <!-- Log in -->
+            android:parentActivityName=".PatientHomeActivity" /> <!-- Log in -->
         <activity
             android:name=".LoginActivity"
-            android:label="@string/activity_label_login">
+            android:label="@string/activity_label_login"
+            android:launchMode="singleTop"
+            android:parentActivityName=".SplashActivity" /> <!-- Splash Screen -->
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Appointment booking -->
+        </activity> <!-- Appointment booking -->
         <activity
             android:name=".AvailabilityActivity"
             android:label="@string/activity_label_availability"
-            android:launchMode="singleTop" />
-
-        <!-- Patients -->
+            android:launchMode="singleTop"
+            android:parentActivityName=".FilterActivity"/> <!-- Patients -->
         <activity
             android:name=".PatientHomeActivity"
             android:label="@string/activity_label_patient_home"
@@ -86,11 +70,6 @@
             android:label="@string/activity_label_patient_profile"
             android:launchMode="singleTop"
             android:parentActivityName=".PatientHomeActivity" />
-        <activity
-            android:name=".AppointmentHistoryActivity"
-            android:label="@string/activity_label_appointment_history"
-            android:launchMode="singleTop"
-            android:parentActivityName=".PatientProfileActivity" />
     </application>
 
 </manifest>

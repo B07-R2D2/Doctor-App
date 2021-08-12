@@ -14,6 +14,15 @@ public class Patient extends User {
         private Long dateOfBirth = System.currentTimeMillis();
         private List<Appointment> pastAppointments = new ArrayList<>();
 
+        public Profile() {
+        }
+
+        public Profile(String firstName, String lastName, String username, String password, String gender, int sin, String medicalCondition, long dateOfBirth) {
+            super(firstName, lastName, username, password, gender, sin, new ArrayList<>());
+            this.medicalCondition = medicalCondition;
+            this.dateOfBirth = dateOfBirth;
+        }
+
         public String getMedicalCondition() {
             return medicalCondition;
         }
@@ -55,6 +64,11 @@ public class Patient extends User {
         super(db.getReference("Patients").child(profile.getUsername()),profile);
     }
 
+//    // constructor for creating a new patient out of a profile
+//    public Patient(FirebaseDatabase db, String username, Profile profile) {
+//        super(db.getReference("Patients").child(username), username, profile);
+//    }
+
     @NonNull
     @Override
     public String toString()
@@ -80,4 +94,3 @@ public class Patient extends User {
     }
 
 }
-
