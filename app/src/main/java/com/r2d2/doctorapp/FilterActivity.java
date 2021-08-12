@@ -125,6 +125,7 @@ public class FilterActivity extends AppCompatActivity implements AdapterView.OnI
                 intent.putExtra(AvailabilityActivity.EXTRA_PATIENT_PROFILE, currentPatient);
                 // intent.putExtra(ExActivity.EXTRA_SPECFILTER, specFilter);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             });
         });
         recyclerView.setAdapter(adapter);

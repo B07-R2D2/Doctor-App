@@ -23,10 +23,12 @@ public class PatientSignupPresenter {
         //go back to login page to sign in with the newly added user
         Intent backToLogin = new Intent(view, LoginActivity.class);
         view.startActivity(backToLogin);
+        view.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
     public void back()
     {
         Intent intent = new Intent(view,LoginActivity.class);
         view.startActivity(intent);
+        view.overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }

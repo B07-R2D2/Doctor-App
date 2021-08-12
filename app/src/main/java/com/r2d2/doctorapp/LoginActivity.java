@@ -61,11 +61,13 @@ public class LoginActivity extends AppCompatActivity {
         // Do something in response to button
         Intent intent = new Intent(this, PatientSignupActivity.class);
         this.startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
     public void sendDoctorSignup(View view) {
         // Do something in response to button
         Intent intent = new Intent(this, DoctorSignupActivity.class);
         this.startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
 }
