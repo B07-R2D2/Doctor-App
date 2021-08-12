@@ -1,6 +1,7 @@
 
 package com.r2d2.doctorapp;
 
+import android.graphics.Color;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,13 +65,15 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                 public void onClick(View v) {
                     AppointmentManager man = new AppointmentManager(doctor, patient, appointment.getTimeStamp());
                     if (button.getText().equals("Booked")) {    // cancel the appointment by clicking again!
-                        button.setText("Book");                 // I tried to use strings from resources but it didn't work
-                                                                // plz tell me if you know how
+                        button.setText("Book"); // I tried to use strings from resources but it didn't work
+                        button.setBackgroundColor(Color.parseColor("#03707d"));// plz tell me if you know how
+
                         man.removeAppointmentFromPatient();
                         // Dont need to update timeSlotList, because it's dependent on schedule
                         //timeSlotList.add(slot);
                     } else {
                         button.setText("Booked");
+                        button.setBackgroundColor(Color.parseColor("#e01414"));
                         man.addAppointmentToPatient();
                         // Dont need to update timeSlotList, because it's dependent on doctor
                         //timeSlotList.remove(slot);
