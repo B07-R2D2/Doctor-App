@@ -2,6 +2,13 @@
 <project version="4">
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/course/b07csc/fixed/Doctor-App/app/src/main/res/layout/activity_doctor_calendar.xml" value="0.25407608695652173" />
+        <entry key="..\:/course/b07csc/fixed/Doctor-App/app/src/main/res/layout/activity_doctor_home_page.xml" value="0.25407608695652173" />
+        <entry key="..\:/course/b07csc/fixed/Doctor-App/app/src/main/res/layout/activity_filter.xml" value="0.25407608695652173" />
+        <entry key="..\:/course/b07csc/fixed/Doctor-App/app/src/main/res/layout/layout_listitem.xml" value="0.24728260869565216" />
+        <entry key="..\:/course/b07csc/fixed/Doctor-App/app/src/main/res/layout/recycler_item.xml" value="0.24728260869565216" />
+      </map>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
