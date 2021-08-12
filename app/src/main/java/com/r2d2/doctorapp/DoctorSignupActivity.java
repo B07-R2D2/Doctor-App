@@ -150,10 +150,12 @@ public class DoctorSignupActivity extends AppCompatActivity {
         // Send user back to log in page.
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
     public void backButton(View view){
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 }

@@ -53,6 +53,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), DoctorProfileActivity.class);
                 intent.putExtra(DoctorProfileActivity.EXTRA_DOCTOR_PROFILE, doctor.getProfile());
                 v.getContext().startActivity(intent);
+                overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
     }
@@ -64,7 +65,8 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         recyclerAdapterDoctorHome adaptor = new recyclerAdapterDoctorHome(apptlists, doctorCalendar.getPatientProfiles(), "DoctorHome");
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setLayoutAnimation(recyclerView.getLayoutAnimation());
+        // recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adaptor);
     }
 
@@ -97,5 +99,7 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         Intent intent2 = new Intent(this,DoctorCalendarActivity.class);
         intent2.putExtra(setUSERNAME, username);
         startActivity(intent2);
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+
     }
 }

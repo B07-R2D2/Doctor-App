@@ -66,7 +66,7 @@ public class DoctorTest {
 
     @Test
     public void testToString() {
-        assertEquals("Dr. Jason, Hou", d1.toString());
+        assertEquals("Dr. Jason Hou", d1.toString());
     }
 
     @Test

@@ -23,12 +23,14 @@ public class PatientHome {
         Intent intent = new Intent(view, FilterActivity.class);
         intent.putExtra(FilterActivity.EXTRA_PATIENT_PROFILE, patient.getProfile());
         view.startActivity(intent);
+        view.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
     public void goToPatientProfile() {
         Intent intent = new Intent(view, PatientProfileActivity.class);
         intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient.getProfile());
         view.startActivity(intent);
+        view.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
     }
 
 }

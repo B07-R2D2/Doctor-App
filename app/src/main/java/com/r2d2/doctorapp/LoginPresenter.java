@@ -27,6 +27,7 @@ public class LoginPresenter {
             Intent intent = new Intent(view, (found == 1) ? PatientHomeActivity.class : DoctorHomePageActivity.class);
             intent.putExtra(view.givenUsername, username);
             view.startActivity(intent);
+            view.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
         }
     }
 }

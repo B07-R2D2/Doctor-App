@@ -42,6 +42,7 @@ public class recyclerAdapterDoctorHome extends RecyclerView.Adapter<recyclerAdap
                     Intent intent = new Intent(view.getContext(), PatientProfileActivity.class);
                     intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patient);
                     v.getContext().startActivity(intent);
+                    // v.getContext().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                 }
             });
         }

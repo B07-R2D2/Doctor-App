@@ -49,6 +49,7 @@ public class RecyclerViewAdapter2 extends RecyclerView.Adapter<RecyclerViewAdapt
                 intent.putExtra(PatientProfileActivity.EXTRA_PATIENT_PROFILE, patients.get(position));
                 //intent.putExtra("test", (Parcelable) doctors.get(position));
                 v.getContext().startActivity(intent);
+                // v.overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
             }
         });
     }

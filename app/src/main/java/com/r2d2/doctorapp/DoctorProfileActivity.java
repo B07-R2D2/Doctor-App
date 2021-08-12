@@ -153,6 +153,7 @@ public class DoctorProfileActivity extends AppCompatActivity {
         //Send user back to log in page.
         Intent intent = new Intent(this,LoginActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
     }
 
     private void initRecyclerView(){

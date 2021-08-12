@@ -62,7 +62,7 @@ public class PatientTest {
 
     @Test
     public void testToString() {
-        assertEquals(p1.toString(), "Patient Bob, Williker");
+        assertEquals(p1.toString(), "Patient Bob Williker");
     }
 
     @Test
