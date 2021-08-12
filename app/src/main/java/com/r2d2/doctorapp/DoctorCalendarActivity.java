@@ -19,7 +19,7 @@ import java.util.Locale;
 
 public class DoctorCalendarActivity extends AppCompatActivity {
 
-    public static final String EXTRA_USERNAME = DoctorHomePageActivity.EXTRA_USERNAME;
+//    public static final String EXTRA_USERNAME = DoctorHomePageActivity.EXTRA_USERNAME;
 
     private RecyclerView recyclerView;
 

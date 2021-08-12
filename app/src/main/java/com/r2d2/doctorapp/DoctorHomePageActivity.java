@@ -83,4 +83,9 @@ public class DoctorHomePageActivity extends AppCompatActivity {
         intent2.putExtra(setUSERNAME, username);
         startActivity(intent2);
     }
+    public void toProfileButton(View view){
+        Intent intent3 = new Intent(this,DoctorProfileActivity.class);
+        intent3.putExtra(setUSERNAME, new Doctor.Profile());
+        startActivity(intent3);
+    }
 }
